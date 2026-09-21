@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>СВЕТ36 | Сотрудничество со строителями и дизайнерами</title>
+<style>
+  :root {
+    --amber: #ffb830;
+    --amber-dark: #e09a00;
+    --amber-soft: #fff4dd;
+    --ink: #28231a;
+    --muted: #6f6757;
+    --bg: #fffaf2;
+    --card: #ffffff;
+    --line: #f0e6ce;
+    --green: #3fae5a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  img, svg { max-width: 100%; }
+
+  /* ---------- HEADER ---------- */
+  header {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255, 250, 242, .92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav {
+    max-width: 1180px; margin: 0 auto; padding: 14px 24px;
+    display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); cursor: pointer; }
+  .logo-bulb {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: linear-gradient(135deg, #ffd465, #ff9d1d);
+    display: grid; place-items: center;
+    box-shadow: 0 6px 18px rgba(255, 157, 29, .45);
+  }
+  .logo b { font-size: 20px; letter-spacing: .5px; }
+  .logo span { display: block; font-size: 12px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+  nav.links { display: flex; gap: 26px; }
+  nav.links a { text-decoration: none; color: var(--muted); font-size: 14px; font-weight: 600; transition: color .2s; }
+  nav.links a:hover { color: var(--amber-dark); }
+  .btn {
+    display: inline-block; border: none; cursor: pointer; text-decoration: none;
+    font-weight: 700; border-radius: 12px; padding: 13px 26px; font-size: 15px;
+    transition: transform .15s, box-shadow .2s, background .2s;
+  }
+  .btn.primary { background: linear-gradient(135deg, #ffc64a, #ff9d1d); color: #3a2a05; box-shadow: 0 10px 24px rgba(255, 157, 29, .4); }
+  .btn.primary:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(255, 157, 29, .5); }
+  .btn.ghost { background: transparent; color: var(--ink); border: 2px solid var(--amber); }
+  .btn.ghost:hover { background: var(--amber-soft); }
+
+  /* ---------- LAYOUT ---------- */
+  section { max-width: 1180px; margin: 0 auto; padding: 90px 24px; }
+  .kicker { color: var(--amber-dark); font-weight: 800; letter-spacing: 3px; text-transform: uppercase; font-size: 13px; margin-bottom: 12px; }
+  h2 { font-size: clamp(28px, 4vw, 42px); line-height: 1.15; margin-bottom: 18px; }
+  .lead { color: var(--muted); font-size: 18px; max-width: 720px; }
+  .center { text-align: center; }
+  .center .lead { margin: 0 auto; }
+
+  /* ---------- HERO ---------- */
+  .hero { display: grid; grid-template-columns: 1.1fr .9fr; gap: 50px; align-items: center; padding-top: 70px; }
+  .h-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--amber-soft); color: var(--amber-dark);
+    font-weight: 700; font-size: 13px; padding: 8px 16px; border-radius: 999px; margin-bottom: 20px;
+  }
+  .hero h1 { font-size: clamp(34px, 5vw, 56px); line-height: 1.08; margin-bottom: 22px; }
+  .hero h1 em { font-style: normal; color: var(--amber-dark); }
+  .hero p { color: var(--muted); font-size: 18px; max-width: 560px; margin-bottom: 30px; }
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+  .hero-stats { display: flex; gap: 34px; margin-top: 42px; flex-wrap: wrap; }
+  .stat b { display: block; font-size: 30px; color: var(--amber-dark); }
+  .stat span { color: var(--muted); font-size: 14px; }
+  .hero-art { position: relative; }
+  .glow { position: absolute; inset: -40px; background: radial-gradient(circle, rgba(255, 180, 48, .35), transparent 65%); z-index: 0; }
+  .hero-img { position: relative; z-index: 1; filter: drop-shadow(0 26px 40px rgba(120, 80, 0, .25)); }
+
+  /* ---------- CARDS / GRID ---------- */
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 22px; margin-top: 44px; }
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 20px;
+    padding: 28px 24px; transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .card:hover { transform: translateY(-6px); box-shadow: 0 24px 44px rgba(120, 80, 0, .12); }
+  .card .ic {
+    width: 54px; height: 54px; border-radius: 16px; margin-bottom: 18px;
+    background: linear-gradient(135deg, #fff3d6, #ffe3a1);
+    display: grid; place-items: center;
+  }
+  .card h3 { font-size: 18px; margin-bottom: 8px; }
+  .card p { color: var(--muted); font-size: 15px; }
+
+  /* ---------- NUMBER STEPS ---------- */
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 22px; margin-top: 44px; }
+  .step {
+    background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 28px 24px; position: relative;
+  }
+  .step .num {
+    width: 46px; height: 46px; border-radius: 50%; font-weight: 800; font-size: 18px;
+    background: linear-gradient(135deg, #ffc64a, #ff9d1d); color: #3a2a05;
+    display: grid; place-items: center; margin-bottom: 16px;
+  }
+  .step h3 { font-size: 17px; margin-bottom: 8px; }
+  .step p { color: var(--muted); font-size: 15px; }
+
+  /* ---------- SPLIT ---------- */
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .split .img-holder { background: linear-gradient(150deg, #fff1d0, #ffe0a4); border-radius: 26px; padding: 40px; display: grid; place-items: center; }
+  .checklist { list-style: none; margin-top: 24px; display: grid; gap: 14px; }
+  .checklist li { display: flex; gap: 12px; align-items: flex-start; color: var(--ink); font-weight: 600; font-size: 16px; }
+  .checklist li svg { flex: none; margin-top: 3px; }
+  .checklist .sub { color: var(--muted); font-weight: 400; font-size: 14px; }
+
+  /* ---------- TABS (bonus) ---------- */
+  .bonus-tier {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 22px; margin-top: 44px;
+  }
+  .tier { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 30px 26px; position: relative; }
+  .tier.hot { border: 2px solid var(--amber); box-shadow: 0 20px 40px rgba(255, 157, 29, .18); }
+  .tier .tag { position: absolute; top: -14px; left: 22px; background: var(--amber-dark); color: #fff; font-size: 12px; font-weight: 700; padding: 5px 14px; border-radius: 999px; }
+  .tier h3 { font-size: 20px; margin-bottom: 4px; }
+  .tier .val { color: var(--amber-dark); font-weight: 800; font-size: 15px; margin-bottom: 14px; }
+  .tier ul { list-style: none; display: grid; gap: 10px; }
+  .tier li { color: var(--muted); font-size: 15px; padding-left: 22px; position: relative; }
+  .tier li::before { content: '✦'; position: absolute; left: 0; color: var(--amber-dark); }
+
+  /* ---------- CTA ---------- */
+  .cta-band {
+    background: linear-gradient(135deg, #2b2418, #41371f);
+    border-radius: 30px; padding: 64px 40px; text-align: center; color: #fff;
+    position: relative; overflow: hidden;
+  }
+  .cta-band .stars { position: absolute; inset: 0; }
+  .cta-band h2 { color: #fff; }
+  .cta-band .lead { color: #e8dcc0; }
+  .cta-band .btn.primary { box-shadow: 0 12px 30px rgba(0,0,0,.35); }
+
+  /* ---------- FOOTER ---------- */
+  footer { border-top: 1px solid var(--line); background: #fffdf7; }
+  .foot { max-width: 1180px; margin: 0 auto; padding: 40px 24px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+  .foot a { color: var(--amber-dark); text-decoration: none; font-weight: 700; }
+  .foot a:hover { text-decoration: underline; }
+  .foot .muted { color: var(--muted); font-size: 14px; }
+
+  /* ---------- REVEAL ---------- */
+  .reveal { opacity: 0; transform: translateY(34px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* ---------- MOBILE ---------- */
+  @media (max-width: 820px) {
+    nav.links { display: none; }
+    .hero, .split { grid-template-columns: 1fr; gap: 30px; }
+    .hero { padding-top: 40px; }
+    section { padding: 60px 20px; }
+    .hero-img { width: 78%; margin: 0 auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="nav">
+    <a class="logo" href="#top">
+      <span class="logo-bulb"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.1 2 5 5.1 5 9c0 2.4 1.2 4.5 3 5.8V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.2c1.8-1.3 3-3.4 3-5.8 0-3.9-3.1-7-7-7z" fill="#3a2a05"/><path d="M10 21a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-1h-4v1z" fill="#3a2a05"/></svg></span>
+      <span>СВЕТ<span style="color:var(--amber-dark)">36</span><span>партнёрам</span></span>
+    </a>
+    <nav class="links">
+      <a href="#why">Почему мы</a>
+      <a href="#bonus">Бонусы</a>
+      <a href="#log">Логистика</a>
+      <a href="#claims">Рекламации</a>
+      <a href="#cta">Контакты</a>
+    </nav>
+    <a class="btn primary" href="#cta">Стать партнёром</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section id="top" class="hero reveal">
+  <div>
+    <span class="h-badge">⚡ Сотрудничество для строителей и дизайнеров</span>
+    <h1>Профессиональный свет для ваших объектов — <em>в партнёрстве с СВЕТ36</em></h1>
+    <p>Полный ассортимент освещения, персональные условия, бонусная программа и надёжная логистика. Вы проектируете и строите — мы берём на себя свет.</p>
+    <div class="hero-actions">
+      <a class="btn primary" href="#cta">Оставить заявку</a>
+      <a class="btn ghost" href="#why">Что мы предлагаем</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><b>2000+</b><span>позиций в наличии</span></div>
+      <div class="stat"><b>500+</b><span>партнёров-строителей</span></div>
+      <div class="stat"><b>3%–12%</b><span>бонус с каждой закупки</span></div>
+    </div>
+  </div>
+  <div class="hero-art">
+    <div class="glow"></div>
+    <svg class="hero-img" viewBox="0 0 480 440" width="480" height="440" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#ffd465"/><stop offset="1" stop-color="#ff9d1d"/>
+        </linearGradient>
+        <filter id="f1"><feDropShadow dx="0" dy="18" stdDeviation="20" flood-color="#8a5c00" flood-opacity=".35"/></filter>
+      </defs>
+      <ellipse cx="240" cy="390" rx="180" ry="26" fill="#00000018"/>
+      <g filter="url(#f1)">
+        <rect x="210" y="60" width="60" height="26" rx="6" fill="#2b2418"/>
+        <path d="M120 360 L360 360 L330 150 C330 120 300 100 270 100 L210 100 C180 100 150 120 150 150 Z" fill="url(#gold)"/>
+        <circle cx="240" cy="150" r="10" fill="#2b2418" opacity=".15"/>
+        <circle cx="240" cy="190" r="10" fill="#2b2418" opacity=".15"/>
+        <circle cx="240" cy="230" r="10" fill="#2b2418" opacity=".15"/>
+        <circle cx="240" cy="270" r="10" fill="#2b2418" opacity=".15"/>
+        <circle cx="240" cy="310" r="10" fill="#2b2418" opacity=".15"/>
+        <path d="M110 260 v-40 h40 z M330 260 h40 v40 z M210 60 h60 v30 h-60 z" fill="#2b2418"/>
+        <path d="M120 360 L360 360 L358 400 L122 400 Z" fill="#e08c00"/>
+        <circle cx="205" cy="105" r="12" fill="#fff" opacity=".85"/>
+        <circle cx="275" cy="105" r="12" fill="#fff" opacity=".85"/>
+        <circle cx="240" cy="96" r="16" fill="#fff" opacity=".7"/>
+      </g>
+      <g>
+        <rect x="330" y="300" width="120" height="14" rx="7" fill="#fff3d6" stroke="#e0c89a"/>
+        <rect x="350" y="322" width="80" height="14" rx="7" fill="#fff3d6" stroke="#e0c89a"/>
+      </g>
+      <g fill="#ffb830">
+        <circle cx="420" cy="120" r="5"/><circle cx="85" cy="80" r="4"/><circle cx="60" cy="200" r="3"/><circle cx="420" cy="250" r="4"/><circle cx="400" cy="60" r="3"/>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why" class="reveal center">
+  <div class="kicker">Почему с нами удобно</div>
+  <h2>Мы построили процесс так,<br>чтобы вы о нём не думали</h2>
+  <p class="lead">Один договор, один менеджер, одна точка входа по свету — от технического задания до монтажного проекта и гарантийных вопросов.</p>
+  <div class="grid">
+    <div class="card">
+      <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1" stroke="#e09a00" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="4" stroke="#e09a00" stroke-width="2"/></svg></div>
+      <h3>Подбор под проект</h3>
+      <p>Помогаем с выбором светильников под дизайн-проект, теплоту света и бюджет объекта.</p>
+    </div>
+    <div class="card">
+      <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M21 12c0 4.4-4 8-9 8-1.5 0-3-.3-4.2-.9L3 20l1-4.6A7.7 7.7 0 0 1 3 12c0-4.4 4-8 9-8s9 3.6 9 8z" stroke="#e09a00" stroke-width="2" stroke-linejoin="round"/></svg></div>
+      <h3>Личный менеджер</h3>
+      <p>Отвечает за ваш объект от первой заявки до гарантийного обслуживания — без очередей.</p>
+    </div>
+    <div class="card">
+      <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 3l2.7 5.5 6 .9-4.3 4.2 1 6L12 16.9 6.6 19.6l1-6L3.3 9.4l6-.9L12 3z" stroke="#e09a00" stroke-width="2" stroke-linejoin="round"/></svg></div>
+      <h3>Бонусная программа</h3>
+      <p>Кэшбэк и скидки, растущие с объёмом закупок. Подробнее — в разделе ниже.</p>
+    </div>
+    <div class="card">
+      <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M3 7h11v10H3zM14 10h4l3 3v4h-7z" stroke="#e09a00" stroke-width="2" stroke-linejoin="round"/><circle cx="7" cy="19" r="1.6" fill="#e09a00"/><circle cx="17" cy="19" r="1.6" fill="#e09a00"/></svg></div>
+      <h3>Удобная логистика</h3>
+      <p>Точные сроки, комплектация и доставка прямо на объект, в том числе адресная.</p>
+    </div>
+    <div class="card">
+      <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 2l8 4v6c0 5-3.4 8.5-8 10-4.6-1.5-8-5-8-10V6l8-4z" stroke="#e09a00" stroke-width="2" stroke-linejoin="round"/><path d="M8 12l2.5 2.5L16 9" stroke="#e09a00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <h3>Рекламации — по-человечески</h3>
+      <p>Замена и возврат по чёткому регламенту. Разбираемся быстро и без нервов.</p>
+    </div>
+    <div class="card">
+      <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M4 17V7m0 10a2 2 0 1 0 0 4h12a2 2 0 1 0 0-4M4 17h16M4 7l2-3h12l2 3M4 7h16" stroke="#e09a00" stroke-width="2" stroke-linejoin="round"/></svg></div>
+      <h3>Гарантия на весь ассортимент</h3>
+      <p>Официальные гарантии производителей и собственный сервис по замене.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BONUS PROGRAM -->
+<section id="bonus" class="reveal">
+  <div class="split">
+    <div>
+      <div class="kicker">Бонусная программа</div>
+      <h2>Больше закупок — выгоднее условия</h2>
+      <p class="lead">Начисляем бонусы с каждой закупки. Баллы списываются на следующие заказы, а статус растёт вместе с вашими объектами.</p>
+      <ul class="checklist">
+        <li><svg width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#ffb830"/><path d="M7 12l3.5 3.5L17 8.5" stroke="#3a2a05" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Кэшбэк от 3% с первого заказа<span class="sub">бонусы начисляются сразу и действуют без срока сгорания</span></span></li>
+        <li><svg width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#ffb830"/><path d="M7 12l3.5 3.5L17 8.5" stroke="#3a2a05" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Рост ставки по мере накопления оборота<span class="sub">до 12% для постоянных партнёров</span></span></li>
+        <li><svg width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#ffb830"/><path d="M7 12l3.5 3.5L17 8.5" stroke="#3a2a05" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Подарки и закрытые распродажи<span class="sub">для партнёров со статусом «Профи»</span></span></li>
+      </ul>
+    </div>
+    <div class="img-holder">
+      <svg viewBox="0 0 340 300" width="340" height="300" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffd465"/><stop offset="1" stop-color="#f7ab1d"/></linearGradient></defs>
+        <circle cx="170" cy="150" r="104" fill="#ffd465" opacity=".25"/>
+        <circle cx="170" cy="150" r="80" fill="url(#g2)"/>
+        <circle cx="170" cy="150" r="80" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="6 8"/>
+        <path d="M170 150 L170 78 M170 150 L226 186 M170 150 L114 186 M170 150 L170 150" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+        <circle cx="170" cy="150" r="20" fill="#3a2a05"/>
+        <text x="170" y="157" text-anchor="middle" font-family="Arial" font-size="18" font-weight="800" fill="#fff" dy="6">%</text>
+        <g fill="#ffb830"><circle cx="70" cy="70" r="5"/><circle cx="270" cy="60" r="4"/><circle cx="60" cy="230" r="4"/><circle cx="280" cy="230" r="5"/></g>
+      </svg>
+    </div>
+  </div>
+
+  <div class="bonus-tier">
+    <div class="tier">
+      <h3>Старт</h3>
+      <div class="val">до 300 000 ₽ / оборот</div>
+      <ul><li>Кэшбэк 3%</li><li>Накопительные бонусы без срока</li><li>Личный менеджер</li></ul>
+    </div>
+    <div class="tier hot">
+      <span class="tag">Популярный</span>
+      <h3>Бизнес</h3>
+      <div class="val">от 300 000 до 1,5 млн ₽</div>
+      <ul><li>Кэшбэк 5%</li><li>Доставка на объект — бесплатно</li><li>Приоритетная комплектация</li><li>Скидка на подбор и проект света</li></ul>
+    </div>
+    <div class="tier">
+      <h3>Профи</h3>
+      <div class="val">от 1,5 млн ₽</div>
+      <ul><li>Кэшбэк до 12%</li><li>Отсрочка платежа до 30 дней</li><li>Подарки и закрытые распродажи</li><li>Персональные условия на серию</li></ul>
+    </div>
+  </div>
+</section>
+
+<!-- LOGISTICS -->
+<section id="log" class="reveal">
+  <div class="split">
+    <div class="img-holder" style="order:2">
+      <svg viewBox="0 0 340 300" width="340" height="300" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="g3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffd465"/><stop offset="1" stop-color="#ff9d1d"/></linearGradient></defs>
+        <rect x="30" y="70" width="150" height="110" rx="14" fill="url(#g3)"/>
+        <rect x="40" y="92" width="70" height="14" rx="7" fill="#fff" opacity=".8"/>
+        <rect x="40" y="114" width="105" height="14" rx="7" fill="#fff" opacity=".6"/>
+        <rect x="40" y="136" width="84" height="14" rx="7" fill="#fff" opacity=".4"/>
+        <path d="M180 140 h60 l30 24 v36 h-90 z" fill="#3a2a05"/>
+        <circle cx="90" cy="205" r="22" fill="#3a2a05"/><circle cx="90" cy="205" r="10" fill="#fff" opacity=".7"/>
+        <circle cx="250" cy="205" r="22" fill="#3a2a05"/><circle cx="250" cy="205" r="10" fill="#fff" opacity=".7"/>
+        <path d="M60 250 C110 215 230 215 280 250" stroke="#ffb830" stroke-width="3" fill="none" stroke-dasharray="7 9" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div style="order:1">
+      <div class="kicker">Логистика</div>
+      <h2>Доставляем туда, где строится свет</h2>
+      <p class="lead">Склад с большим запасом ходовых позиций, собственная комплектация и отгрузки по расписанию. Стройка не ждёт — мы это понимаем.</p>
+      <ul class="checklist">
+        <li><svg width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#ffb830"/><path d="M7 12l3.5 3.5L17 8.5" stroke="#3a2a05" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Отгрузка в день заказа<span class="sub">по наличию на складе Воронежа</span></span></li>
+        <li><svg width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#ffb830"/><path d="M7 12l3.5 3.5L17 8.5" stroke="#3a2a05" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Доставка на объект<span class="sub">адресная, с подъёмом и разгрузкой по договорённости</span></span></li>
+        <li><svg width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#ffb830"/><path d="M7 12l3.5 3.5L17 8.5" stroke="#3a2a05" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Контроль остатков под ваш проект<span class="sub">зарезервируем партию под сроки монтажа</span></span></li>
+        <li><svg width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#ffb830"/><path d="M7 12l3.5 3.5L17 8.5" stroke="#3a2a05" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Отправка ТК по всей России<span class="sub">возможна доставка до двери в любом регионе</span></span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CLAIMS -->
+<section id="claims" class="reveal">
+  <div class="kicker center">Работа с рекламациями</div>
+  <h2 class="center">Спорные случаи решаем так,<br>как и хотели бы, чтобы решали нас</h2>
+  <p class="lead center" style="margin:0 auto 10px">Чёткий регламент из трёх шагов — без бумажной волокиты и «позвоните завтра».</p>
+  <div class="steps">
+    <div class="step">
+      <div class="num">1</div>
+      <h3>Заявка и фото</h3>
+      <p>Присылаете рекламацию менеджеру — достаточно фото или видео неисправности. Шаблон заявки дадим.</p>
+    </div>
+    <div class="step">
+      <div class="num">2</div>
+      <h3>Решение за 24 часа</h3>
+      <p>В течение 24 часов согласовываем: замена, возврат денег или компенсация. Есть акт — работаем по нему.</p>
+    </div>
+    <div class="step">
+      <div class="num">3</div>
+      <h3>Замена без простоя</h3>
+      <p>Подменный товар отдаём сразу, чтобы ваш объект не останавливался. Забираем неисправный у вас на объекте.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta" class="reveal">
+  <div class="cta-band">
+    <div class="stars">
+      <svg width="100%" height="100%" viewBox="0 0 800 300">
+        <g fill="#fff" opacity=".12">
+          <circle cx="60" cy="50" r="3"/><circle cx="180" cy="30" r="2"/><circle cx="300" cy="70" r="3"/><circle cx="430" cy="40" r="2"/><circle cx="560" cy="65" r="3"/><circle cx="700" cy="35" r="2"/><circle cx="760" cy="120" r="3"/><circle cx="640" cy="150" r="2"/><circle cx="120" cy="140" r="2"/><circle cx="420" cy="160" r="3"/><circle cx="80" cy="230" r="2"/><circle cx="720" cy="240" r="2"/>
+        </g>
+        <g fill="#ffb830" opacity=".5">
+          <circle cx="60" cy="50" r="5"/><circle cx="300" cy="70" r="5"/><circle cx="560" cy="65" r="5"/><circle cx="420" cy="160" r="5"/>
+        </g>
+      </svg>
+    </div>
+    <h2>Начнём с одного заказа<br>— а дальше всё посчитается</h2>
+    <p class="lead" style="margin:0 auto 30px">Оставьте заявку — пришлём партнёрский прайс, расскажем про бонусы и зарезервируем первые позиции под ваш объект.</p>
+    <div style="display:flex; gap:14px; justify-content:center; flex-wrap:wrap">
+      <a class="btn primary" href="#top">Оставить заявку</a>
+      <a class="btn ghost" href="https://github.com/fdl0303-rgb" target="_blank" rel="noopener" style="border-color:#ffb830; color:#ffd98a;">Наш GitHub →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot">
+    <span class="muted">© 2026 СВЕТ36 · <b style="color:var(--ink)">Свет</b> на каждый объект</span>
+    <span class="muted">Разработка и проекты партнёра: <a href="https://github.com/fdl0303-rgb" target="_blank" rel="noopener">github.com/fdl0303-rgb</a></span>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: .12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
