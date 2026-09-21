@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Тест: Кто ты по жизни?</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    min-height: 100vh;
+    background: radial-gradient(circle at 30% 20%, #2b1a3d, #0f0c1e 70%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    padding: 20px;
+    overflow: hidden;
+  }
+
+  .card {
+    background: linear-gradient(160deg, #1d1527, #140e1f);
+    border: 1px solid #44355c;
+    border-radius: 24px;
+    max-width: 460px;
+    width: 100%;
+    padding: 40px 32px;
+    text-align: center;
+    box-shadow: 0 30px 60px rgba(0,0,0,.55);
+    position: relative;
+  }
+
+  .emoji-big { font-size: 72px; display: block; margin-bottom: 12px; animation: float 3s ease-in-out infinite; }
+  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+  h1 { color: #fff; font-size: 28px; letter-spacing: 1px; margin-bottom: 8px; }
+  .sub { color: #a99bc4; font-size: 15px; margin-bottom: 28px; }
+
+  .progress { color: #7d6fa0; font-size: 13px; margin-bottom: 20px; letter-spacing: 2px; }
+
+  .q { color: #fff; font-size: 20px; font-weight: 600; margin-bottom: 26px; min-height: 56px; }
+
+  .btn {
+    width: 100%;
+    padding: 18px;
+    border: none;
+    border-radius: 14px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    color: #fff;
+    margin-bottom: 14px;
+    transition: transform .15s, box-shadow .15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  .btn:hover { transform: translateY(-3px) scale(1.02); }
+  .btn.beer {
+    background: linear-gradient(135deg, #8a5a20, #c9882a);
+    box-shadow: 0 8px 24px rgba(201,136,42,.35);
+  }
+  .btn.cognac {
+    background: linear-gradient(135deg, #5a2730, #8a3a2f);
+    box-shadow: 0 8px 24px rgba(138,58,47,.35);
+  }
+  .btn:focus-visible { outline: 3px solid #fff; }
+
+  .result-screen { display: none; }
+  .card.result .result-screen { display: block; }
+  .card.result .quiz-screen { display: none; }
+
+  .result-title {
+    font-size: 44px;
+    font-weight: 900;
+    color: #ff4d5e;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 8px 0;
+    animation: shake .6s ease-in-out infinite;
+    text-shadow: 0 0 20px rgba(255,77,94,.6);
+  }
+  @keyframes shake {
+    0%,100% { transform: rotate(0); }
+    25% { transform: rotate(-3deg) scale(1.02); }
+    75% { transform: rotate(3deg) scale(1.02); }
+  }
+  .result-sub { color: #d9cfe8; font-size: 17px; margin-bottom: 10px; }
+  .result-emoji { font-size: 90px; display: block; margin-bottom: 8px; }
+
+  .again {
+    margin-top: 24px;
+    background: linear-gradient(135deg, #6b3fce, #9a5cff);
+    box-shadow: 0 8px 24px rgba(106,63,206,.4);
+  }
+
+  .confetti { position: fixed; top: -10px; width: 10px; height: 10px; background: #ff4d5e; animation: fall linear infinite; z-index: -1; }
+  @keyframes fall { to { transform: translateY(110vh) rotate(720deg); } }
+</style>
+</head>
+<body>
+
+<div class="card" id="card">
+  <div class="quiz-screen" id="quiz">
+    <span class="emoji-big">🍻</span>
+    <h1>ТЕСТ: КТО ТЫ ПО ЖИЗНИ?</h1>
+    <div class="sub">Честный тест на 100% точность. Нажми кнопку и узнай правду</div>
+    <div class="progress" id="progress">ВОПРОС 1 / 3</div>
+    <div class="q" id="q">Твой любимый напиток вечером?</div>
+    <button class="btn beer" id="beerBtn">Пиво 🍺</button>
+    <button class="btn cognac" id="cognacBtn">Коньяк 🥃</button>
+  </div>
+
+  <div class="result-screen" id="result">
+    <span class="result-emoji">🍸</span>
+    <div class="result-title">Ты всё равно Алкаш!</div>
+    <div class="result-sub">Неважно, что ты выбрал(а). Судьба уже решена — держи штопор и не благодари 😂</div>
+    <button class="btn again" onclick="location.reload()">Пройти ещё раз 🔄</button>
+  </div>
+</div>
+
+<script>
+  var questions = [
+    { q: "Твой любимый напиток вечером?" },
+    { q: "Что ты берёшь с собой в бар?" },
+    { q: "Что выпьешь на празднике?" }
+  ];
+  var step = 0;
+
+  function next() {
+    step++;
+    if (step >= questions.length) {
+      showResult();
+      return;
+    }
+    document.getElementById("q").textContent = questions[step].q;
+    document.getElementById("progress").textContent = "ВОПРОС " + (step + 1) + " / " + questions.length;
+  }
+
+  function showResult() {
+    document.getElementById("card").classList.add("result");
+    spawnConfetti();
+  }
+
+  function spawnConfetti() {
+    var colors = ["#ff4d5e", "#ffb84d", "#4dffb8", "#9a5cff", "#4db8ff"];
+    for (var i = 0; i < 60; i++) {
+      var d = document.createElement("div");
+      d.className = "confetti";
+      d.style.left = Math.random() * 100 + "vw";
+      d.style.background = colors[i % colors.length];
+      d.style.animationDuration = (Math.random() * 3 + 2) + "s";
+      d.style.animationDelay = Math.random() * 2 + "s";
+      document.body.appendChild(d);
+    }
+  }
+
+  document.getElementById("beerBtn").onclick = next;
+  document.getElementById("cognacBtn").onclick = next;
+</script>
+</body>
+</html>
