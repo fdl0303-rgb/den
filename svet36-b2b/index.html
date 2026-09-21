@@ -84,7 +84,7 @@
   .stat span { color: var(--muted); font-size: 14px; }
   .hero-art { position: relative; }
   .glow { position: absolute; inset: -40px; background: radial-gradient(circle, rgba(255, 180, 48, .35), transparent 65%); z-index: 0; }
-  .hero-img { position: relative; z-index: 1; filter: drop-shadow(0 26px 40px rgba(120, 80, 0, .25)); }
+  .hero-img { position: relative; z-index: 1; display: block; width: 100%; border-radius: 24px; border: 1px solid var(--line); box-shadow: 0 30px 60px rgba(120, 80, 0, .25); }
 
   /* ---------- CARDS / GRID ---------- */
   .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 22px; margin-top: 44px; }
@@ -204,36 +204,7 @@
   </div>
   <div class="hero-art">
     <div class="glow"></div>
-    <svg class="hero-img" viewBox="0 0 480 440" width="480" height="440" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stop-color="#ffd465"/><stop offset="1" stop-color="#ff9d1d"/>
-        </linearGradient>
-        <filter id="f1"><feDropShadow dx="0" dy="18" stdDeviation="20" flood-color="#8a5c00" flood-opacity=".35"/></filter>
-      </defs>
-      <ellipse cx="240" cy="390" rx="180" ry="26" fill="#00000018"/>
-      <g filter="url(#f1)">
-        <rect x="210" y="60" width="60" height="26" rx="6" fill="#2b2418"/>
-        <path d="M120 360 L360 360 L330 150 C330 120 300 100 270 100 L210 100 C180 100 150 120 150 150 Z" fill="url(#gold)"/>
-        <circle cx="240" cy="150" r="10" fill="#2b2418" opacity=".15"/>
-        <circle cx="240" cy="190" r="10" fill="#2b2418" opacity=".15"/>
-        <circle cx="240" cy="230" r="10" fill="#2b2418" opacity=".15"/>
-        <circle cx="240" cy="270" r="10" fill="#2b2418" opacity=".15"/>
-        <circle cx="240" cy="310" r="10" fill="#2b2418" opacity=".15"/>
-        <path d="M110 260 v-40 h40 z M330 260 h40 v40 z M210 60 h60 v30 h-60 z" fill="#2b2418"/>
-        <path d="M120 360 L360 360 L358 400 L122 400 Z" fill="#e08c00"/>
-        <circle cx="205" cy="105" r="12" fill="#fff" opacity=".85"/>
-        <circle cx="275" cy="105" r="12" fill="#fff" opacity=".85"/>
-        <circle cx="240" cy="96" r="16" fill="#fff" opacity=".7"/>
-      </g>
-      <g>
-        <rect x="330" y="300" width="120" height="14" rx="7" fill="#fff3d6" stroke="#e0c89a"/>
-        <rect x="350" y="322" width="80" height="14" rx="7" fill="#fff3d6" stroke="#e0c89a"/>
-      </g>
-      <g fill="#ffb830">
-        <circle cx="420" cy="120" r="5"/><circle cx="85" cy="80" r="4"/><circle cx="60" cy="200" r="3"/><circle cx="420" cy="250" r="4"/><circle cx="400" cy="60" r="3"/>
-      </g>
-    </svg>
+    <img class="hero-img" src="hero.jpg" alt="Современный интерьер с дизайнерским освещением">
   </div>
 </section>
 
@@ -411,6 +382,9 @@
   <div class="foot">
     <span class="muted">© 2026 СВЕТ36 · <b style="color:var(--ink)">Свет</b> на каждый объект</span>
     <span class="muted">Разработка и проекты партнёра: <a href="https://github.com/fdl0303-rgb" target="_blank" rel="noopener">github.com/fdl0303-rgb</a></span>
+  </div>
+  <div class="foot" style="padding-top:0">
+    <span class="muted" style="font-size:12px">Фото интерьера: Wikimedia Commons, <a href="https://commons.wikimedia.org/wiki/File:Modern_luxury_living_room_with_kitchen_interior.jpg" target="_blank" rel="noopener">лицензия CC BY 2.0</a></span>
   </div>
 </footer>
 
