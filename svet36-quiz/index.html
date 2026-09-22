@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Тест: 10 вопросов для продавца освещения</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #ffffff;
+    color: #1a1a1a;
+    line-height: 1.55;
+    padding: 40px 20px;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; }
+
+  header { border-bottom: 1px solid #e8e8e8; padding-bottom: 28px; margin-bottom: 36px; }
+  .eyebrow { color: #e09a00; font-weight: 700; letter-spacing: 2px; font-size: 13px; text-transform: uppercase; }
+  h1 { font-size: 30px; font-weight: 800; margin-top: 8px; letter-spacing: -0.5px; }
+  header p { color: #777; font-size: 15px; margin-top: 10px; }
+
+  .counter { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 24px; font-size: 14px; color: #999; }
+  .counter b { color: #1a1a1a; }
+
+  .q { border-top: 1px solid #eee; padding: 30px 0; }
+  .q:first-of-type { border-top: none; }
+  .q-num { color: #e09a00; font-weight: 800; font-size: 13px; letter-spacing: 1px; }
+  .q-text { font-size: 19px; font-weight: 600; margin: 8px 0 18px; }
+
+  .opt {
+    display: block; width: 100%; text-align: left;
+    background: #fff; border: 1px solid #e2e2e2; border-radius: 8px;
+    padding: 14px 16px; font-size: 15px; color: #333;
+    cursor: pointer; margin-bottom: 10px;
+    transition: border-color .15s, background .15s;
+    font-family: inherit;
+  }
+  .opt:hover:not(:disabled) { border-color: #e09a00; background: #fffaf0; }
+  .opt:disabled { cursor: default; }
+  .opt.correct { border-color: #2e9e4f; background: #f1fbf4; color: #1c6b36; font-weight: 600; }
+  .opt.wrong { border-color: #d64545; background: #fdf5f5; color: #a32828; }
+
+  .expl {
+    display: none; margin-top: 8px; font-size: 14px; color: #555;
+    background: #fafafa; border-left: 3px solid #e09a00; padding: 10px 14px; border-radius: 0 6px 6px 0;
+  }
+  .expl.show { display: block; }
+
+  .result {
+    display: none; margin-top: 40px; border: 1px solid #e8e8e8; border-radius: 12px;
+    padding: 34px; text-align: center; background: #fffdf7;
+  }
+  .result.show { display: block; }
+  .score { font-size: 54px; font-weight: 900; color: #e09a00; }
+  .verdict { font-size: 19px; font-weight: 700; margin-top: 6px; }
+  .result p { color: #777; font-size: 15px; margin-top: 8px; }
+  .again {
+    margin-top: 22px; background: #1a1a1a; color: #fff; border: none;
+    border-radius: 8px; padding: 13px 30px; font-size: 15px; font-weight: 600;
+    cursor: pointer; font-family: inherit;
+  }
+  .again:hover { background: #e09a00; color: #1a1a1a; }
+
+  footer { margin-top: 50px; padding-top: 20px; border-top: 1px solid #eee; font-size: 13px; color: #999; text-align: center; }
+  footer a { color: #e09a00; text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">СВЕТ36 · аттестация персонала</div>
+    <h1>10 вопросов, которые должен знать продавец<br>в магазине освещения</h1>
+    <p>Мини-тест: выбирайте один вариант ответа — после выбора сразу увидите, верно ли и почему.</p>
+  </header>
+
+  <div class="counter"><span>Отвечено: <b id="done">0</b> / 10</span><span>Верных: <b id="score">0</b></span></div>
+
+  <div id="quiz"></div>
+
+  <div class="result" id="result">
+    <div class="score"><span id="finalScore">0</span>/10</div>
+    <div class="verdict" id="verdict"></div>
+    <p id="verdictSub"></p>
+    <button class="again" onclick="location.reload()">Пройти заново</button>
+  </div>
+
+  <footer>
+    Проект партнёра: <a href="https://github.com/fdl0303-rgb" target="_blank" rel="noopener">github.com/fdl0303-rgb</a>
+  </footer>
+</div>
+
+<script>
+var questions = [
+  { q: "Световой поток измеряется в…",
+    opts: ["Ваттах (Вт)", "Люменах (лм)", "Кельвинах (K)"],
+    a: 1,
+    e: "Ватты говорят о потреблении энергии, люмены — сколько именно света даёт лампа. Именно люмены сравниваем при замене." },
+  { q: "Температура света 2700 K — это…",
+    opts: ["Холодный дневной", "Тёплый белый (как лампа накаливания)", "Красный/цветной"],
+    a: 1,
+    e: "2700–3000 K — тёплый уютный свет для спальни и гостиной. Нейтральный рабочий — около 4000 K." },
+  { q: "Что показывает индекс цветопередачи CRI (Ra)?",
+    opts: ["Насколько естественно выглядят цвета предметов", "Срок службы лампы", "Степень защиты от влаги"],
+    a: 0,
+    e: "Ra > 90 — для кухни, детской и витрин: цвета не «плывут» и не устают глаза." },
+  { q: "LED-лампа 10 Вт эквивалентна лампе накаливания мощностью…",
+    opts: ["25 Вт", "40 Вт", "60–75 Вт"],
+    a: 2,
+    e: "LED примерно в 6–8 раз экономичнее. Сравнивайте по световому потоку (люменам), а не по ваттам." },
+  { q: "Цоколь E27 — это…",
+    opts: ["Стандартный винтовой «большой» Эдисон", "Штырьковый, как у галогеновых MR16", "Маленький винтовой"],
+    a: 0,
+    e: "E27 — «большой» винтовой. E14 — «маленький», GU10 и MR16 — штырьковые со шляпкой." },
+  { q: "Защита IP44 подходит для…",
+    opts: ["Улицы под открытым небом", "Ванной комнаты (защита от брызг)", "Сухой спальни"],
+    a: 1,
+    e: "Первая цифра — пыль, вторая — влага. IP44 — от брызг (ванная), IP65 — от струй (улица, фасад)." },
+  { q: "Диммирование — это…",
+    opts: ["Плавная регулировка яркости света", "Замена ламп на более мощные", "Автоматическое включение"],
+    a: 0,
+    e: "Нужны диммируемый источник и совместимый диммер — иначе будет мерцание и простой светодиод не заработает." },
+  { q: "Какой свет оптимален для рабочего стола и офиса?",
+    opts: ["Тёплый 2700 K", "Нейтральный 4000 K", "Красный 1800 K"],
+    a: 1,
+    e: "Нейтральный свет бодрит и не искажает цвета. Тёплый оставляем для зон отдыха." },
+  { q: "Чем трековая система отличается от обычных спотов?",
+    opts: ["Светильники висят в шинопроводе и свободно двигаются/докупаются", "Работает только от батареек", "Даёт только ультрафиолет"],
+    a: 0,
+    e: "Шинопровод даёт гибкую расстановку света для витрин, галерей и зонирования пространства." },
+  { q: "Клиент спрашивает свет над детским рабочим столом. Правильный совет —",
+    opts: ["Самая мощная лампа, чтобы было ярче всего", "Любая недорогая, раз детям всё равно", "Нейтральный 4000 K, CRI ≥ 90, LED без мерцания"],
+    a: 2,
+    e: "Бодрый нейтральный свет + высокая цветопередача + отсутствие мерцания = меньше устают глаза." }
+];
+
+var quizEl = document.getElementById('quiz');
+var done = 0, score = 0;
+
+questions.forEach(function(q, i) {
+  var block = document.createElement('div');
+  block.className = 'q';
+  var html = '<div class="q-num">ВОПРОС ' + (i+1) + '</div><div class="q-text">' + q.q + '</div>';
+  q.opts.forEach(function(o, j) {
+    html += '<button class="opt" data-q="' + i + '" data-o="' + j + '">' + o + '</button>';
+  });
+  html += '<div class="expl" id="expl' + i + '"><b>Ответ:</b> ' + q.e + '</div>';
+  block.innerHTML = html;
+  quizEl.appendChild(block);
+});
+
+quizEl.addEventListener('click', function(ev) {
+  var btn = ev.target.closest('.opt');
+  if (!btn || btn.disabled) return;
+  var qi = +btn.dataset.q, oi = +btn.dataset.o;
+  var all = quizEl.querySelectorAll('.opt[data-q="' + qi + '"]');
+  all.forEach(function(b) { b.disabled = true; });
+  document.getElementById('expl' + qi).classList.add('show');
+  if (oi === questions[qi].a) {
+    btn.classList.add('correct');
+    score++;
+    document.getElementById('score').textContent = score;
+  } else {
+    btn.classList.add('wrong');
+    all[questions[qi].a].classList.add('correct');
+  }
+  done++;
+  document.getElementById('done').textContent = done;
+  if (done === questions.length) showResult();
+});
+
+function showResult() {
+  var r = document.getElementById('result');
+  document.getElementById('finalScore').textContent = score;
+  var v = document.getElementById('verdict'), s = document.getElementById('verdictSub');
+  if (score === 10) { v.textContent = "Мастер света!"; s.textContent = "Отличный результат — можно консультировать клиентов без подсказок."; }
+  else if (score >= 8) { v.textContent = "Очень хорошо"; s.textContent = "Основы знаешь уверенно, остались мелочи — перечитай пояснения."; }
+  else if (score >= 5) { v.textContent = "Есть над чем поработать"; s.textContent = "База есть, но технические детали стоит повторить."; }
+  else { v.textContent = "Нужно подучить"; s.textContent = "Пройди тест ещё раз и разбери пояснения к ответам."; }
+  r.classList.add('show');
+  r.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+</script>
+</body>
+</html>
