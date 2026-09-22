@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Калькулятор освещения</title>
+<style>
+  :root{
+    --bg:#0e1117; --card:#161b26; --card2:#1d2433; --line:#2a3245;
+    --txt:#e8edf5; --muted:#8b95a9; --accent:#ffc24b; --accent2:#ff9d3c;
+    --ok:#34d399; --warn:#fbbf24; --bad:#f87171;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family:'Segoe UI', Roboto, Arial, sans-serif;
+    background:radial-gradient(1200px 600px at 80% -10%, #2b2a26 0%, transparent 60%), var(--bg);
+    color:var(--txt); min-height:100vh; line-height:1.5;
+  }
+  .wrap{max-width:1080px; margin:0 auto; padding:24px 16px 80px;}
+  header{text-align:center; padding:28px 0 6px;}
+  header .kicker{color:var(--accent); letter-spacing:3px; text-transform:uppercase; font-size:12px; font-weight:600;}
+  h1{font-size:clamp(26px,4vw,40px); font-weight:800; margin-top:8px;}
+  header p{color:var(--muted); margin-top:6px; font-size:15px;}
+  .grid{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:24px;}
+  @media(max-width:860px){.grid{grid-template-columns:1fr;}}
+  .card{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:20px;}
+  .card h2{font-size:15px; text-transform:uppercase; letter-spacing:1px; color:var(--muted); margin-bottom:14px; display:flex; align-items:center; gap:8px;}
+  .card h2 .step{display:inline-flex; width:22px; height:22px; border-radius:50%; background:var(--accent); color:#111; font-weight:800; align-items:center; justify-content:center; font-size:13px;}
+  label{font-size:13px; color:var(--muted); display:block; margin-top:12px;}
+  input[type=number], select{
+    width:100%; margin-top:6px; background:var(--card2); border:1px solid var(--line);
+    color:var(--txt); border-radius:10px; padding:10px 12px; font-size:15px; outline:none;
+  }
+  input:focus, select:focus{border-color:var(--accent);}
+  .row2{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  .seg{display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;}
+  .seg button{
+    flex:1; min-width:110px; padding:12px 10px; border-radius:10px; border:1px solid var(--line);
+    background:var(--card2); color:var(--txt); cursor:pointer; font-size:14px; font-weight:600; transition:.15s;
+  }
+  .seg button:hover{border-color:var(--accent);}
+  .seg button.active{background:linear-gradient(135deg,var(--accent),var(--accent2)); color:#141414; border-color:transparent;}
+  .seg.col2 button{flex:1;}
+  .cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; margin-top:10px;}
+  .type-btn{
+    text-align:center; padding:14px 8px; border-radius:12px; border:1px solid var(--line);
+    background:var(--card2); color:var(--txt); cursor:pointer; transition:.15s; font-size:13px;
+  }
+  .type-btn .ico{font-size:26px; display:block; margin-bottom:6px;}
+  .type-btn:hover{border-color:var(--accent); transform:translateY(-2px);}
+  .type-btn.active{background:linear-gradient(135deg,var(--accent),var(--accent2)); color:#141414; border-color:transparent;}
+  .hint{font-size:12px; color:var(--muted); margin-top:6px;}
+  .sub{display:none; margin-top:14px; padding-top:14px; border-top:1px dashed var(--line);}
+  .sub.show{display:block;}
+  /* results */
+  .results{margin-top:18px;}
+  .res-head{display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;}
+  .badge{
+    background:linear-gradient(135deg,var(--accent),var(--accent2)); color:#141414;
+    font-weight:800; padding:8px 16px; border-radius:999px; font-size:13px;
+  }
+  .res-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin-top:14px;}
+  .metric{background:var(--card2); border:1px solid var(--line); border-radius:12px; padding:14px;}
+  .metric .v{font-size:24px; font-weight:800;}
+  .metric .k{font-size:12px; color:var(--muted); margin-top:2px;}
+  .metric .subv{margin-top:4px;}
+  .metric.good{box-shadow:inset 0 0 0 1px var(--ok);}
+  .metric.warn{box-shadow:inset 0 0 0 1px var(--warn);}
+  .message{padding:12px 14px; border-radius:10px; font-size:14px; margin-top:12px; display:none;}
+  .message.warn{display:block; background:rgba(251,191,36,.12); border:1px solid var(--warn); color:var(--warn);}
+  .message.err{display:block; background:rgba(248,113,113,.12); border:1px solid var(--bad); color:var(--bad);}
+  .message.ok{display:block; background:rgba(52,211,153,.12); border:1px solid var(--ok); color:var(--ok);}
+  .buy{margin-top:14px; background:var(--card2); border:1px solid var(--line); border-radius:12px; padding:14px;}
+  .buy h3{font-size:13px; color:var(--accent); text-transform:uppercase; letter-spacing:1px; margin-bottom:10px;}
+  .buy table{width:100%; border-collapse:collapse; font-size:14px;}
+  .buy td{padding:7px 4px; border-bottom:1px dashed var(--line);}
+  .buy td:first-child{color:var(--muted); width:55%;}
+  .buy tr:last-child td{border-bottom:none; font-weight:800;}
+  #preview{width:100%; margin-top:14px; border-radius:12px; background:var(--card2); border:1px solid var(--line);}
+  #preview svg{width:100%; height:auto; display:block;}
+  .legend{display:flex; gap:14px; font-size:12px; color:var(--muted); margin-top:8px; flex-wrap:wrap;}
+  .dot{display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:5px; vertical-align:middle;}
+  footer{text-align:center; color:var(--muted); font-size:12px; margin-top:34px;}
+  input[type=range]{width:100%; accent-color:var(--accent); margin-top:6px;}
+  .lux-row{display:flex; justify-content:space-between; font-size:13px; color:var(--muted); margin-top:4px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="kicker">Свет · расчёт</div>
+    <h1>💡 Калькулятор освещения комнаты</h1>
+    <p>Укажите тип и размеры помещения, выберите светильники — получите нужное количество, мощность и световой поток.</p>
+  </header>
+
+  <div class="grid">
+
+    <!-- Шаг 1 -->
+    <div class="card">
+      <h2><span class="step">1</span> Тип помещения</h2>
+      <div class="seg col2" id="roomType">
+        <button data-room="res" class="active">🏡 Жилое</button>
+        <button data-room="off">💼 Офисное</button>
+      </div>
+      <label>Желаемая освещённость на полу, люкс</label>
+      <input type="range" id="luxSlider" min="50" max="500" step="10" value="150">
+      <div class="lux-row"><span id="luxLabel">150 лк</span><span id="presetNorm"></span></div>
+      <p class="hint">Норма для жилых комнат ≈ 150 лк, для офисов ≈ 300–400 лк.</p>
+    </div>
+
+    <!-- Шаг 2 -->
+    <div class="card">
+      <h2><span class="step">2</span> Размеры комнаты</h2>
+      <div class="row2">
+        <div>
+          <label>Длина, м</label>
+          <input type="number" id="len" value="5" min="1" max="30" step="0.1">
+        </div>
+        <div>
+          <label>Ширина, м</label>
+          <input type="number" id="wid" value="4" min="1" max="30" step="0.1">
+        </div>
+      </div>
+      <label>Высота потолка, м</label>
+      <input type="number" id="hei" value="2.7" min="2" max="8" step="0.1">
+      <div class="sub show">
+        <div class="metric" style="background:var(--card2); border:1px solid var(--line); border-radius:12px; padding:10px 14px;">
+          <span class="k" style="color:var(--muted); font-size:13px;">Площадь</span>
+          <div class="v" id="areaShow">20.0 м²</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Шаг 3 -->
+    <div class="card" style="grid-column:1 / -1;">
+      <h2><span class="step">3</span> Тип освещения</h2>
+      <div class="cards" id="typeBtns">
+        <div class="type-btn" data-type="track"><span class="ico">🏝️</span>Трековые<br>однофазные</div>
+        <div class="type-btn" data-type="spot_led" class="active"><span class="ico">🔘</span>Точечные<br>диодные LED</div>
+        <div class="type-btn" data-type="spot_lamp"><span class="ico">🔆</span>Точечные<br>под лампу</div>
+        <div class="type-btn" data-type="lustra"><span class="ico">💎</span>Люстра<br>E27</div>
+        <div class="type-btn" data-type="plaf"><span class="ico">🏮</span>Плафоны</div>
+      </div>
+
+      <!-- трек -->
+      <div class="sub" id="sub-track">
+        <div class="row2">
+          <div>
+            <label>Длина трека, м</label>
+            <input type="number" id="trackLen" value="3" min="1" max="20" step="0.5">
+          </div>
+          <div>
+            <label>Мощность светильника (под лампу)</label>
+            <select id="trackLamp">
+              <option value="400">LED GU10 · 5 Вт · 400 лм</option>
+              <option value="550" selected>LED GU10 · 7 Вт · 550 лм</option>
+              <option value="650">LED GU10 · 9 Вт · 650 лм</option>
+              <option value="420">MR16 · 7 Вт · 420 лм</option>
+            </select>
+          </div>
+        </div>
+        <label>Шаг между светильниками, м</label>
+        <input type="number" id="trackStep" value="0.9" min="0.3" max="3" step="0.1">
+        <p class="hint">Светильники крепятся на однофазный трек; расчёт предложит количество и длину треков.</p>
+      </div>
+
+      <!-- точечные LED -->
+      <div class="sub" id="sub-spot_led">
+        <label>Мощность диодного светильника</label>
+        <select id="spotLedLamp">
+          <option value="450">6 Вт · 450 лм</option>
+          <option value="700" selected>9 Вт · 700 лм</option>
+          <option value="950">12 Вт · 950 лм</option>
+          <option value="1250">15 Вт · 1250 лм</option>
+        </select>
+        <p class="hint">Встраиваемые потолочные светильники с несъёмным LED-модулем.</p>
+      </div>
+
+      <!-- точечные под лампу -->
+      <div class="sub" id="sub-spot_lamp">
+        <label>Тип лампы и мощность</label>
+        <select id="spotLampLamp">
+          <option value="400">LED GU10 · 5 Вт · 400 лм</option>
+          <option value="550" selected>LED GU10 · 7 Вт · 550 лм</option>
+          <option value="650">LED GU10 · 9 Вт · 650 лм</option>
+          <option value="420">MR16 · 7 Вт · 420 лм</option>
+        </select>
+        <p class="hint">Светильники с патроном под сменную лампу (GU10/MR16).</p>
+      </div>
+
+      <!-- люстра -->
+      <div class="sub" id="sub-lustra">
+        <div class="row2">
+          <div>
+            <label>Количество рожков</label>
+            <select id="lustraArms">
+              <option value="3">3 рожка</option>
+              <option value="4">4 рожка</option>
+              <option value="5" selected>5 рожков</option>
+              <option value="6">6 рожков</option>
+              <option value="8">8 рожков</option>
+              <option value="10">10 рожков</option>
+            </select>
+          </div>
+          <div>
+            <label>Лампа E27</label>
+            <select id="lustraLamp">
+              <option value="800">LED 10 Вт · 800 лм</option>
+              <option value="1050" selected>LED 12 Вт · 1050 лм</option>
+              <option value="1600">LED 18 Вт · 1600 лм</option>
+              <option value="580">Галоген 42 Вт · 580 лм</option>
+            </select>
+          </div>
+        </div>
+        <p class="hint">Укажите люстру — калькулятор покажет, достаточно ли её для комнаты.</p>
+      </div>
+
+      <!-- плафоны -->
+      <div class="sub" id="sub-plaf">
+        <div class="row2">
+          <div>
+            <label>Материал плафона</label>
+            <select id="plafMat">
+              <option value="0.6" selected>Текстиль (рассеивает ~40%)</option>
+              <option value="0.78">Стекло (прозрачное, матированное)</option>
+            </select>
+          </div>
+          <div>
+            <label>Лампа E27</label>
+            <select id="plafLamp">
+              <option value="800">LED 10 Вт · 800 лм</option>
+              <option value="1050" selected>LED 12 Вт · 1050 лм</option>
+              <option value="1600">LED 18 Вт · 1600 лм</option>
+              <option value="580">Галоген 42 Вт · 580 лм</option>
+            </select>
+          </div>
+        </div>
+        <p class="hint">Плафон задерживает часть света — это учтено в итоговом количестве.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Результаты -->
+  <div class="results card" id="results">
+    <div class="res-head">
+      <h2 style="margin:0;">Результат расчёта</h2>
+      <span class="badge" id="verdict">ОК</span>
+    </div>
+    <div class="res-grid">
+      <div class="metric"><div class="v" id="mArea">20 м²</div><div class="k">Площадь</div></div>
+      <div class="metric"><div class="v" id="mLux">150</div><div class="k">Норма, лк</div></div>
+      <div class="metric"><div class="v" id="mLm">3750 лм</div><div class="k">Нужный световой поток</div></div>
+      <div class="metric"><div class="v" id="mCount">—</div><div class="k">Светильников</div><div class="subv" id="mCountSub"></div></div>
+      <div class="metric"><div class="v" id="mW">—</div><div class="k">Установленная мощность</div><div class="subv" id="mWSub"></div></div>
+    </div>
+    <div id="msg"></div>
+    <div class="legend" id="legend"></div>
+    <div id="preview"></div>
+    <div class="buy" id="buy"></div>
+  </div>
+
+  <footer>Расчёт ориентировочный: нормы по СП 52.13330, коэффициенты усреднены. Точный проект выполняет светотехник.</footer>
+</div>
+
+<script>
+(function(){
+  var state = {
+    room:'res', lux:150,
+    len:5, wid:4, hei:2.7,
+    type:'spot_led',
+    trackLen:3, trackLamp:550, trackStep:0.9,
+    spotLed:700, spotLamp:550,
+    lustraArms:5, lustraLamp:1050,
+    plafMat:0.6, plafLamp:1050
+  };
+
+  var NORMS = {res:{min:100, def:150, name:'жилое'}, off:{min:250, def:350, name:'офисное'}};
+
+  function $(id){ return document.getElementById(id); }
+
+  function setLuxRange(){
+    var n = NORMS[state.room];
+    $('luxSlider').min = n.min;
+    $('luxSlider').max = 500;
+    if(state.lux < n.min) state.lux = n.def;
+    $('luxSlider').value = state.lux;
+    $('presetNorm').textContent = 'норма ' + n.name + ' ≈ ' + n.def + ' лк';
+  }
+
+  function bindSeg(){
+    $('roomType').addEventListener('click', function(e){
+      var b = e.target.closest('button'); if(!b) return;
+      state.room = b.dataset.room;
+      this.querySelectorAll('button').forEach(function(x){x.classList.remove('active');});
+      b.classList.add('active');
+      setLuxRange();
+      $('luxSlider').value = state.lux;
+      $('luxLabel').textContent = state.lux + ' лк';
+      calc();
+    });
+  }
+
+  function bindTypes(){
+    var btns = $('typeBtns').querySelectorAll('.type-btn');
+    btns.forEach(function(b){
+      b.addEventListener('click', function(){
+        state.type = b.dataset.type;
+        btns.forEach(function(x){x.classList.remove('active');});
+        b.classList.add('active');
+        ['track','spot_led','spot_lamp','lustra','plaf'].forEach(function(t){
+          var s = $('sub-'+t);
+          if(s) s.classList.toggle('show', t===state.type);
+        });
+        calc();
+      });
+    });
+  }
+
+  function hF(){
+    var h = state.hei;
+    if(h<=2.6) return 1.0;
+    if(h<=3.0) return 1.1;
+    if(h<=3.5) return 1.25;
+    if(h<=4.0) return 1.4;
+    return Math.min(2.0, 1.4 + (h-4.0)*0.15);
+  }
+
+  function typeW(){
+    if(state.type==='track') return {lm: +state.trackLamp, label:'светильник под лампу', bulb:'LED GU10/MR16'};
+    if(state.type==='spot_led') return {lm: +state.spotLed, label:'диодный светильник', bulb:'LED-модуль встроен'};
+    if(state.type==='spot_lamp') return {lm: +state.spotLamp, label:'светильник под лампу', bulb:'LED-GU10/MR16'};
+    if(state.type==='lustra') return {lm: +state.lustraLamp, label:'ланка люстры', bulb:'E27'};
+    return {lm: +state.plafLamp, label:'плафон', bulb:'E27'};
+  }
+
+  function calc(){
+    var len = parseFloat($('len').value)||0;
+    var wid = parseFloat($('wid').value)||0;
+    var hei = parseFloat($('hei').value)||0;
+    state.len=len; state.wid=wid; state.hei=hei;
+    state.lux = +$('luxSlider').value;
+    state.trackLen=+$('trackLen').value; state.trackLamp=+$('trackLamp').value; state.trackStep=+$('trackStep').value;
+    state.spotLed=+$('spotLedLamp').value; state.spotLamp=+$('spotLampLamp').value;
+    state.lustraArms=+$('lustraArms').value; state.lustraLamp=+$('lustraLamp').value;
+    state.plafMat=+$('plafMat').value; state.plafLamp=+$('plafLamp').value;
+
+    var area = len*wid;
+    var util = (state.type==='plaf') ? state.plafMat : 1;
+    var flow = area * state.lux * 1.15 * hF(); // запас 15%
+    var lampFlow = flow / util;
+
+    $('areaShow').textContent = area.toFixed(1) + ' м²';
+    $('luxLabel').textContent = state.lux + ' лк';
+    $('mArea').textContent = area.toFixed(1) + ' м²';
+    $('mLux').textContent = state.lux;
+    $('mLm').textContent = Math.round(lampFlow).toLocaleString('ru-RU') + ' лм';
+    var perLm = typeW().lm;
+    var n = Math.ceil(lampFlow / perLm);
+
+    var verdict = 'OK', msg = '', html = '';
+    var countText, countSub, watts, verdictClass='good', warning=false, bottom='';
+
+    var P = state.type;
+
+    if(P==='lustra'){
+      var per = +state.lustraLamp * state.lustraArms;
+      var enough = per >= lampFlow;
+      countText = state.lustraArms + ' рожков';
+      countSub = 'По ' + Math.round(state.lustraLamp).toLocaleString('ru-RU') + ' лм на рожок';
+      watts = state.lustraArms * lampWattsE27(state.lustraLamp);
+      watts = watts || Math.round(state.lustraArms * (state.lustraLamp/80));
+      if(!enough){
+        verdict='МАЛО'; verdictClass='warn';
+        msg='<div class="message warn">Люстра даёт только ' + Math.round(per).toLocaleString('ru-RU') +
+           ' лм при требуемых ' + Math.round(lampFlow).toLocaleString('ru-RU') +
+           ' лм. Рекомендуем люстру с большим числом рожков или ярче лампы E27.</div>';
+        bottom = buildBuy('Люстра', 1, 'с лампой E27 × ' + state.lustraArms + ' (установить ярче: ' + Math.round(state.lustraLamp).toLocaleString('ru-RU') + '+ лм на рожок)', 1);
+      } else {
+        msg='<div class="message ok">Люстры достаточно, но для равномерного света добавьте точечные/настенные светильники.</div>';
+        bottom = buildBuy('Люстра', 1, 'E27 × ' + state.lustraArms, 1);
+      }
+      drawLustra();
+    }
+
+    else if(P==='track'){
+      var perTrack = Math.max(1, Math.floor(state.trackLen / state.trackStep));
+      var tot = perTrack * perLm;
+      var tracksNeeded = Math.ceil(lampFlow / tot);
+      var totalFixtures = tracksNeeded * perTrack;
+      countText = totalFixtures;
+      countSub = perTrack + ' на ' + tracksNeeded + trackWord(tracksNeeded);
+      watts = totalFixtures * lampWatts(state.trackLamp);
+      var lumensTotal = totalFixtures * perLm;
+      var actLux = lumensTotal * util / (area * 1.15 * hF());
+      if(lumensTotal < lampFlow){
+        verdict='МАЛО'; verdictClass='warn';
+        var needPerSpot = Math.ceil(lampFlow / (tracksNeeded*perTrack));
+        msg='<div class="message warn">Текущий трек даёт ' + Math.round(lumensTotal).toLocaleString('ru-RU') + ' лм при нужных ' +
+          Math.round(lampFlow).toLocaleString('ru-RU') + ' лм. Нужен светильник ≥ ' + needPerSpot +
+          ' лм или трек длиннее (≤ ' + Math.round(needPerSpot/1100*100)/100 + ' м шага).</div>';
+      } else {
+        msg='<div class="message ok">Света достаточно: ' + Math.round(actLux) + ' лк при норме ' + state.lux + ' лк.</div>';
+      }
+      bottom = buildBuy('Трек однофазный', tracksNeeded, 'c ' + perTrack + ' светильниками по ' + Math.round(perLm).toLocaleString('ru-RU') + ' лм', totalFixtures);
+      bottom += buildBuy('Светильники трековые (под лампу)', totalFixtures, '', totalFixtures);
+      drawTrack(tracksNeeded, perTrack);
+    }
+
+    else if(P==='plaf'){
+      var nPlaf = Math.ceil(lampFlow / perLm);
+      countText = nPlaf;
+      countSub = 'по ' + Math.round(perLm).toLocaleString('ru-RU') + ' лм с учётом ткани/стекла';
+      watts = nPlaf * lampWattsE27(state.plafLamp);
+      watts = watts || Math.round(nPlaf * (state.plafLamp/80));
+      var actLux = nPlaf * perLm * util / (area * 1.15 * hF());
+      if(nPlaf > 20){
+        verdict='МНОГО'; verdictClass='warn';
+        msg='<div class="message warn">Получается ' + nPlaf + ' плафонов — громоздко. Увеличьте мощность ламп или выберите другой тип освещения.</div>';
+      } else {
+        msg='<div class="message ok">Света достаточно: ' + Math.round(actLux) + ' лк при норме ' + state.lux + ' лк.</div>';
+      }
+      bottom = buildBuy('Плафон (' + (state.plafMat>0.7?'стекло':'текстиль') + ')', nPlaf, 'с лампой E27 · ' + Math.round(state.plafLamp).toLocaleString('ru-RU') + ' лм', nPlaf);
+      drawGrid(nPlaf);
+    }
+
+    else { // точечные
+      var need = Math.ceil(lampFlow / perLm);
+      var label = (P==='spot_led') ? 'Точечный диодный LED' : 'Точечный под лампу ' + (P==='spot_lamp' ? '' : '');
+      var wattsP = lampWatts(P==='spot_led'? state.spotLed : state.spotLamp, true);
+      watts = need * wattsP;
+      countText = need;
+      countSub = 'по ' + Math.round(perLm).toLocaleString('ru-RU') + ' лм';
+      var actLux = need * perLm / (area * 1.15 * hF());
+      if(need > 12){
+        verdict='МНОГО'; verdictClass='warn';
+        msg='<div class="message warn">Нужно ' + need + ' светильников — многовато. Выберите модели помощнее, чтобы уменьшить количество точек.</div>';
+        bottom = buildBuy(label, need, 'или замените на более мощные', need);
+      } else {
+        msg='<div class="message ok">Света достаточно: ' + Math.round(actLux) + ' лк при норме ' + state.lux + ' лк.</div>';
+        bottom = buildBuy(label, need, 'для равномерности разместите сеткой', need);
+      }
+      drawGrid(need);
+      if(P==='spot_lamp') bottom += buildBuy('Лампы GU10/MR16', need, 'сменные', need);
+    }
+
+    $('verdict').textContent = verdict;
+    $('verdict').style.background = verdictClass==='ok' ? 'var(--ok)' : (verdictClass==='warn' ? 'var(--warn)' : '#f87171');
+    $('verdict').style.color = '#111';
+    $('mCount').textContent = countText;
+    $('mCountSub').textContent = countSub;
+    $('mW').textContent = Math.round(watts) + ' Вт';
+    $('mWSub').textContent = '≈ ' + (watts/1000*8*30).toFixed(1) + ' кВт·ч/мес';
+    $('msg').innerHTML = msg;
+    $('buy').innerHTML = html + bottom;
+    $('legend').innerHTML = legendHtml(P);
+    // показываем трубку напряжения видимых метрик
+    var sel = $('preview');
+  }
+
+  function trackWord(n){
+    if(n%10===1 && n%100!==11) return ' трек';
+    if(n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20)) return ' трека';
+    return ' треков';
+  }
+  function lampWatts(lm){
+    return Math.round(lm/125);
+  }
+  function lampWattsE27(lm){
+    if(lm===580) return 42;
+    return Math.round(lm/90);
+  }
+
+  function buildBuy(name, count, extra, bulbs){
+    return '<h3>🛒 Что купить</h3>' +
+      '<table><tr><td>' + name + '</td><td style="text-align:right;">× ' + count + '</td></tr>' +
+      (bulbs && count!==bulbs ? '<tr><td>Лампы</td><td style="text-align:right;">× ' + bulbs + '</td></tr>' : '') +
+      (extra ? '<tr><td colspan="2" class="hint" style="text-align:left; color:var(--muted); padding-top:2px;">' + extra + '</td></tr>' : '') +
+      '</table>';
+  }
+
+  function legendHtml(P){
+    var l = [];
+    if(P==='track'){ l.push('<span><span class="dot" style="background:#ffc24b;"></span>трек</span><span><span class="dot" style="background:#34d399;"></span>светильник</span>'); }
+    else if(P==='lustra'){ l.push('<span><span class="dot" style="background:#ffc24b;"></span>люстра (центр)</span>'); }
+    else { l.push('<span><span class="dot" style="background:#34d399;"></span>светильник</span><span><span class="dot" style="background:#3b82f6;"></span>зона освещения</span>'); }
+    return l.join('');
+  }
+
+  function svgWrap(inner, viewBox){
+    return '<svg viewBox="'+viewBox+'" xmlns="http://www.w3.org/2000/svg">' + inner + '</svg>';
+  }
+
+  function drawTrack(tracks, per){
+    var W=600,H=400;
+    var roomW = state.len, roomH = state.wid, h=state.hei;
+    var pad=40;
+    var s = Math.min((W-pad*2)/Math.max(roomW,1), (H-pad*2)/Math.max(roomH,1));
+    var ox = pad + (W-pad*2 - roomW*s)/2;
+    var oy = pad + (H-pad*2 - roomH*s)/2;
+    var inner = '<rect x="'+ox+'" y="'+oy+'" width="'+(roomW*s)+'" height="'+(roomH*s)+'" fill="#121722" stroke="#3a4256"/>';
+    for(var t=0; t<tracks; t++){
+      var trackX = ox + (roomW*s)/(tracks+1)*(t+1);
+      var ty0 = oy + 10, ty1 = oy + roomH*s - 10;
+      inner += '<line x1="'+trackX+'" y1="'+ty0+'" x2="'+trackX+'" y2="'+ty1+'" stroke="#ffc24b" stroke-width="4"/>';
+      for(var i=0;i<per;i++){
+        var fy = ty1 - (ty1-ty0)/(per+1)*(i+1);
+        inner += spotDot(trackX, fy);
+      }
+    }
+    inner += roomText(ox,oy,roomW*s,roomH*s);
+    $('preview').innerHTML = svgWrap(inner,'0 0 '+W+' '+H);
+  }
+
+  function drawLustra(){
+    var W=600,H=400;
+    var roomW=state.len, roomH=state.wid;
+    var pad=40;
+    var s = Math.min((W-pad*2)/roomW, (H-pad*2)/roomH);
+    var ox=pad+(W-pad*2-roomW*s)/2, oy=pad+(H-pad*2-roomH*s)/2;
+    var cx=ox+roomW*s/2, cy=oy+roomH*s/2;
+    var inner = roomRect(ox,oy,roomW*s,roomH*s);
+    var r = Math.min(roomW,roomH)*s*0.32;
+    inner += '<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="rgba(255,194,75,0.10)" stroke="#ffc24b" stroke-dasharray="4 4"/>';
+    for(var a=0;a<8;a++){
+      var ang=a/8*Math.PI*2;
+      inner += '<circle cx="'+(cx+Math.cos(ang)*r*0.5)+'" cy="'+(cy+Math.sin(ang)*r*0.5)+'" r="14" fill="#ffc24b" opacity="0.35"/>';
+    }
+    inner += '<circle cx="'+cx+'" cy="'+cy+'" r="18" fill="#ffc24b" stroke="#141414" stroke-width="3"/>';
+    inner += roomText(ox,oy,roomW*s,roomH*s);
+    $('preview').innerHTML = svgWrap(inner,'0 0 '+W+' '+H);
+  }
+
+  function drawGrid(n){
+    var W=600,H=400;
+    var roomW=state.len, roomH=state.wid;
+    var pad=45;
+    var s = Math.min((W-pad*2)/roomW, (H-pad*2)/roomH);
+    var ox=pad+(W-pad*2-roomW*s)/2, oy=pad+(H-pad*2-roomH*s)/2;
+
+    var cols = Math.ceil(Math.sqrt(n * roomW/roomH));
+    var rows = Math.ceil(n/cols);
+    var cellW=(roomW*s)/(cols+1), cellH=(roomH*s)/(rows+1);
+    var r = Math.min(cellW, cellH)*0.55;
+
+    var inner = roomRect(ox,oy,roomW*s,roomH*s);
+    inner += '<rect x="'+(ox+ cellW*0.5 + 8)+'" y="'+(oy+ cellH*0.5 + 8)+'" width="'+(roomW*s-cellW-16)+'" height="'+(roomH*s-cellH-16)+'" fill="rgba(59,130,246,0.06)" stroke="rgba(59,130,246,0.35)" stroke-dasharray="5 5"/>';
+    var placed=0;
+    for(var y=1; y<=rows && placed<n; y++){
+      for(var x=1; x<=cols && placed<n; x++){
+        var px=ox+cellW*x, py=oy+cellH*y;
+        inner += spotDot(px,py,r);
+        placed++;
+      }
+    }
+    inner += roomText(ox,oy,roomW*s,roomH*s);
+    $('preview').innerHTML = svgWrap(inner,'0 0 '+W+' '+H);
+  }
+
+  function roomRect(x,y,w,h){
+    return '<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" fill="#121722" stroke="#3a4256" stroke-width="2"/>';
+  }
+  function spotDot(x,y,r){
+    r = r||10;
+    return '<circle cx="'+x+'" cy="'+y+'" r="'+(r+7)+'" fill="rgba(52,211,153,0.18)"/>' +
+           '<circle cx="'+x+'" cy="'+y+'" r="'+r+'" fill="#34d399"/>';
+  }
+  function roomText(x,y,w,h){
+    return '<text x="'+x+'" y="'+(y+h+18)+'" fill="#8b95a9" font-size="12" text-anchor="middle" style="font-family:Segoe UI,Arial">' +
+      state.len+' × '+state.wid+' м</text>';
+  }
+
+  // события
+  ['len','wid','hei','trackLen','trackStep','luxSlider'].forEach(function(id){
+    $(id).addEventListener('input', function(){ calc(); });
+  });
+  ['trackLamp','spotLedLamp','spotLampLamp','lustraArms','lustraLamp','plafMat','plafLamp'].forEach(function(id){
+    $(id).addEventListener('change', function(){ calc(); });
+  });
+
+  bindSeg(); bindTypes();
+  document.addEventListener('DOMContentLoaded', function(){ setLuxRange(); calc(); });
+  setLuxRange(); calc();
+})();
+</script>
+</body>
+</html>
