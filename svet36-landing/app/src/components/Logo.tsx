@@ -24,9 +24,9 @@ export default function Logo({ dark = true }: { dark?: boolean }) {
     <img
       src={LOGO_PATH}
       alt={LOGO_ALT}
-      width={148}
-      height={44}
-      className="h-11 w-auto"
+      width={716}
+      height={207}
+      className="h-10 w-auto rounded-lg bg-white px-3 py-1.5 shadow-sm ring-1 ring-black/5"
       onError={() => setFailed(true)}
     />
   )
