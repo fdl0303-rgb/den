@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { Upload } from 'lucide-react'
+import { useState } from 'react'
 import Button from './Button'
 import Orbs from './Orbs'
 import { HERO_IMAGE, TRUST_ITEMS } from '../lib/data'
@@ -7,16 +8,24 @@ import { HERO_IMAGE, TRUST_ITEMS } from '../lib/data'
 const EASE = [0.22, 1, 0.36, 1] as const
 
 export default function Hero() {
+  const [photoFailed, setPhotoFailed] = useState(false)
+
   return (
     <section id="top" className="relative flex min-h-[100svh] items-center overflow-hidden">
       <div className="absolute inset-0" aria-hidden="true">
-        <img
-          src={HERO_IMAGE}
-          alt="Современный интерьер с подвесной люстрой над обеденным столом"
-          className="h-full w-full object-cover"
-          fetchPriority="high"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-graphite via-graphite/65 to-graphite/5" />
+        {photoFailed ? (
+          <div className="absolute inset-0 bg-[radial-gradient(120%_90%_at_75%_10%,rgba(215,166,74,0.28),transparent_55%),radial-gradient(100%_80%_at_15%_90%,rgba(215,166,74,0.14),transparent_60%)] bg-warm-dark" />
+        ) : (
+          <img
+            src={HERO_IMAGE}
+            alt="Современный интерьер с подвесной люстрой над обеденным столом"
+            className="absolute inset-0 h-full w-full object-cover"
+            fetchPriority="high"
+            decoding="async"
+            onError={() => setPhotoFailed(true)}
+          />
+        )}
+        <div className="absolute inset-0 bg-gradient-to-r from-graphite via-graphite/70 to-graphite/10" />
         <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-graphite via-graphite/70 to-transparent" />
         <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-graphite/80 to-transparent" />
       </div>

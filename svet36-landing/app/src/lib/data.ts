@@ -7,10 +7,12 @@ export const SITE = {
   address: 'г. Воронеж, ул. Светлая, 1',
 }
 
-export const LOGO_PATH = import.meta.env.DEV ? '/logo.svg' : '/public/logo.svg'
+const base = import.meta.env.BASE_URL
+
+export const LOGO_PATH = `${base}logo.svg`
 export const LOGO_ALT = 'СВЕТ 36 — магазин освещения в Воронеже'
 
-export const assetUrl = (name: string) => (import.meta.env.DEV ? `/${name}` : `/public/${name}`)
+export const assetUrl = (name: string) => `${base}${name}`
 
 export const HERO_IMAGE = assetUrl('hero.jpg')
 
