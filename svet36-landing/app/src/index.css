@@ -1,0 +1,101 @@
+@import "tailwindcss";
+
+@theme {
+  --color-graphite: #171717;
+  --color-graphite-2: #1f1f1f;
+  --color-gold: #c79543;
+  --color-gold-2: #d7a64a;
+  --color-cream: #f5f1e9;
+  --color-ink: #232323;
+  --color-light: #f7f3ec;
+  --color-muted: #a6a298;
+  --color-line: #3a3630;
+  --color-line-light: #e5dfd0;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Playfair Display", Georgia, serif;
+
+  --radius-2xl: 1.25rem;
+  --radius-3xl: 1.5rem;
+
+  --shadow-warm: 0 18px 45px -18px rgba(199, 149, 67, 0.55);
+  --shadow-warm-lg: 0 24px 60px -20px rgba(199, 149, 67, 0.7);
+  --shadow-card: 0 20px 50px -30px rgba(23, 23, 23, 0.45);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-graphite);
+    color: var(--color-light);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background: var(--color-gold-2);
+    color: #171717;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-gold-2);
+    outline-offset: 3px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+@keyframes shine {
+  0% {
+    transform: translateX(-160%) skewX(-20deg);
+  }
+  100% {
+    transform: translateX(320%) skewX(-20deg);
+  }
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.glow-btn .btn-shine {
+  pointer-events: none;
+  animation: none;
+}
+.glow-btn:hover .btn-shine,
+.glow-btn:focus-visible .btn-shine {
+  animation: shine 0.85s ease forwards;
+}
+
+.ripple-ink {
+  position: absolute;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.45);
+  transform: scale(0);
+  animation: ripple 0.55s ease-out forwards;
+  pointer-events: none;
+}
+
+.dust-particle {
+  animation: float-y 9s ease-in-out infinite;
+}
