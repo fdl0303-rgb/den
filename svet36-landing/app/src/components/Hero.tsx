@@ -1,9 +1,11 @@
 import { motion } from 'framer-motion'
-import { Upload } from 'lucide-react'
+import { Lamp, LampCeiling, LampDesk, LampFloor, Upload } from 'lucide-react'
 import { useState } from 'react'
 import Button from './Button'
 import Orbs from './Orbs'
-import { HERO_IMAGE, TRUST_ITEMS } from '../lib/data'
+import { HERO_CHIPS, HERO_IMAGE, TRUST_ITEMS } from '../lib/data'
+
+const CHIP_ICONS = [LampCeiling, Lamp, LampFloor, LampDesk]
 
 const EASE = [0.22, 1, 0.36, 1] as const
 
@@ -18,16 +20,16 @@ export default function Hero() {
         ) : (
           <img
             src={HERO_IMAGE}
-            alt="Современный интерьер с подвесной люстрой над обеденным столом"
+            alt="Современный интерьер с дизайнерскими светильниками"
             className="absolute inset-0 h-full w-full object-cover"
             fetchPriority="high"
             decoding="async"
             onError={() => setPhotoFailed(true)}
           />
         )}
-        <div className="absolute inset-0 bg-gradient-to-r from-graphite via-graphite/70 to-graphite/10" />
-        <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-graphite via-graphite/70 to-transparent" />
-        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-graphite/80 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-graphite/85 via-graphite/35 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-graphite/75 via-graphite/30 to-transparent" />
+        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-graphite/60 to-transparent" />
       </div>
 
       <Orbs />
@@ -74,6 +76,27 @@ export default function Hero() {
             <Upload className="h-5 w-5" aria-hidden="true" />
             Бесплатный подбор по фото комнаты
           </Button>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: EASE, delay: 0.34 }}
+          className="mt-8 flex flex-wrap gap-3"
+        >
+          {HERO_CHIPS.map((chip, i) => {
+            const Icon = CHIP_ICONS[i]
+            return (
+              <a
+                key={chip}
+                href="#catalog"
+                className="group inline-flex items-center gap-2 rounded-full border border-gold-2/25 bg-warm-dark/40 px-4 py-2 text-sm font-medium text-light/85 backdrop-blur-sm transition-colors hover:border-gold-2/60 hover:bg-warm-dark/60"
+              >
+                <Icon className="h-4 w-4 text-gold-2" aria-hidden="true" />
+                {chip}
+              </a>
+            )
+          })}
         </motion.div>
 
         <motion.ul

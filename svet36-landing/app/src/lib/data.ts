@@ -22,6 +22,8 @@ export const TRUST_ITEMS = [
   'Доставка по Воронежу и России',
 ]
 
+export const HERO_CHIPS = ['Люстры', 'Подвесы', 'Торшеры', 'Настольные лампы']
+
 export type Category = {
   id: string
   title: string
