@@ -78,6 +78,28 @@ export default function Footer() {
             </a>
           </div>
         </div>
+        </div>
+
+        <div className="mt-4 text-[11px] leading-relaxed text-light/35">
+          Фото первого экрана:{' '}
+          <a
+            href="https://commons.wikimedia.org/wiki/File:Modern_lounge_interior_with_stylish_decor_and_comfortable_seating_in_an_inviting_atmosphere.jpg"
+            target="_blank"
+            rel="noreferrer"
+            className="underline decoration-light/30 underline-offset-2 transition-colors hover:text-gold-2"
+          >
+            Shixart1985
+          </a>{' '}
+          / Wikimedia Commons — лицензия{' '}
+          <a
+            href="https://creativecommons.org/licenses/by/2.0/legalcode"
+            target="_blank"
+            rel="noreferrer"
+            className="underline decoration-light/30 underline-offset-2 transition-colors hover:text-gold-2"
+          >
+            CC BY 2.0
+          </a>{' '}
+          (авторство обязательно полностью).
       </div>
     </footer>
   )
