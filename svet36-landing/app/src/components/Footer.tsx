@@ -82,29 +82,21 @@ export default function Footer() {
         <div className="mt-4 text-[11px] leading-relaxed text-light/35">
           Фото первого экрана:{' '}
           <a
-            href="https://commons.wikimedia.org/wiki/User:メイド理世"
+            href="https://www.pexels.com/photo/empty-living-room-2251247/"
             target="_blank"
             rel="noreferrer"
             className="underline decoration-light/30 underline-offset-2 transition-colors hover:text-gold-2"
           >
-            メイド理世
+            Sharath G.
           </a>{' '}
-          / Wikimedia Commons — лицензия{' '}
+          / Pexels —{' '}
           <a
-            href="https://creativecommons.org/licenses/by-sa/4.0/"
+            href="https://www.pexels.com/license/"
             target="_blank"
             rel="noreferrer"
             className="underline decoration-light/30 underline-offset-2 transition-colors hover:text-gold-2"
           >
-            CC BY-SA 4.0
-          </a>{' '}
-          <a
-            href="https://commons.wikimedia.org/wiki/File:1501_room,_1_July_2024_(9).jpg"
-            target="_blank"
-            rel="noreferrer"
-            className="underline decoration-light/30 underline-offset-2 transition-colors hover:text-gold-2"
-          >
-            (файл)
+            бесплатная лицензия
           </a>
           .
         </div>

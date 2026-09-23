@@ -20,7 +20,7 @@ export default function Hero() {
         ) : (
           <img
             src={HERO_IMAGE}
-            alt="Современный интерьер с дизайнерскими светильниками"
+            alt="Стильная современная гостиная с дизайнерским освещением"
             className="absolute inset-0 h-full w-full object-cover"
             fetchPriority="high"
             decoding="async"
