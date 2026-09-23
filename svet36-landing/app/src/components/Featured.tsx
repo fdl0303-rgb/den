@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { X } from 'lucide-react'
+import Photo from './Photo'
 import { PRODUCTS } from '../lib/data'
 import type { Product } from '../lib/data'
 import Button from './Button'
@@ -42,16 +43,11 @@ export default function Featured() {
               className="group flex flex-col rounded-3xl border border-line-light bg-[#fffdf8] p-3 shadow-card transition-all duration-300 hover:-translate-y-1.5 hover:shadow-warm motion-reduce:transition-none motion-reduce:hover:translate-y-0"
             >
               <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-graphite">
-                <img
+                <Photo
                   src={product.image}
                   alt={`${product.name} — ${product.style}`}
-                  loading="lazy"
-                  width={480}
-                  height={600}
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none'
-                  }}
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.05] motion-reduce:transition-none"
+                  className="h-full w-full"
+                  imgClassName="transition-transform duration-700 group-hover:scale-[1.05] motion-reduce:transition-none"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-graphite/50 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 motion-reduce:transition-none" />
                 <button
@@ -115,13 +111,10 @@ export default function Featured() {
               </button>
 
               <div className="aspect-[4/5] bg-graphite sm:aspect-auto sm:min-h-[420px]">
-                <img
+                <Photo
                   src={active.image}
                   alt={`${active.name} — ${active.style}`}
-                  className="h-full w-full object-cover"
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none'
-                  }}
+                  className="h-full w-full"
                 />
               </div>
 

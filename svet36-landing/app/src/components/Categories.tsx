@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
+import Photo from './Photo'
 import { CATEGORIES } from '../lib/data'
 
 const EASE = [0.22, 1, 0.36, 1] as const
@@ -36,19 +37,12 @@ export default function Categories() {
               transition={{ duration: 0.55, ease: EASE, delay: i * 0.08 }}
               className="group relative block overflow-hidden rounded-3xl shadow-card transition-all duration-300 hover:-translate-y-1.5 hover:shadow-warm motion-reduce:transition-none motion-reduce:hover:translate-y-0"
             >
-              <div className="aspect-[3/4] overflow-hidden bg-graphite">
-                <img
-                  src={cat.image}
-                  alt={`Подвесные светильники ${cat.title}`}
-                  loading="lazy"
-                  width={600}
-                  height={800}
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none'
-                  }}
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.06] motion-reduce:transition-none"
-                />
-              </div>
+              <Photo
+                src={cat.image}
+                alt={`Подвесные светильники ${cat.title}`}
+                className="aspect-[3/4]"
+                imgClassName="transition-transform duration-700 group-hover:scale-[1.06] motion-reduce:transition-none"
+              />
               <div className="absolute inset-0 bg-gradient-to-t from-graphite/85 via-graphite/20 to-transparent" />
               <div className="absolute inset-0 rounded-3xl ring-1 ring-inset ring-transparent transition-all duration-300 group-hover:ring-gold-2/70 motion-reduce:transition-none" />
               <div className="absolute inset-x-0 bottom-0 p-6">

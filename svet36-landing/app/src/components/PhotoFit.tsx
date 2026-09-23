@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Check, CheckCircle2, Upload } from 'lucide-react'
+import Photo from './Photo'
 import Button from './Button'
 
 const EASE = [0.22, 1, 0.36, 1] as const
@@ -41,7 +42,7 @@ export default function PhotoFit() {
   }
 
   return (
-    <section id="fit" className="bg-graphite text-light">
+    <section id="fit" className="bg-warm-dark text-light">
       <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
           <motion.div
@@ -51,16 +52,10 @@ export default function PhotoFit() {
             transition={{ duration: 0.7, ease: EASE }}
             className="relative overflow-hidden rounded-3xl"
           >
-            <img
+            <Photo
               src={PHOTO_URL}
               alt="Интерьер с тёплым подвесным светом"
-              loading="lazy"
-              width={1200}
-              height={800}
-              onError={(e) => {
-                e.currentTarget.style.display = 'none'
-              }}
-              className="h-[420px] w-full object-cover"
+              className="h-[420px] w-full"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-graphite/70 via-transparent to-transparent" />
             <p className="absolute bottom-6 left-6 right-6 text-balance font-display text-2xl font-semibold text-light">

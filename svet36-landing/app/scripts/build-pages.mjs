@@ -1,5 +1,5 @@
-import { rmSync, mkdirSync, copyFileSync } from 'node:fs'
-import { resolve, dirname } from 'node:path'
+import { rmSync, mkdirSync, copyFileSync, readdirSync } from 'node:fs'
+import { resolve, dirname, basename } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { spawnSync } from 'node:child_process'
 
@@ -19,7 +19,11 @@ const result = spawnSync(
 
 if (result.status !== 0) process.exit(result.status ?? 1)
 
-mkdirSync(resolve(root, 'public'), { recursive: true })
-copyFileSync(resolve(app, 'public', 'logo.svg'), resolve(root, 'public', 'logo.svg'))
+const publicDir = resolve(app, 'public')
+const outPublicDir = resolve(root, 'public')
+mkdirSync(outPublicDir, { recursive: true })
+for (const file of readdirSync(publicDir)) {
+  copyFileSync(resolve(publicDir, file), resolve(outPublicDir, basename(file)))
+}
 
 console.log('Pages build ready at:', root)

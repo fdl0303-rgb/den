@@ -16,8 +16,9 @@ export default function Hero() {
           className="h-full w-full object-cover"
           fetchPriority="high"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-graphite via-graphite/85 to-graphite/25" />
-        <div className="absolute inset-0 bg-gradient-to-t from-graphite/90 via-transparent to-graphite/40" />
+        <div className="absolute inset-0 bg-gradient-to-r from-graphite via-graphite/65 to-graphite/5" />
+        <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-graphite via-graphite/70 to-transparent" />
+        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-graphite/80 to-transparent" />
       </div>
 
       <Orbs />

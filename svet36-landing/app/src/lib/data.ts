@@ -10,8 +10,9 @@ export const SITE = {
 export const LOGO_PATH = import.meta.env.DEV ? '/logo.svg' : '/public/logo.svg'
 export const LOGO_ALT = 'СВЕТ 36 — магазин освещения в Воронеже'
 
-export const HERO_IMAGE =
-  'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1920&q=80'
+export const assetUrl = (name: string) => (import.meta.env.DEV ? `/${name}` : `/public/${name}`)
+
+export const HERO_IMAGE = assetUrl('hero.jpg')
 
 export const TRUST_ITEMS = [
   'Более 2 000 моделей на складе и под заказ',

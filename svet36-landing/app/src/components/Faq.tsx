@@ -9,7 +9,7 @@ export default function Faq() {
   const [open, setOpen] = useState<number>(0)
 
   return (
-    <section id="faq" className="bg-graphite text-light">
+    <section id="faq" className="bg-warm-dark text-light">
       <div className="mx-auto max-w-4xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
