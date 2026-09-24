@@ -1050,7 +1050,261 @@ footer .contacts span{color:var(--muted)}
     var schemeSeq=0;
     function tspColor(t){return t===2700?'#e08a17':t===5000?'#5f9df0':'#f2b93b'}
 
-    function schemeSVG(L,v,withSpots,withCh,withBra){
+    function R(v){return Math.round(v*10)/10}
+    function furKind(rk,lb){
+        var m={
+            'Холодильник':'fridge','Гарнитур':'kitchen','Верхние шкафы':'kitchenU',
+            'Шкаф':'cabinet','Диван':'sofa','ТВ-зона':'tv','Журнальный':'coffee',
+            'Кресло':'armchair','Обеденный стол':'dining','Камин':'fireplace',
+            'Кровать':'bed','Кровать 2 яруса':'bunk','Кровать 200 см':'bed',
+            'Тумба':'night','Комод':'dresser','Письм. стол':'table','Стол 1':'table',
+            'Стол 2':'table','L-стол':'ltable','Стеллаж':'rack','Пуф':'puff',
+            'Полка':'shelf','Игровой стол':'table','Стол с полкой':'table',
+            'Шведская стенка':'wallbar','Коврик':'mat','Ванна':'bathtub',
+            'Раковина':'washbasin','Стир. машина':'washing','Стир.':'washing',
+            'Душ':'shower','Тумба с зеркалом':'vanity','Зеркало':'mirror','Обувница':'shoe'
+        };
+        if(lb==='Стол')return (rk==='kitchen'||rk==='living')?'dining':'table';
+        return m[lb]||'box';
+    }
+    function fSofa(x,y,w,h){
+        var a=Math.max(10,Math.min(w*0.18,h*0.2));
+        var o=['<rect x="'+R(x+a)+'" y="'+R(y+h*0.1)+'" width="'+R(w-2*a)+'" height="'+R(h*0.9)+'" rx="'+R(Math.min(w,h)*0.18)+'" fill="#eaedf3" stroke="#6e7a87" stroke-width="1.3"/>',
+            '<rect x="'+R(x+a)+'" y="'+R(y)+'" width="'+R(w-2*a)+'" height="'+R(h*0.18)+'" rx="4" fill="#dfe4ec" stroke="#6e7a87" stroke-width="1.3"/>',
+            '<rect x="'+R(x)+'" y="'+R(y+h*0.08)+'" width="'+R(a)+'" height="'+R(h*0.92)+'" rx="3" fill="#dfe4ec" stroke="#6e7a87" stroke-width="1.3"/>',
+            '<rect x="'+R(x+w-a)+'" y="'+R(y+h*0.08)+'" width="'+R(a)+'" height="'+R(h*0.92)+'" rx="3" fill="#dfe4ec" stroke="#6e7a87" stroke-width="1.3"/>',
+            '<line x1="'+R(x+w*0.33)+'" y1="'+R(y+h*0.22)+'" x2="'+R(x+w*0.33)+'" y2="'+R(y+h*0.95)+'" stroke="#c2cad6" stroke-width="0.9"/>',
+            '<line x1="'+R(x+w*0.66)+'" y1="'+R(y+h*0.22)+'" x2="'+R(x+w*0.66)+'" y2="'+R(y+h*0.95)+'" stroke="#c2cad6" stroke-width="0.9"/>'];
+        return o;
+    }
+    function fArm(x,y,w,h){
+        var o=['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(w)+'" height="'+R(h)+'" rx="'+R(Math.min(w,h)*0.28)+'" fill="#eef1f6" stroke="#6e7a87" stroke-width="1.4"/>',
+            '<rect x="'+R(x+w*0.12)+'" y="'+R(y)+'" width="'+R(w*0.76)+'" height="'+R(h*0.16)+'" rx="3" fill="#dfe4ec" stroke="#6e7a87" stroke-width="1.2"/>',
+            '<circle cx="'+R(x+w*0.16)+'" cy="'+R(y+h*0.55)+'" r="'+R(Math.min(w,h)*0.11)+'" fill="#dfe4ec" stroke="#6e7a87" stroke-width="1.1"/>',
+            '<circle cx="'+R(x+w*0.84)+'" cy="'+R(y+h*0.55)+'" r="'+R(Math.min(w,h)*0.11)+'" fill="#dfe4ec" stroke="#6e7a87" stroke-width="1.1"/>'];
+        return o;
+    }
+    function fCoffee(x,y,w,h){
+        var r=Math.min(w,h)*0.04;
+        return ['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(w)+'" height="'+R(h)+'" rx="'+R(Math.min(w,h)*0.14)+'" fill="#f2efe8" stroke="#6e7a87" stroke-width="1.3"/>',
+            '<rect x="'+R(x+w*0.2)+'" y="'+R(y+h*0.22)+'" width="'+R(w*0.6)+'" height="'+R(h*0.56)+'" rx="'+R(r*3)+'" fill="none" stroke="#a8b0bb" stroke-width="1"/>'];
+    }
+    function fBed(x,y,w,h){
+        var hor=w>=h,o=['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(w)+'" height="'+R(h)+'" rx="4" fill="#eef1f6" stroke="#6e7a87" stroke-width="1.4"/>'];
+        if(hor){
+            var pw=w*0.2,ph=h*0.34;
+            o.push('<line x1="'+R(x+3)+'" y1="'+R(y+2)+'" x2="'+R(x+w-3)+'" y2="'+R(y+2)+'" stroke="#54606c" stroke-width="2.6"/>');
+            o.push('<rect x="'+R(x+w*0.17-pw/2)+'" y="'+R(y+2)+'" width="'+R(pw)+'" height="'+R(ph)+'" rx="2" fill="#fff" stroke="#b9c1cd" stroke-width="1"/>');
+            o.push('<rect x="'+R(x+w*0.83-pw/2)+'" y="'+R(y+2)+'" width="'+R(pw)+'" height="'+R(ph)+'" rx="2" fill="#fff" stroke="#b9c1cd" stroke-width="1"/>');
+            o.push('<line x1="'+R(x+w*0.08)+'" y1="'+R(y+h*0.62)+'" x2="'+R(x+w*0.92)+'" y2="'+R(y+h*0.62)+'" stroke="#d3d9e3" stroke-width="1.1"/>');
+        } else {
+            var pw=w*0.3,ph=h*0.16;
+            o.push('<line x1="'+R(x+2)+'" y1="'+R(y+3)+'" x2="'+R(x+2)+'" y2="'+R(y+h-3)+'" stroke="#54606c" stroke-width="2.6"/>');
+            o.push('<rect x="'+R(x+2)+'" y="'+R(y+h*0.16-ph/2)+'" width="'+R(pw)+'" height="'+R(ph)+'" rx="2" fill="#fff" stroke="#b9c1cd" stroke-width="1"/>');
+            o.push('<rect x="'+R(x+2)+'" y="'+R(y+h*0.74-ph/2)+'" width="'+R(pw)+'" height="'+R(ph)+'" rx="2" fill="#fff" stroke="#b9c1cd" stroke-width="1"/>');
+            o.push('<line x1="'+R(x+w*0.6)+'" y1="'+R(y+h*0.1)+'" x2="'+R(x+w*0.6)+'" y2="'+R(y+h*0.9)+'" stroke="#d3d9e3" stroke-width="1.1"/>');
+        }
+        return o;
+    }
+    function fBunk(x,y,w,h){
+        var o=fBed(x,y,w,h);
+        o.push('<line x1="'+R(x+w-7)+'" y1="'+R(y+4)+'" x2="'+R(x+w-7)+'" y2="'+R(y+h-4)+'" stroke="#8a95a1" stroke-width="1.5" stroke-dasharray="3 3"/>');
+        o.push('<line x1="'+R(x+4)+'" y1="'+R(y+h/2)+'" x2="'+R(x+w-10)+'" y2="'+R(y+h/2)+'" stroke="#b9c1cd" stroke-width="1" stroke-dasharray="4 3"/>');
+        return o;
+    }
+    function fChair(cx,cy,s){
+        var cs=12,x=cx-cs/2,y=cy-cs/2,a=['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(cs)+'" height="'+R(cs)+'" rx="2" fill="#eceef2" stroke="#7c8794" stroke-width="1.1"/>'];
+        if(s==='n')a.push('<line x1="'+R(x+2)+'" y1="'+R(y+2)+'" x2="'+R(x+cs-2)+'" y2="'+R(y+2)+'" stroke="#7c8794" stroke-width="1.6"/>');
+        if(s==='s')a.push('<line x1="'+R(x+2)+'" y1="'+R(y+cs-2)+'" x2="'+R(x+cs-2)+'" y2="'+R(y+cs-2)+'" stroke="#7c8794" stroke-width="1.6"/>');
+        if(s==='e')a.push('<line x1="'+R(x+cs-2)+'" y1="'+R(y+2)+'" x2="'+R(x+cs-2)+'" y2="'+R(y+cs-2)+'" stroke="#7c8794" stroke-width="1.6"/>');
+        if(s==='w')a.push('<line x1="'+R(x+2)+'" y1="'+R(y+2)+'" x2="'+R(x+2)+'" y2="'+R(y+cs-2)+'" stroke="#7c8794" stroke-width="1.6"/>');
+        return a;
+    }
+    function fDining(x,y,w,h){
+        var o=['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(w)+'" height="'+R(h)+'" rx="4" fill="#efe6d4" stroke="#8a7a63" stroke-width="1.4"/>',
+            '<rect x="'+R(x+4)+'" y="'+R(y+4)+'" width="'+R(w-8)+'" height="'+R(h-8)+'" rx="3" fill="none" stroke="#d8c9a8" stroke-width="1"/>'];
+        if(w>=70){o=o.concat(fChair(x+w/2,y-6,'n'));o=o.concat(fChair(x+w/2,y+h+6,'s'))}
+        if(h>=70){o=o.concat(fChair(x-6,y+h/2,'w'));o=o.concat(fChair(x+w+6,y+h/2,'e'))}
+        return o;
+    }
+    function fDesk(x,y,w,h){
+        var hor=w>=h,o=['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(w)+'" height="'+R(h)+'" rx="3" fill="#e8e2d4" stroke="#8a7a63" stroke-width="1.4"/>'];
+        if(hor){
+            o.push('<rect x="'+R(x+w*0.36)+'" y="'+R(y+3)+'" width="'+R(w*0.28)+'" height="4" fill="#20242a"/>');
+            o=o.concat(fChair(x+w/2,y+h+7,'s'));
+        } else {
+            o.push('<rect x="'+R(x+3)+'" y="'+R(y+h*0.32)+'" width="4" height="'+R(h*0.3)+'" fill="#20242a"/>');
+            o=o.concat(fChair(x+w+7,y+h/2,'e'));
+        }
+        return o;
+    }
+    function fLtable(x,y,w,h){
+        var o=fDesk(x,y,w,h);
+        o.push('<rect x="'+R(x)+'" y="'+R(y+h*0.4)+'" width="'+R(w*0.3)+'" height="'+R(h*0.6)+'" rx="3" fill="#e8e2d4" stroke="#8a7a63" stroke-width="1.4"/>');
+        return o;
+    }
+    function fCabinet(x,y,w,h){
+        var o=['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(w)+'" height="'+R(h)+'" rx="3" fill="#f0f2f6" stroke="#7c8794" stroke-width="1.3"/>'];
+        if(w>=70){
+            var xm=x+w/2;
+            o.push('<line x1="'+R(xm)+'" y1="'+R(y+5)+'" x2="'+R(xm)+'" y2="'+R(y+h-5)+'" stroke="#aab3be" stroke-width="1"/>');
+            o.push('<rect x="'+R(xm-w*0.22)+'" y="'+R(y+h/2-5)+'" width="10" height="12" rx="2" fill="#cdd3dc" stroke="#97a1ad" stroke-width="0.8"/>');
+            o.push('<rect x="'+R(xm+w*0.22-10)+'" y="'+R(y+h/2-5)+'" width="10" height="12" rx="2" fill="#cdd3dc" stroke="#97a1ad" stroke-width="0.8"/>');
+        } else {
+            o.push('<rect x="'+R(x+w/2-5)+'" y="'+R(y+h/2-7)+'" width="10" height="14" rx="2" fill="#cdd3dc" stroke="#97a1ad" stroke-width="0.8"/>');
+        }
+        return o;
+    }
+    function fKitchen(x,y,w,h,upper){
+        var step=64,o=['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(w)+'" height="'+R(h)+'" rx="2" fill="#f3ead8" stroke="#8a7a63" stroke-width="1.4"'+(upper?' stroke-dasharray="5 4"':'')+'/>',
+            '<rect x="'+R(x+3)+'" y="'+R(y+3)+'" width="'+R(w-6)+'" height="'+R(h-6)+'" rx="2" fill="none" stroke="#e0d3b8" stroke-width="0.8"'+(upper?' stroke-dasharray="3 3"':'')+'/>'];
+        var horiz=w>=h;
+        if(horiz){
+            for(var px=x+step;px<x+w-12;px+=step){
+                o.push('<line x1="'+R(px)+'" y1="'+R(y+6)+'" x2="'+R(px)+'" y2="'+R(y+h-6)+'" stroke="'+(upper?'#d8c9a8':'#cfc0a4')+'" stroke-width="0.9"'+(upper?' stroke-dasharray="3 3"':'')+'/>');
+                o.push('<rect x="'+R(px-5)+'" y="'+R(y+h-16)+'" width="10" height="10" rx="2" fill="#e0d3b8" stroke="#b3a186" stroke-width="0.8"/>');
+            }
+        } else {
+            for(var py=y+step;py<y+h-12;py+=step){
+                o.push('<line x1="'+R(x+6)+'" y1="'+R(py)+'" x2="'+R(x+w-6)+'" y2="'+R(py)+'" stroke="'+(upper?'#d8c9a8':'#cfc0a4')+'" stroke-width="0.9"'+(upper?' stroke-dasharray="3 3"':'')+'/>');
+                o.push('<rect x="'+R(x+w-16)+'" y="'+R(py-5)+'" width="10" height="10" rx="2" fill="#e0d3b8" stroke="#b3a186" stroke-width="0.8"/>');
+            }
+        }
+        return o;
+    }
+    function fKitchenU(x,y,w,h){return fKitchen(x,y,w,h,true)}
+    function fFridge(x,y,w,h){
+        var o=['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(w)+'" height="'+R(h)+'" rx="2" fill="#eef1f5" stroke="#6e7a87" stroke-width="1.4"/>',
+            '<rect x="'+R(x+w*0.3)+'" y="'+R(y+h*0.05)+'" width="'+R(w*0.4)+'" height="4" rx="1" fill="#c3ccd6"/>',
+            '<rect x="'+R(x)+'" y="'+R(y+h-5)+'" width="'+R(w)+'" height="5" fill="#dfe3ea"/>'];
+        if(w>h*0.62){
+            var xm=x+w/2;
+            o.push('<line x1="'+R(xm)+'" y1="'+R(y+8)+'" x2="'+R(xm)+'" y2="'+R(y+h-5)+'" stroke="#b9c1cd" stroke-width="1"/>');
+            o.push('<rect x="'+R(xm-w*0.2)+'" y="'+R(y+6)+'" width="8" height="10" rx="2" fill="#cdd3dc" stroke="#97a1ad" stroke-width="0.8"/>');
+        }
+        return o;
+    }
+    function fNight(x,y,w,h){
+        var o=fCabinet(x,y,w,h);
+        o.push('<line x1="'+R(x+5)+'" y1="'+R(y+h*0.5)+'" x2="'+R(x+w-5)+'" y2="'+R(y+h*0.5)+'" stroke="#b9c1cd" stroke-width="1"/>');
+        return o;
+    }
+    function fDresser(x,y,w,h){
+        var o=fCabinet(x,y,w,h);
+        for(var i=1;i<=3;i++)o.push('<line x1="'+R(x+5)+'" y1="'+R(y+h*i/4)+'" x2="'+R(x+w-5)+'" y2="'+R(y+h*i/4)+'" stroke="#b9c1cd" stroke-width="1"/>');
+        return o;
+    }
+    function fRack(x,y,w,h){
+        var o=['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(w)+'" height="'+R(h)+'" rx="2" fill="#f6f7fa" stroke="#7c8794" stroke-width="1.3"/>'];
+        for(var i=1;i<4;i++)o.push('<line x1="'+R(x+w*i/4)+'" y1="'+R(y+3)+'" x2="'+R(x+w*i/4)+'" y2="'+R(y+h-3)+'" stroke="#c2cad6" stroke-width="0.9"/>');
+        for(var j=1;j<3;j++)o.push('<line x1="'+R(x+3)+'" y1="'+R(y+h*j/3)+'" x2="'+R(x+w-3)+'" y2="'+R(y+h*j/3)+'" stroke="#c2cad6" stroke-width="0.9"/>');
+        return o;
+    }
+    function fShelf(x,y,w,h){
+        var o=['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(w)+'" height="'+R(h)+'" rx="2" fill="#f0f2f6" stroke="#7c8794" stroke-width="1.2"/>',
+            '<line x1="'+R(x+3)+'" y1="'+R(y+h/2)+'" x2="'+R(x+w-3)+'" y2="'+R(y+h/2)+'" stroke="#b9c1cd" stroke-width="1"/>'];
+        return o;
+    }
+    function fPuff(x,y,w,h){
+        var r=Math.min(w,h)*0.16;
+        return ['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(w)+'" height="'+R(h)+'" rx="'+R(Math.min(w,h)*0.3)+'" fill="#f2eee4" stroke="#6e7a87" stroke-width="1.3"/>',
+            '<rect x="'+R(x+w*0.18)+'" y="'+R(y+h*0.18)+'" width="'+R(w*0.64)+'" height="'+R(h*0.64)+'" rx="'+R(r)+'" fill="none" stroke="#b9bfc6" stroke-width="1"/>'];
+    }
+    function fWallbar(x,y,w,h){
+        var o=['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(w)+'" height="'+R(h)+'" rx="3" fill="#f1f3f7" stroke="#6e7a87" stroke-width="1.4"/>',
+            '<rect x="'+R(x+3)+'" y="'+R(y+3)+'" width="'+R(w-6)+'" height="5" fill="#b9c1cd"/>'];
+        for(var i=0;i<6;i++)o.push('<line x1="'+R(x+w*0.14+i*w*0.14)+'" y1="'+R(y+8)+'" x2="'+R(x+w*0.14+i*w*0.14)+'" y2="'+R(y+h-8)+'" stroke="#aab3be" stroke-width="1.4"/>');
+        return o;
+    }
+    function fMat(x,y,w,h){
+        return ['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(w)+'" height="'+R(h)+'" rx="'+(h*0.3)+'" fill="#f6f0e3" fill-opacity=".5" stroke="none"/>',
+            '<rect x="'+R(x+2)+'" y="'+R(y+2)+'" width="'+R(w-4)+'" height="'+R(h-4)+'" rx="'+(h*0.28)+'" fill="none" stroke="#b8a67f" stroke-width="1" stroke-dasharray="4 3"/>'];
+    }
+    function fBath(x,y,w,h){
+        var r=Math.min(w,h)*0.18;
+        return ['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(w)+'" height="'+R(h)+'" rx="'+R(r)+'" fill="#e6ecf3" stroke="#6e7a87" stroke-width="1.6"/>',
+            '<rect x="'+R(x+4)+'" y="'+R(y+4)+'" width="'+R(w-8)+'" height="'+R(h-8)+'" rx="'+R(r-3)+'" fill="#cfe0f2" stroke="#9fb8d0" stroke-width="1"/>',
+            '<circle cx="'+R(x+w/2)+'" cy="'+R(y+h*0.55)+'" r="4" fill="#fff" stroke="#6e7a87" stroke-width="1"/>',
+            '<circle cx="'+R(x+w/2)+'" cy="'+R(y+9)+'" r="5" fill="#fff" stroke="#6e7a87" stroke-width="1.1"/>'];
+    }
+    function fShower(x,y,w,h){
+        return ['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(w)+'" height="'+R(h)+'" rx="4" fill="#f2f5f9" stroke="#6e7a87" stroke-width="1.4"/>',
+            '<path d="M'+R(x+5)+' '+R(y+h-5)+' L'+R(x+w-5)+' '+R(y+5)+'" stroke="#9fb0c2" stroke-width="1" stroke-dasharray="4 3"/>',
+            '<path d="M'+R(x+5)+' '+R(y+5)+' L'+R(x+w-5)+' '+R(y+h-5)+'" stroke="#9fb0c2" stroke-width="1" stroke-dasharray="4 3"/>',
+            '<circle cx="'+R(x+w*0.2)+'" cy="'+R(y+h*0.18)+'" r="5.5" fill="#fff" stroke="#6e7a87" stroke-width="1.2"/>'];
+    }
+    function fBasin(x,y,w,h){
+        return ['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(w)+'" height="'+R(h)+'" rx="2" fill="#eef1f6" stroke="#7c8794" stroke-width="1.3"/>',
+            '<ellipse cx="'+R(x+w/2)+'" cy="'+R(y+h/2)+'" rx="'+R(Math.min(w,h)*0.3)+'" ry="'+R(Math.min(w,h)*0.24)+'" fill="#c9d3df" stroke="#8ca0b4" stroke-width="1"/>',
+            '<circle cx="'+R(x+w/2)+'" cy="'+R(y+h*0.18)+'" r="3.5" fill="#fff" stroke="#6e7a87" stroke-width="1"/>'];
+    }
+    function fVanity(x,y,w,h){
+        var o=fBasin(x,y,w,h);
+        o.push('<rect x="'+R(x+4)+'" y="'+R(y+1)+'" width="'+R(w-8)+'" height="5" fill="#cfe0f2" stroke="#8ca0b4" stroke-width="0.9"/>');
+        return o;
+    }
+    function fWash(x,y,w,h){
+        var r=Math.min(w,h)*0.26;
+        return ['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(w)+'" height="'+R(h)+'" rx="2" fill="#f0f2f6" stroke="#7c8794" stroke-width="1.3"/>',
+            '<circle cx="'+R(x+w/2)+'" cy="'+R(y+h/2)+'" r="'+R(r)+'" fill="#dce3ec" stroke="#6e7a87" stroke-width="1.2"/>',
+            '<circle cx="'+R(x+w/2)+'" cy="'+R(y+h/2)+'" r="'+R(r-3)+'" fill="#fff" fill-opacity=".6" stroke="#b9c1cd" stroke-width="0.8"/>',
+            '<rect x="'+R(x+w-14)+'" y="'+R(y+4)+'" width="10" height="8" fill="#ccd4de"/>'];
+    }
+    function fMirror(x,y,w,h){
+        return ['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(w)+'" height="'+R(h)+'" rx="2" fill="#d9e2ee" stroke="#7c8794" stroke-width="1.3"/>',
+            '<rect x="'+R(x+2)+'" y="'+R(y+2)+'" width="'+R(w-4)+'" height="'+R(h-4)+'" rx="1.5" fill="#eef5fc" stroke="#b9c1cd" stroke-width="0.8"/>'];
+    }
+    function fShoe(x,y,w,h){
+        var o=fCabinet(x,y,w,h);
+        for(var i=1;i<=2;i++)o.push('<line x1="'+R(x+5)+'" y1="'+R(y+h*i/3)+'" x2="'+R(x+w-5)+'" y2="'+R(y+h*i/3)+'" stroke="#b9c1cd" stroke-width="1.1"/>');
+        return o;
+    }
+    function fTv(x,y,w,h){
+        var hor=w>=h,o=['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(w)+'" height="'+R(h)+'" rx="2" fill="#e9edf2" stroke="#7c8794" stroke-width="1.3"/>'];
+        if(hor)o.push('<rect x="'+R(x+w*0.1)+'" y="'+R(y+2)+'" width="'+R(w*0.8)+'" height="6" fill="#20242a"/>');
+        else o.push('<rect x="'+R(x+2)+'" y="'+R(y+h*0.1)+'" width="6" height="'+R(h*0.8)+'" fill="#20242a"/>');
+        return o;
+    }
+    function fFire(x,y,w,h){
+        var o=['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(w)+'" height="'+R(h)+'" rx="2" fill="#efe5d9" stroke="#8a7a63" stroke-width="1.4"/>',
+            '<line x1="'+R(x-3)+'" y1="'+R(y)+'" x2="'+R(x+w+3)+'" y2="'+R(y)+'" stroke="#8a7a63" stroke-width="2.4"/>',
+            '<rect x="'+R(x+w*0.18)+'" y="'+R(y+h*0.3)+'" width="'+R(w*0.64)+'" height="'+R(h*0.62)+'" rx="3" fill="#4a3130" stroke="#36211f" stroke-width="1"/>',
+            '<path d="M'+R(x+w*0.5)+' '+R(y+h*0.45)+' l-6 10 h12z" fill="#d98a2b"/>'];
+        return o;
+    }
+    function fIsland(x,y,w,h){
+        var o=['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(w)+'" height="'+R(h)+'" rx="4" fill="#efe6d4" stroke="#8a7a63" stroke-width="1.4"/>'];
+        o=o.concat(fChair(x+w*0.25,y+h+7,'s'));
+        o=o.concat(fChair(x+w*0.75,y+h+7,'s'));
+        return o;
+    }
+    function fSink(x,y,w,h){
+        return ['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(w)+'" height="'+R(h)+'" rx="2" fill="#e6ecf3" stroke="#7c8794" stroke-width="1.3"/>',
+            '<line x1="'+R(x)+'" y1="'+R(y)+'" x2="'+R(x+w)+'" y2="'+R(y)+'" stroke="#b9c1cd" stroke-width="1.6"/>',
+            '<rect x="'+R(x+w*0.14)+'" y="'+R(y+h*0.28)+'" width="'+R(w*0.72)+'" height="'+R(h*0.5)+'" rx="'+R(h*0.22)+'" fill="#cfd8e2" stroke="#8ca0b4" stroke-width="1"/>',
+            '<circle cx="'+R(x+w/2)+'" cy="'+R(y+h*0.53)+'" r="4.5" fill="#fff" stroke="#5f6a76" stroke-width="1"/>',
+            '<circle cx="'+R(x+w*0.18)+'" cy="'+R(y+h*0.14)+'" r="3.5" fill="#fff" stroke="#6e7a87" stroke-width="1"/>'];
+    }
+    function fStove(x,y,w,h){
+        var o=['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(w)+'" height="'+R(h)+'" rx="2" fill="#eef1f5" stroke="#7c8794" stroke-width="1.3"/>',
+            '<line x1="'+R(x+w*0.06)+'" y1="'+R(y+h*0.55)+'" x2="'+R(x+w*0.94)+'" y2="'+R(y+h*0.55)+'" stroke="#b9c1cd" stroke-width="1"/>'];
+        var cx=x+w/2,cy=y+h*0.28,r=Math.min(w,h)*0.1;
+        o.push('<circle cx="'+R(cx-w*0.2)+'" cy="'+R(cy)+'" r="'+R(r)+'" fill="#fff" stroke="#6e7a87" stroke-width="1.2"/>');
+        o.push('<circle cx="'+R(cx+w*0.2)+'" cy="'+R(cy)+'" r="'+R(r)+'" fill="#fff" stroke="#6e7a87" stroke-width="1.2"/>');
+        o.push('<circle cx="'+R(cx-w*0.2)+'" cy="'+R(cy)+'" r="'+R(r*0.4)+'" fill="#c3ccd6"/>');
+        o.push('<circle cx="'+R(cx+w*0.2)+'" cy="'+R(cy)+'" r="'+R(r*0.4)+'" fill="#c3ccd6"/>');
+        return o;
+    }
+    var KIND_DRAW={
+        sofa:fSofa,armchair:fArm,bed:fBed,bunk:fBunk,dining:fDining,table:fDesk,
+        ltable:fLtable,coffee:fCoffee,cabinet:fCabinet,kitchen:fKitchen,kitchenU:fKitchenU,
+        fridge:fFridge,night:fNight,dresser:fDresser,rack:fRack,puff:fPuff,shelf:fShelf,
+        wallbar:fWallbar,mat:fMat,bathtub:fBath,washbasin:fBasin,washing:fWash,
+        shower:fShower,vanity:fVanity,mirror:fMirror,shoe:fShoe,tv:fTv,fireplace:fFire,
+        island:fIsland
+    };
+
+    function schemeSVG(L,v,withSpots,withCh,withBra,rk){
         var S=120,left=56,top=58,rp=46,bp=44;
         var W=Math.round(L.w*S+left+rp),H=Math.round(L.h*S+top+bp);
         var uid='p'+(++schemeSeq);
@@ -1065,13 +1319,15 @@ footer .contacts span{color:var(--muted)}
         var dx=left+L.w*S,dy=top+L.h*S*0.22,dw=Math.min(70,L.h*S*0.3);
         o.push('<path d="M'+dx+' '+dy+' Q '+(dx-dw*0.55)+' '+(dy+dw*0.85)+' '+(dx-dw)+' '+(dy+dw)+'" fill="none" stroke="#aeb6bf" stroke-width="1.2" stroke-dasharray="4 3"/>');
         v.fur.forEach(function(f){
-            var fx=X(f[0]),fy=Y(f[1]),fw=Math.round(f[2]*S),fh=Math.round(f[3]*S);
-            o.push('<rect x="'+fx+'" y="'+fy+'" width="'+fw+'" height="'+fh+'" rx="3" fill="#eceef0" stroke="#9aa4af" stroke-width="1.3"/>');
-            if(fh>fw*1.2){o.push('<text transform="rotate(-90 '+(fx+fw/2)+' '+(fy+fh/2)+')" x="'+(fx+fw/2)+'" y="'+(fy+fh/2)+'" text-anchor="middle" dominant-baseline="middle" font-size="9.5" fill="#5c6672">'+f[4]+'</text>')}
-            else{o.push('<text x="'+(fx+fw/2)+'" y="'+(fy+fh/2)+'" text-anchor="middle" dominant-baseline="middle" font-size="9.5" fill="#5c6672">'+f[4]+'</text>')}
+            var qx=X(f[0]),qy=Y(f[1]),qw=Math.round(f[2]*S),qh=Math.round(f[3]*S);
+            var k=furKind(rk,f[4]);
+            var g=KIND_DRAW[k]?KIND_DRAW[k](qx,qy,qw,qh):null;
+            if(g){o=o.concat(g)}
+            else{o.push('<rect x="'+qx+'" y="'+qy+'" width="'+qw+'" height="'+qh+'" rx="3" fill="#eceef0" stroke="#9aa4af" stroke-width="1.3"/>')}
         });
         (v.mrks||[]).forEach(function(m){
-            o.push('<text x="'+(X(m[0])+S*0.2)+'" y="'+(Y(m[1])+9)+'" text-anchor="middle" font-size="8.5" fill="#b0491f">'+m[2]+'</text>');
+            if(m[2]==='Мойка'){o=o.concat(fSink(X(m[0]),Y(m[1]),Math.round(S*0.55),Math.round(S*0.4)))}
+            else if(m[2]==='Плита'){o=o.concat(fStove(X(m[0]),Y(m[1]),Math.round(S*0.55),Math.round(S*0.4)))}
         });
         if(withSpots){
             v.spots.forEach(function(sp){
@@ -1134,7 +1390,7 @@ footer .contacts span{color:var(--muted)}
             return '<div class="scheme-card">'
                 +'<div class="scheme-head"><h4>'+(i+1)+'. '+v.name+'</h4>'+(i===0?'<span class="scheme-badge">Популярная</span>':'')+'</div>'
                 +'<div class="scheme-desc">'+v.desc+'</div>'
-                +schemeSVG(L,v,withSpots,withCh,withBra)
+                +schemeSVG(L,v,withSpots,withCh,withBra,room.key)
                 +'<div class="scheme-note">'+note.join(' · ')+'</div>'
                 +'</div>';
         }).join('');
