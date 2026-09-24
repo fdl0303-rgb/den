@@ -219,6 +219,12 @@ footer .contacts span{color:var(--muted)}
 .scheme-note{font-size:11.5px;color:#8a95a3;padding:8px 16px 12px}
 .legend{font-size:12.5px;color:#78848f;text-align:center;margin-top:16px}
 .legend b{color:#4b5662}
+.scheme-ctl{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:16px;flex-wrap:wrap;font-size:13px;color:#4b5662}
+.scheme-ctl .qty-btn{width:36px;height:36px;border:1px solid rgba(0,0,0,.16);background:#fff;border-radius:6px;font-size:20px;line-height:1;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.06)}
+.scheme-ctl .qty-btn:hover{background:var(--brand);color:#000}
+.scheme-ctl input[type=number]{width:76px;height:36px;text-align:center;font:700 16px 'Visby CF',Arial,sans-serif;border:1px solid var(--gray-2);border-radius:6px;color:#1c2b3a;-moz-appearance:textfield}
+.scheme-ctl input[type=number]::-webkit-outer-spin-button,.scheme-ctl input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.scheme-ctl-hint{color:#8a95a3;font-size:12px;max-width:340px}
 @media(max-width:900px){.scheme-grid{grid-template-columns:1fr}}
 
 /* ================= адаптив ================= */
@@ -711,6 +717,13 @@ footer .contacts span{color:var(--muted)}
             <h2>Схемы расположения света</h2>
             <p id="scheme-sub">Выберите комнату и сценарий освещения — покажем популярные схемы расстановки светильников с учётом мебели.</p>
         </div>
+        <div class="scheme-ctl" id="scheme-ctl">
+            <span>Точечные светильники на схемах:</span>
+            <button type="button" class="qty-btn" id="sc-minus" aria-label="Уменьшить">−</button>
+            <input type="number" id="scheme-spots" min="0" max="30" step="1" value="0" inputmode="numeric" title="Количество точечных светильников вдоль стен">
+            <button type="button" class="qty-btn" id="sc-plus" aria-label="Увеличить">+</button>
+            <span class="scheme-ctl-hint">по умолчанию — столько, сколько нужно по норме освещённости</span>
+        </div>
         <div class="scheme-grid" id="scheme-grid"></div>
         <div class="legend"><b>С</b> — точечный светильник · <b>Л</b> — люстра · <b>Б</b> — бра. Отступ от стен 0,6–1,0 м.</div>
     </div>
@@ -794,6 +807,8 @@ footer .contacts span{color:var(--muted)}
 
     // собственное количество точечных (0 = авто)
     var manualSpots=0;
+    // количество точечных на схемах: -1 = авто (по норме), 0..30 = ручное
+    var schemeSpots=-1, autoSpotCount=0;
 
     function readRoom(){
         var r=document.querySelector('input[name=room]:checked').value;
@@ -825,6 +840,7 @@ footer .contacts span{color:var(--muted)}
         var sLum=sW*spotEff;
         var spotRec=sLum>0?Math.ceil(fluxReq*shareSp/sLum):0;
         if(manualSpots>0){spotRec=manualSpots}
+        autoSpotCount=spotRec;
         var spotFlux=spotRec*sLum;
 
         // люстра
@@ -976,6 +992,16 @@ footer .contacts span{color:var(--muted)}
         var self=this;
         setTimeout(function(){self.textContent='Скопировать расчёт'},1800);
     });
+
+    // ---- количество точечных на схемах
+    function setSchemeSpots(v){
+        schemeSpots=Math.max(0,Math.min(30,Math.round(v)));
+        if($('scheme-spots'))$('scheme-spots').value=schemeSpots;
+        renderSchemes();
+    }
+    if($('sc-minus'))$('sc-minus').addEventListener('click',function(){setSchemeSpots((parseInt($('scheme-spots').value,10)||0)-1)});
+    if($('sc-plus'))$('sc-plus').addEventListener('click',function(){setSchemeSpots((parseInt($('scheme-spots').value,10)||0)+1)});
+    if($('scheme-spots'))$('scheme-spots').addEventListener('change',function(){setSchemeSpots(parseInt(this.value,10)||0)});
 
     function summaryText(){
         var room=readRoom();
@@ -1304,10 +1330,48 @@ footer .contacts span{color:var(--muted)}
         island:fIsland
     };
 
-    function schemeSVG(L,v,withSpots,withCh,withBra,rk){
+    // ---- авторасстановка точечных вдоль стен, без заезда на мебель
+    function perimPoint(L,d,t){
+        var left=d,top=d,right=L.w-d,bottom=L.h-d;
+        var widths=Math.max(0,right-left),heights=Math.max(0,bottom-top);
+        var perim=widths*2+heights*2,p=((t%perim)+perim)%perim;
+        if(p<=widths)return [left+p,top];
+        p-=widths;
+        if(p<=heights)return [right,top+p];
+        p-=heights;
+        if(p<=widths)return [right-p,bottom];
+        p-=widths;
+        return [left,bottom-p];
+    }
+    function inFur(fur,x,y,pad){
+        for(var i=0;i<fur.length;i++){
+            var f=fur[i];
+            if(x>=f[0]-pad&&x<=f[0]+f[2]+pad&&y>=f[1]-pad&&y<=f[1]+f[3]+pad)return true;
+        }
+        return false;
+    }
+    function spotPlace(L,fur,n){
+        var d=0.75,pad=0.4,fs=0.06,stepsPer=Math.max(360,2*((L.w-2*d)+(L.h-2*d))/fs);
+        var steps=Math.ceil(stepsPer),free=[];
+        for(var i=0;i<steps;i++){
+            var p=perimPoint(L,d,i/steps*(2*((L.w-2*d)+(L.h-2*d))));
+            if(!inFur(fur,p[0],p[1],pad))free.push(p);
+        }
+        if(!free.length)return [];
+        var pts=[],den=Math.max(1,n-1);
+        for(var k=0;k<n;k++){
+            var idx=Math.min(free.length-1,Math.round(k*(free.length-1)/den));
+            pts.push([free[idx][0],free[idx][1]]);
+        }
+        return pts;
+    }
+
+    function schemeSVG(L,v,withSpots,withCh,withBra,rk,spotCount){
         var S=120,left=56,top=58,rp=46,bp=44;
         var W=Math.round(L.w*S+left+rp),H=Math.round(L.h*S+top+bp);
         var uid='p'+(++schemeSeq);
+        var spc=spotCount>0?Math.min(30,Math.round(spotCount)):7;
+        var pts=withSpots?spotPlace(L,v.fur,spc):[];
         var o=['<svg class="plan" viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="'+v.name+'">'];
         var X=function(m){return left+m*S};
         var Y=function(m){return top+m*S};
@@ -1329,13 +1393,13 @@ footer .contacts span{color:var(--muted)}
             if(m[2]==='Мойка'){o=o.concat(fSink(X(m[0]),Y(m[1]),Math.round(S*0.55),Math.round(S*0.4)))}
             else if(m[2]==='Плита'){o=o.concat(fStove(X(m[0]),Y(m[1]),Math.round(S*0.55),Math.round(S*0.4)))}
         });
-        if(withSpots){
-            v.spots.forEach(function(sp){
+        if(withSpots&&pts.length){
+            pts.forEach(function(sp){
                 var sx=X(sp[0]),sy=Y(sp[1]);
                 o.push('<circle cx="'+sx+'" cy="'+sy+'" r="8" fill="'+tspColor(state.spotTemp)+'" stroke="#1c2b3a" stroke-width="1.5"/>');
                 o.push('<text x="'+sx+'" y="'+sy+'" text-anchor="middle" dominant-baseline="middle" font-size="11" font-weight="700" fill="#fff">С</text>');
             });
-            var s0=v.spots[0];
+            var s0=pts[0];
             var dL=s0[0],dT=s0[1],dR=L.w-s0[0],dB=L.h-s0[1];
             var walls=[{d:dL,y1:Y(s0[1]),x0:left,x1:X(s0[0])},{d:dR,y1:Y(s0[1]),x0:left+L.w*S,x1:X(s0[0])},{d:dT,x1:X(s0[0]),y0:top,y1:Y(s0[1])},{d:dB,x1:X(s0[0]),y0:top+L.h*S,y1:Y(s0[1])}];
             walls[0].y0=Y(s0[1]);walls[1].y0=Y(s0[1]);walls[2].x0=X(s0[0]);walls[3].x0=X(s0[0]);
@@ -1382,15 +1446,18 @@ footer .contacts span{color:var(--muted)}
         var withSpots=state.scenario!=='only-ch';
         var withCh=state.scenario!=='only-spots';
         var withBra=!!state.braOn;
+        var cnt=schemeSpots>=0?schemeSpots:autoSpotCount;
+        cnt=Math.max(0,Math.min(30,cnt));
+        if(schemeSpots<0&&$('scheme-spots'))$('scheme-spots').value=cnt;
         grid.innerHTML=L.v.map(function(v,i){
             var note=[];
-            if(withSpots&&v.spots.length)note.push('точечные: '+v.spots.length+' шт.');
+            if(withSpots&&cnt>0)note.push('точечные: '+cnt+' шт. вдоль стен');
             if(withCh&&v.ch)note.push('люстра по центру');
             if(withBra&&v.sc)note.push('бра: '+v.sc.length+' шт.');
             return '<div class="scheme-card">'
                 +'<div class="scheme-head"><h4>'+(i+1)+'. '+v.name+'</h4>'+(i===0?'<span class="scheme-badge">Популярная</span>':'')+'</div>'
                 +'<div class="scheme-desc">'+v.desc+'</div>'
-                +schemeSVG(L,v,withSpots,withCh,withBra,room.key)
+                +schemeSVG(L,v,withSpots,withCh,withBra,room.key,cnt)
                 +'<div class="scheme-note">'+note.join(' · ')+'</div>'
                 +'</div>';
         }).join('');
