@@ -1350,9 +1350,39 @@ footer .contacts span{color:var(--muted)}
         }
         return false;
     }
-    function spotPlace(L,fur,n){
-        var d=0.75,pad=0.4,fs=0.06,stepsPer=Math.max(360,2*((L.w-2*d)+(L.h-2*d))/fs);
-        var steps=Math.ceil(stepsPer),free=[];
+    function spotPlace(L,fur,n,rk){
+        if(n<=0)return [];
+        var work=[];
+        if(rk==='kitchen'){
+            for(var i=0;i<fur.length;i++){
+                if(isKitchenCounter(fur[i][4]))work=work.concat(lanePts(fur[i],0.85));
+            }
+        }
+        var workN=work.length?Math.min(work.length,n):0;
+        if(rk==='kitchen'&&work.length&&n>1)workN=Math.min(work.length,Math.max(1,Math.round(n*0.7)));
+        if(workN>n)workN=n;
+        var perim=perimPts(L,fur,n-workN);
+        return work.slice(0,workN).concat(perim);
+    }
+    function isKitchenCounter(lb){
+        return lb==='Гарнитур'||lb==='Гарнитур (верх)'||lb==='Верхние шкафы'||lb==='Остров';
+    }
+    function lanePts(f,spacing){
+        var x=f[0],y=f[1],w=f[2],h=f[3],pts=[],len,n,i;
+        if(w>=h){
+            var ly=y+h*0.8,len=Math.max(0,w-0.9);
+            n=Math.max(1,Math.ceil(len/spacing));
+            for(i=0;i<n;i++)pts.push([x+0.45+(len>0&&n>1?len*i/(n-1):0),ly]);
+        } else {
+            var lx=x+w*0.8,len=Math.max(0,h-0.9);
+            n=Math.max(1,Math.ceil(len/spacing));
+            for(i=0;i<n;i++)pts.push([lx,y+0.45+(len>0&&n>1?len*i/(n-1):0)]);
+        }
+        return pts;
+    }
+    function perimPts(L,fur,n){
+        var d=0.75,pad=0.4,fs=0.06;
+        var steps=Math.ceil(Math.max(360,2*((L.w-2*d)+(L.h-2*d))/fs)),free=[];
         for(var i=0;i<steps;i++){
             var p=perimPoint(L,d,i/steps*(2*((L.w-2*d)+(L.h-2*d))));
             if(!inFur(fur,p[0],p[1],pad))free.push(p);
@@ -1371,7 +1401,7 @@ footer .contacts span{color:var(--muted)}
         var W=Math.round(L.w*S+left+rp),H=Math.round(L.h*S+top+bp);
         var uid='p'+(++schemeSeq);
         var spc=spotCount>0?Math.min(30,Math.round(spotCount)):7;
-        var pts=withSpots?spotPlace(L,v.fur,spc):[];
+        var pts=withSpots?spotPlace(L,v.fur,spc,rk):[];
         var o=['<svg class="plan" viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="'+v.name+'">'];
         var X=function(m){return left+m*S};
         var Y=function(m){return top+m*S};
@@ -1451,7 +1481,7 @@ footer .contacts span{color:var(--muted)}
         if(schemeSpots<0&&$('scheme-spots'))$('scheme-spots').value=cnt;
         grid.innerHTML=L.v.map(function(v,i){
             var note=[];
-            if(withSpots&&cnt>0)note.push('точечные: '+cnt+' шт. вдоль стен');
+            if(withSpots&&cnt>0)note.push('точечные: '+cnt+' шт. '+(room.key==='kitchen'?'у стен и над рабочей зоной':'вдоль стен'));
             if(withCh&&v.ch)note.push('люстра по центру');
             if(withBra&&v.sc)note.push('бра: '+v.sc.length+' шт.');
             return '<div class="scheme-card">'
