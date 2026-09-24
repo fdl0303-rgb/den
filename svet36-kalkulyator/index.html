@@ -208,24 +208,16 @@ footer .contacts > *{padding:10px 0;font-size:16px}
 footer .contacts span{color:var(--muted)}
 .copyright{text-align:center;padding:12px 0 6px;font-size:12.5px;color:#888}
 
-/* ================= схемы расположения света ================= */
-.scheme-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:26px}
-.scheme-card{background:#fff;border:1px solid var(--gray-2);border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,.06);overflow:hidden}
-.scheme-head{padding:14px 16px 4px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;border-bottom:1px dashed #eee}
-.scheme-head h4{margin:0;font-size:16px}
-.scheme-badge{background:var(--brand);color:#000;font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:.3px}
-.scheme-desc{color:var(--muted);font-size:13px;padding:10px 16px 6px}
-.scheme-card svg.plan{display:block;width:100%;height:auto}
-.scheme-note{font-size:11.5px;color:#8a95a3;padding:8px 16px 12px}
-.legend{font-size:12.5px;color:#78848f;text-align:center;margin-top:16px}
-.legend b{color:#4b5662}
-.scheme-ctl{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:16px;flex-wrap:wrap;font-size:13px;color:#4b5662}
-.scheme-ctl .qty-btn{width:36px;height:36px;border:1px solid rgba(0,0,0,.16);background:#fff;border-radius:6px;font-size:20px;line-height:1;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.06)}
-.scheme-ctl .qty-btn:hover{background:var(--brand);color:#000}
-.scheme-ctl input[type=number]{width:76px;height:36px;text-align:center;font:700 16px 'Visby CF',Arial,sans-serif;border:1px solid var(--gray-2);border-radius:6px;color:#1c2b3a;-moz-appearance:textfield}
-.scheme-ctl input[type=number]::-webkit-outer-spin-button,.scheme-ctl input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
-.scheme-ctl-hint{color:#8a95a3;font-size:12px;max-width:340px}
-@media(max-width:900px){.scheme-grid{grid-template-columns:1fr}}
+/* ================= сколько светильников нужно ================= */
+.rec-list{max-width:840px;margin:26px auto 0;display:flex;flex-direction:column;gap:10px}
+.rec-row{display:flex;align-items:center;gap:14px;background:#fff;border:1px solid var(--gray-2);border-radius:8px;padding:14px 16px;box-shadow:0 2px 10px rgba(0,0,0,.05);flex-wrap:wrap}
+.rec-row.rec-best{border-color:#f2d47a;background:#fffbe9;box-shadow:0 4px 16px rgba(242,212,122,.25)}
+.rec-count{min-width:92px;text-align:center;background:var(--brand);color:#000;font:800 22px 'Visby CF',Arial,sans-serif;border-radius:8px;padding:10px 12px}
+.rec-meta{flex:1;min-width:220px}
+.rec-meta b{font-size:16px;color:#1c2b3a}
+.rec-meta span{display:block;font-size:13px;color:var(--muted);margin-top:3px;line-height:1.45}
+.rec-badge{background:#e8a93c;color:#fff;font-size:12px;font-weight:700;padding:4px 11px;border-radius:20px;letter-spacing:.3px;white-space:nowrap}
+@media(max-width:560px){.rec-row{flex-direction:column;align-items:stretch;text-align:center}.rec-meta{min-width:0}.rec-badge{align-self:center}}
 
 /* ================= адаптив ================= */
 @media(max-width:1024px){
@@ -710,22 +702,14 @@ footer .contacts span{color:var(--muted)}
     </div>
 </section>
 
-<section class="calc-sec" id="schemes">
+<section class="calc-sec" id="recs">
     <div class="container-lg">
         <div class="sec-head">
-            <div class="kicker">Свет в чертежах</div>
-            <h2>Схемы расположения света</h2>
-            <p id="scheme-sub">Выберите комнату и сценарий освещения — покажем популярные схемы расстановки светильников с учётом мебели.</p>
+            <div class="kicker">Просто прикинуть свет</div>
+            <h2>Сколько светильников нужно</h2>
+            <p id="rec-sub">Посчитаем нужное количество светильников под выбранную комнату и площадь.</p>
         </div>
-        <div class="scheme-ctl" id="scheme-ctl">
-            <span>Точечные светильники на схемах:</span>
-            <button type="button" class="qty-btn" id="sc-minus" aria-label="Уменьшить">−</button>
-            <input type="number" id="scheme-spots" min="0" max="30" step="1" value="0" inputmode="numeric" title="Количество точечных светильников вдоль стен">
-            <button type="button" class="qty-btn" id="sc-plus" aria-label="Увеличить">+</button>
-            <span class="scheme-ctl-hint">по умолчанию — столько, сколько нужно по норме освещённости</span>
-        </div>
-        <div class="scheme-grid" id="scheme-grid"></div>
-        <div class="legend"><b>С</b> — точечный светильник · <b>Л</b> — люстра · <b>Б</b> — бра. Отступ от стен 0,6–1,0 м.</div>
+        <div class="rec-list" id="rec-list"></div>
     </div>
 </section>
 
@@ -807,8 +791,6 @@ footer .contacts span{color:var(--muted)}
 
     // собственное количество точечных (0 = авто)
     var manualSpots=0;
-    // количество точечных на схемах: -1 = авто (по норме), 0..30 = ручное
-    var schemeSpots=-1, autoSpotCount=0;
 
     function readRoom(){
         var r=document.querySelector('input[name=room]:checked').value;
@@ -840,7 +822,6 @@ footer .contacts span{color:var(--muted)}
         var sLum=sW*spotEff;
         var spotRec=sLum>0?Math.ceil(fluxReq*shareSp/sLum):0;
         if(manualSpots>0){spotRec=manualSpots}
-        autoSpotCount=spotRec;
         var spotFlux=spotRec*sLum;
 
         // люстра
@@ -921,7 +902,7 @@ footer .contacts span{color:var(--muted)}
         $('save-money').textContent=NUM(incSave);
         $('save-kwh').textContent=NUM(Math.max(0,incKwh));
 
-        renderSchemes();
+        renderRecs();
     }
 
     // ---- события
@@ -993,16 +974,6 @@ footer .contacts span{color:var(--muted)}
         setTimeout(function(){self.textContent='Скопировать расчёт'},1800);
     });
 
-    // ---- количество точечных на схемах
-    function setSchemeSpots(v){
-        schemeSpots=Math.max(0,Math.min(30,Math.round(v)));
-        if($('scheme-spots'))$('scheme-spots').value=schemeSpots;
-        renderSchemes();
-    }
-    if($('sc-minus'))$('sc-minus').addEventListener('click',function(){setSchemeSpots((parseInt($('scheme-spots').value,10)||0)-1)});
-    if($('sc-plus'))$('sc-plus').addEventListener('click',function(){setSchemeSpots((parseInt($('scheme-spots').value,10)||0)+1)});
-    if($('scheme-spots'))$('scheme-spots').addEventListener('change',function(){setSchemeSpots(parseInt(this.value,10)||0)});
-
     function summaryText(){
         var room=readRoom();
         var lines=[];
@@ -1027,472 +998,37 @@ footer .contacts span{color:var(--muted)}
         return lines.join('\n');
     }
 
-    // ================ популярные схемы света (4 шт. на комнату) ================
-    var LAYOUTS={
-        kitchen:{w:3,h:4,label:'Кухня',v:[
-            {name:'Линейная кухня + стол',desc:'Гарнитур вдоль левой стены, обеденный стол справа. Точечные — над рабочей зоной, люстра — над столом.',fur:[[0,0,0.6,0.6,'Холодильник'],[0,0.65,0.6,2.6,'Гарнитур'],[1.5,2.35,1,1,'Стол'],[2.25,3.2,0.75,0.75,'Шкаф']],mrks:[[0.15,1.05,'Мойка'],[0.15,2.15,'Плита']],spots:[[0.9,0.75],[1.7,0.75],[2.5,0.75]],ch:[2.0,2.85]},
-            {name:'П-образная (двухрядная)',desc:'Гарнитур по двум сторонам, стол между рядами. Сценарное освещение: точечные и люстра по центру.',fur:[[0.2,3.35,2.6,0.6,'Гарнитур'],[0.2,0,2.6,0.55,'Верхние шкафы'],[2.5,0.55,0.5,0.9,'Холодильник'],[1.1,1.75,0.9,0.9,'Стол']],spots:[[0.7,0.75],[1.5,0.75],[2.3,0.75],[0.7,2.9],[2.3,2.9]],ch:[1.55,2.2]},
-            {name:'Угловая (Г-образная)',desc:'Гарнитур по углу, стол у дальней стены. Точечные над мойкой, плитой и по периметру, люстра над столом.',fur:[[0,0,2.2,0.6,'Гарнитур (верх)'],[0,0.6,0.6,2.4,'Гарнитур'],[2.3,0.9,0.7,0.7,'Холодильник'],[1.6,2.7,1.1,1.1,'Стол']],mrks:[[0.15,1.6,'Мойка'],[0.15,2.55,'Плита']],spots:[[0.9,0.35],[1.6,0.35],[2.4,0.35],[2.35,1.6],[0.35,1.5],[0.35,2.7]],ch:[2.15,3.15]},
-            {name:'Кухня с островом',desc:'Остров по центру — подсветка зоны готовки точечными, люстра над островом как акцент.',fur:[[0,0,3,0.6,'Гарнитур'],[1,1.7,1,0.6,'Остров'],[0.6,2.9,0.7,0.7,'Шкаф'],[2.3,2.9,0.7,0.7,'Шкаф']],mrks:[[1.4,0.3,'Плита'],[2.4,0.3,'Мойка']],spots:[[0.6,0.35],[1.5,0.35],[2.4,0.35],[1.5,1.25],[0.5,2.35],[2.5,2.35]],ch:[1.5,1.95]}
-        ]},
-        living:{w:6,h:4.2,label:'Гостиная',v:[
-            {name:'Классика: диван + ТВ',desc:'Люстра по центру, точечные по периметру. Диван и ТВ-зона подсвечены равномерно.',fur:[[0.3,0.6,1.6,0.7,'Диван'],[4.6,2.1,0.9,0.6,'ТВ-зона'],[2.2,1.2,1.3,0.7,'Журнальный'],[1.5,2.9,0.8,0.8,'Кресло']],spots:[[1.2,0.35],[2.4,0.35],[3.6,0.35],[4.8,0.35],[0.45,2.4],[5.55,2.4],[1.7,3.85],[3.5,3.85]],ch:[3.0,1.35]},
-            {name:'Гостиная-столовая',desc:'Обеденная группа в правой части с люстрой, гостиная зона слева — с точечными.',fur:[[0.3,0.4,1.5,0.7,'Диван'],[1.6,1.3,1.1,0.7,'Журнальный'],[4.4,0.8,1.1,1.1,'Обеденный стол'],[4.6,2.4,0.8,0.6,'ТВ-зона']],spots:[[0.7,0.35],[1.7,0.35],[2.7,0.35],[3.8,0.35],[4.8,0.35],[5.5,1.9],[0.45,3.1],[3.2,3.1]],ch:[4.95,1.35]},
-            {name:'Домашний кинотеатр',desc:'Диваны напротив ТВ-зоны, свет приглушён: точечные только по периметру, люстра по центру.',fur:[[0.6,2.9,1.7,0.8,'Диван'],[3.7,2.9,1.7,0.8,'Диван'],[2.4,0.6,1.2,0.7,'ТВ-зона'],[2.4,1.8,1.2,0.6,'Журнальный']],spots:[[1.3,0.35],[2.4,0.35],[4.7,0.35],[0.4,1.7],[5.6,1.7],[1.5,2.2],[4.5,2.2],[1.2,3.85],[4.6,3.85]],ch:[3.0,1.2]},
-            {name:'С камином',desc:'Камин — центральный акцент, диваны напротив. Свет сбалансирован вокруг зоны отдыха.',fur:[[0.4,0.8,1,0.5,'Камин'],[1.2,3,1.6,0.8,'Диван'],[3.2,3,1.6,0.8,'Диван'],[2.4,1.9,1.2,0.6,'Журнальный'],[4.9,0.5,0.7,0.7,'Кресло']],spots:[[0.9,0.4],[2.1,0.4],[3.9,0.4],[5.1,0.4],[0.4,2.1],[5.6,2.1],[1.4,3.85],[3.4,3.85],[4.9,3.85]],ch:[3.0,1.5]}
-        ]},
-        bedroom:{w:4,h:5,label:'Спальня',v:[
-            {name:'Кровать изголовьем к стене',desc:'Люстра по центру, точечные не над кроватью, а вдоль прохода и у шкафа.',fur:[[1.1,0.4,1.8,1.2,'Кровать'],[0.2,0.3,0.6,1.6,'Шкаф'],[0.8,0.4,0.5,0.35,'Тумба'],[2.9,0.4,0.5,0.35,'Тумба'],[3.3,3.4,0.5,1.2,'Комод']],spots:[[0.8,0.35],[2,0.35],[3.2,0.35],[0.4,2.5],[3.6,2.5],[1,4.55],[3,4.55]],ch:[2.0,2.1]},
-            {name:'Кровать у стены',desc:'Кровать вдоль левой стены, рабочее место и шкаф справа.',fur:[[0.2,0.4,1.2,2,'Кровать'],[2.9,0.3,0.8,0.6,'Тумба'],[2.9,1.2,0.8,1,'Письм. стол'],[3.4,3.4,0.6,1.1,'Шкаф'],[0.2,3,0.7,0.7,'Кресло']],spots:[[0.6,0.35],[1.7,0.35],[2.9,0.35],[0.35,3],[3.65,3],[1.4,4.55],[3,4.55]],ch:[1.8,2.0]},
-            {name:'Большая кровать 200 см',desc:'Кровать почти на всю ширину, свет не вешается над головой — люстра смещена, точечные по периметру.',fur:[[0.4,0.5,3.2,2,'Кровать 200 см'],[3.2,3.2,0.6,1.3,'Шкаф']],spots:[[1,0.35],[2.4,0.35],[3.5,0.35],[0.4,3.1],[3.6,3.1],[1.6,4.55],[3,4.55]],ch:[2.0,2.2]},
-            {name:'Кровать у окна',desc:'Кровать под окном, гардеробная зона справа. Люстра между кроватью и шкафом.',fur:[[0.5,1.6,2,1.3,'Кровать'],[2.9,1.7,0.5,0.9,'Тумба'],[3,3,0.8,1.4,'Шкаф'],[0.3,3.4,1.1,0.7,'Пуф']],spots:[[1,0.35],[2.4,0.35],[3.6,0.35],[0.4,2],[3.6,2],[1.7,4.55]],ch:[2.0,1.15]}
-        ]},
-        kids:{w:3,h:4,label:'Детская',v:[
-            {name:'Кровать + письменный стол',desc:'Рабочая зона ярче всех: точечные подсвечивают стол отдельно от кровати.',fur:[[0.2,0.4,1,2,'Кровать'],[1.9,1.2,0.9,0.7,'Письм. стол'],[1.6,3.3,0.9,0.6,'Шкаф'],[2.3,0.3,0.6,0.6,'Полка']],spots:[[0.7,0.35],[1.8,0.35],[2.7,0.35],[0.35,2],[2.65,2],[0.35,3.7],[2.65,3.7]],ch:[1.4,1.9]},
-            {name:'Двухъярусная кровать',desc:'Свет равномерно по комнате, без источников под потолком над верхним ярусом.',fur:[[0.2,0.5,1,1.5,'Кровать 2 яруса'],[1.5,0.5,1.3,0.8,'Стол с полкой'],[2,2.6,0.9,0.6,'Шкаф'],[0.2,2.6,0.8,0.6,'Полка']],spots:[[0.7,0.35],[2.1,0.35],[0.35,2],[2.65,2],[0.35,3.6],[2.65,3.6]],ch:[1.4,2.0]},
-            {name:'Кровать + игровая зона',desc:'Игровая зона у дальней стены — там плотнее сетка точечных, люстра по центру.',fur:[[0.2,0.3,2.6,0.9,'Кровать'],[1.5,2.3,0.9,0.6,'Игровой стол'],[2.3,3,0.6,0.8,'Шкаф']],spots:[[0.7,0.35],[1.9,0.35],[2.6,0.35],[0.35,2],[2.65,2],[1.4,3.7]],ch:[1.4,1.8]},
-            {name:'Кровать + спорт-уголок',desc:'Шведская стенка у окна, точечные вдоль стены активности.',fur:[[0.2,0.3,1,1.8,'Кровать'],[2,0.3,0.8,1.5,'Шведская стенка'],[1.2,2.9,1,0.6,'Коврик'],[2.5,2.9,0.5,0.5,'Тумба']],spots:[[0.7,0.35],[2,0.35],[2.6,0.35],[0.35,2],[2.65,2],[0.35,3.7],[2.65,3.7]],ch:[1.4,1.9]}
-        ]},
-        bath:{w:2,h:2.5,label:'Ванная',v:[
-            {name:'Ванна + раковина + стир. машина',desc:'Влажные зоны: точечные с защитой IP44, люстра по центру, бра у зеркала.',fur:[[0,0.8,0.6,1.2,'Ванна'],[1.2,0.2,0.7,0.5,'Раковина'],[1.35,2,0.6,0.5,'Стир. машина']],spots:[[0.5,0.35],[1.4,0.35],[0.4,2.2]],ch:[0.95,1.15],sc:[{s:'left',t:1.2}]},
-            {name:'Душ вместо ванны',desc:'Душевая у левой стены, зеркало с бра у раковины.',fur:[[0,0.9,0.7,1.4,'Душ'],[0.5,0.2,0.7,0.5,'Раковина'],[1.4,1.9,0.6,0.6,'Стир. машина']],spots:[[0.5,0.35],[1.4,0.35],[0.4,2.2]],ch:[0.95,1.05]},
-            {name:'Ванна + тумба с зеркалом',desc:'Тумба с зеркалом у правой стены — бра по центру над зеркалом.',fur:[[0,0.8,0.6,1.3,'Ванна'],[0.8,0.2,0.9,0.6,'Тумба с зеркалом'],[1.3,2,0.6,0.5,'Стир. машина']],spots:[[0.5,0.35],[1.4,0.35],[0.4,2.2]],ch:[0.95,1.0],sc:[{s:'top',t:1.05}]},
-            {name:'Компакт',desc:'Минимум мебели — точечные по двум зонам, люстра по центру, бра у выхода.',fur:[[0,0.9,0.6,1.5,'Ванна'],[0.9,0.3,0.6,0.6,'Раковина'],[1.6,2,0.4,0.5,'Стир.']],spots:[[0.5,0.35],[1.4,0.35]],ch:[0.95,1.0],sc:[{s:'right',t:1.2}]}
-        ]},
-        hall:{w:1.8,h:3.6,label:'Прихожая',v:[
-            {name:'Точечные по линии + зеркало',desc:'Коридор освещён по одной линии, зеркало подсвечено бра по бокам.',fur:[[0.3,0.6,0.7,0.4,'Тумба'],[0.35,2.3,0.75,0.5,'Зеркало'],[0.2,3,0.9,0.5,'Обувница']],spots:[[0.9,0.5],[0.9,1.4],[0.9,2.3],[0.9,3.1]],ch:[0.9,1.9],sc:[{s:'left',t:2.5},{s:'right',t:2.5}]},
-            {name:'Бра + точечные',desc:'Бра у зеркала на двух стенах, точечные по верху комнаты.',fur:[[0.4,0.6,0.6,0.4,'Тумба'],[0.3,2.2,0.8,0.5,'Зеркало'],[0.2,3.1,1,0.4,'Обувница']],spots:[[0.45,0.4],[1.35,0.4],[0.45,3],[1.35,3]],ch:[0.9,1.5],sc:[{s:'left',t:1.3},{s:'right',t:1.3}]},
-            {name:'Два ряда точечных',desc:'Длинный коридор: два ряда точечных вдоль стен, средний свет по центру.',fur:[[0.35,0.8,0.6,0.4,'Тумба'],[0.35,2.4,0.7,0.5,'Зеркало']],spots:[[0.45,0.35],[1.35,0.35],[0.45,1.6],[1.35,1.6],[0.45,3.1],[1.35,3.1]],ch:[0.9,1.0]},
-            {name:'Точечные + люстра у входа',desc:'Люстра у входной зоны, точечные по длине коридора.',fur:[[0.3,2.3,0.8,0.5,'Зеркало'],[0.2,3.05,1,0.5,'Обувница']],spots:[[0.45,0.4],[1.35,0.4],[0.45,1.6],[1.35,1.6],[0.45,2.6],[1.35,2.6]],ch:[0.9,0.5],sc:[{s:'left',t:2.6}]}
-        ]},
-        office:{w:3.2,h:4,label:'Кабинет',v:[
-            {name:'Стол у окна',desc:'Дневной свет у стола, точечные по периметру и над шкафами, люстра по центру.',fur:[[0.2,0.4,2,0.8,'Стол'],[2.3,0.5,0.7,0.5,'Стеллаж'],[0.3,2.9,0.8,0.9,'Шкаф'],[2.2,2.6,0.8,0.8,'Кресло']],spots:[[0.7,0.35],[1.6,0.35],[2.6,0.35],[0.4,2.4],[2.8,2.4],[1.4,3.7]],ch:[1.4,1.6]},
-            {name:'Стол по центру',desc:'Рабочее место в центре — люстра над столом, точечные над стеллажами.',fur:[[1.1,2.3,1.4,0.9,'Стол'],[0.3,0.5,0.7,1.8,'Стеллаж'],[2.4,0.5,0.6,0.8,'Шкаф'],[0.4,2.9,0.6,0.8,'Холодильник']],spots:[[0.7,0.35],[1.6,0.35],[2.6,0.35],[0.4,1.9],[2.8,1.9],[0.5,3.7],[2.7,3.7]],ch:[1.6,1.2]},
-            {name:'L-стол + диван',desc:'Гибкое пространство: L-стол у окна, диван для переговоров в глубине.',fur:[[0.4,0.4,1.9,0.9,'L-стол'],[2.4,0.3,0.7,1.2,'Стеллаж'],[0.5,3,1.3,0.7,'Диван'],[2.3,2.9,0.8,0.8,'Тумба']],spots:[[0.9,0.35],[1.9,0.35],[2.8,0.35],[0.4,2.1],[2.8,2.1],[1.5,3.7]],ch:[1.5,1.6]},
-            {name:'Два рабочих места',desc:'Два стола у окна, нейтральный свет сверху без теней на клавиатуру.',fur:[[0.2,0.4,1.5,0.7,'Стол 1'],[1.8,0.4,1.3,0.7,'Стол 2'],[0.3,1.9,0.7,1.3,'Стеллаж'],[2.3,2.4,0.8,0.8,'Кресло']],spots:[[0.8,0.35],[1.8,0.35],[2.8,0.35],[0.4,2.2],[2.8,2.2],[1.6,3.7]],ch:[1.6,1.2]}
-        ]}
-    };
-
-    var schemeSeq=0;
-    function tspColor(t){return t===2700?'#e08a17':t===5000?'#5f9df0':'#f2b93b'}
-
-    function R(v){return Math.round(v*10)/10}
-    function furKind(rk,lb){
-        var m={
-            'Холодильник':'fridge','Гарнитур':'kitchen','Верхние шкафы':'kitchenU',
-            'Шкаф':'cabinet','Диван':'sofa','ТВ-зона':'tv','Журнальный':'coffee',
-            'Кресло':'armchair','Обеденный стол':'dining','Камин':'fireplace',
-            'Кровать':'bed','Кровать 2 яруса':'bunk','Кровать 200 см':'bed',
-            'Тумба':'night','Комод':'dresser','Письм. стол':'table','Стол 1':'table',
-            'Стол 2':'table','L-стол':'ltable','Стеллаж':'rack','Пуф':'puff',
-            'Полка':'shelf','Игровой стол':'table','Стол с полкой':'table',
-            'Шведская стенка':'wallbar','Коврик':'mat','Ванна':'bathtub',
-            'Раковина':'washbasin','Стир. машина':'washing','Стир.':'washing',
-            'Душ':'shower','Тумба с зеркалом':'vanity','Зеркало':'mirror','Обувница':'shoe'
-        };
-        if(lb==='Стол')return (rk==='kitchen'||rk==='living')?'dining':'table';
-        return m[lb]||'box';
-    }
-    function fSofa(x,y,w,h){
-        var a=Math.max(10,Math.min(w*0.18,h*0.2));
-        var o=['<rect x="'+R(x+a)+'" y="'+R(y+h*0.1)+'" width="'+R(w-2*a)+'" height="'+R(h*0.9)+'" rx="'+R(Math.min(w,h)*0.18)+'" fill="#eaedf3" stroke="#6e7a87" stroke-width="1.3"/>',
-            '<rect x="'+R(x+a)+'" y="'+R(y)+'" width="'+R(w-2*a)+'" height="'+R(h*0.18)+'" rx="4" fill="#dfe4ec" stroke="#6e7a87" stroke-width="1.3"/>',
-            '<rect x="'+R(x)+'" y="'+R(y+h*0.08)+'" width="'+R(a)+'" height="'+R(h*0.92)+'" rx="3" fill="#dfe4ec" stroke="#6e7a87" stroke-width="1.3"/>',
-            '<rect x="'+R(x+w-a)+'" y="'+R(y+h*0.08)+'" width="'+R(a)+'" height="'+R(h*0.92)+'" rx="3" fill="#dfe4ec" stroke="#6e7a87" stroke-width="1.3"/>',
-            '<line x1="'+R(x+w*0.33)+'" y1="'+R(y+h*0.22)+'" x2="'+R(x+w*0.33)+'" y2="'+R(y+h*0.95)+'" stroke="#c2cad6" stroke-width="0.9"/>',
-            '<line x1="'+R(x+w*0.66)+'" y1="'+R(y+h*0.22)+'" x2="'+R(x+w*0.66)+'" y2="'+R(y+h*0.95)+'" stroke="#c2cad6" stroke-width="0.9"/>'];
-        return o;
-    }
-    function fArm(x,y,w,h){
-        var o=['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(w)+'" height="'+R(h)+'" rx="'+R(Math.min(w,h)*0.28)+'" fill="#eef1f6" stroke="#6e7a87" stroke-width="1.4"/>',
-            '<rect x="'+R(x+w*0.12)+'" y="'+R(y)+'" width="'+R(w*0.76)+'" height="'+R(h*0.16)+'" rx="3" fill="#dfe4ec" stroke="#6e7a87" stroke-width="1.2"/>',
-            '<circle cx="'+R(x+w*0.16)+'" cy="'+R(y+h*0.55)+'" r="'+R(Math.min(w,h)*0.11)+'" fill="#dfe4ec" stroke="#6e7a87" stroke-width="1.1"/>',
-            '<circle cx="'+R(x+w*0.84)+'" cy="'+R(y+h*0.55)+'" r="'+R(Math.min(w,h)*0.11)+'" fill="#dfe4ec" stroke="#6e7a87" stroke-width="1.1"/>'];
-        return o;
-    }
-    function fCoffee(x,y,w,h){
-        var r=Math.min(w,h)*0.04;
-        return ['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(w)+'" height="'+R(h)+'" rx="'+R(Math.min(w,h)*0.14)+'" fill="#f2efe8" stroke="#6e7a87" stroke-width="1.3"/>',
-            '<rect x="'+R(x+w*0.2)+'" y="'+R(y+h*0.22)+'" width="'+R(w*0.6)+'" height="'+R(h*0.56)+'" rx="'+R(r*3)+'" fill="none" stroke="#a8b0bb" stroke-width="1"/>'];
-    }
-    function fBed(x,y,w,h){
-        var hor=w>=h,o=['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(w)+'" height="'+R(h)+'" rx="4" fill="#eef1f6" stroke="#6e7a87" stroke-width="1.4"/>'];
-        if(hor){
-            var pw=w*0.2,ph=h*0.34;
-            o.push('<line x1="'+R(x+3)+'" y1="'+R(y+2)+'" x2="'+R(x+w-3)+'" y2="'+R(y+2)+'" stroke="#54606c" stroke-width="2.6"/>');
-            o.push('<rect x="'+R(x+w*0.17-pw/2)+'" y="'+R(y+2)+'" width="'+R(pw)+'" height="'+R(ph)+'" rx="2" fill="#fff" stroke="#b9c1cd" stroke-width="1"/>');
-            o.push('<rect x="'+R(x+w*0.83-pw/2)+'" y="'+R(y+2)+'" width="'+R(pw)+'" height="'+R(ph)+'" rx="2" fill="#fff" stroke="#b9c1cd" stroke-width="1"/>');
-            o.push('<line x1="'+R(x+w*0.08)+'" y1="'+R(y+h*0.62)+'" x2="'+R(x+w*0.92)+'" y2="'+R(y+h*0.62)+'" stroke="#d3d9e3" stroke-width="1.1"/>');
-        } else {
-            var pw=w*0.3,ph=h*0.16;
-            o.push('<line x1="'+R(x+2)+'" y1="'+R(y+3)+'" x2="'+R(x+2)+'" y2="'+R(y+h-3)+'" stroke="#54606c" stroke-width="2.6"/>');
-            o.push('<rect x="'+R(x+2)+'" y="'+R(y+h*0.16-ph/2)+'" width="'+R(pw)+'" height="'+R(ph)+'" rx="2" fill="#fff" stroke="#b9c1cd" stroke-width="1"/>');
-            o.push('<rect x="'+R(x+2)+'" y="'+R(y+h*0.74-ph/2)+'" width="'+R(pw)+'" height="'+R(ph)+'" rx="2" fill="#fff" stroke="#b9c1cd" stroke-width="1"/>');
-            o.push('<line x1="'+R(x+w*0.6)+'" y1="'+R(y+h*0.1)+'" x2="'+R(x+w*0.6)+'" y2="'+R(y+h*0.9)+'" stroke="#d3d9e3" stroke-width="1.1"/>');
-        }
-        return o;
-    }
-    function fBunk(x,y,w,h){
-        var o=fBed(x,y,w,h);
-        o.push('<line x1="'+R(x+w-7)+'" y1="'+R(y+4)+'" x2="'+R(x+w-7)+'" y2="'+R(y+h-4)+'" stroke="#8a95a1" stroke-width="1.5" stroke-dasharray="3 3"/>');
-        o.push('<line x1="'+R(x+4)+'" y1="'+R(y+h/2)+'" x2="'+R(x+w-10)+'" y2="'+R(y+h/2)+'" stroke="#b9c1cd" stroke-width="1" stroke-dasharray="4 3"/>');
-        return o;
-    }
-    function fChair(cx,cy,s){
-        var cs=12,x=cx-cs/2,y=cy-cs/2,a=['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(cs)+'" height="'+R(cs)+'" rx="2" fill="#eceef2" stroke="#7c8794" stroke-width="1.1"/>'];
-        if(s==='n')a.push('<line x1="'+R(x+2)+'" y1="'+R(y+2)+'" x2="'+R(x+cs-2)+'" y2="'+R(y+2)+'" stroke="#7c8794" stroke-width="1.6"/>');
-        if(s==='s')a.push('<line x1="'+R(x+2)+'" y1="'+R(y+cs-2)+'" x2="'+R(x+cs-2)+'" y2="'+R(y+cs-2)+'" stroke="#7c8794" stroke-width="1.6"/>');
-        if(s==='e')a.push('<line x1="'+R(x+cs-2)+'" y1="'+R(y+2)+'" x2="'+R(x+cs-2)+'" y2="'+R(y+cs-2)+'" stroke="#7c8794" stroke-width="1.6"/>');
-        if(s==='w')a.push('<line x1="'+R(x+2)+'" y1="'+R(y+2)+'" x2="'+R(x+2)+'" y2="'+R(y+cs-2)+'" stroke="#7c8794" stroke-width="1.6"/>');
-        return a;
-    }
-    function fDining(x,y,w,h){
-        var o=['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(w)+'" height="'+R(h)+'" rx="4" fill="#efe6d4" stroke="#8a7a63" stroke-width="1.4"/>',
-            '<rect x="'+R(x+4)+'" y="'+R(y+4)+'" width="'+R(w-8)+'" height="'+R(h-8)+'" rx="3" fill="none" stroke="#d8c9a8" stroke-width="1"/>'];
-        if(w>=70){o=o.concat(fChair(x+w/2,y-6,'n'));o=o.concat(fChair(x+w/2,y+h+6,'s'))}
-        if(h>=70){o=o.concat(fChair(x-6,y+h/2,'w'));o=o.concat(fChair(x+w+6,y+h/2,'e'))}
-        return o;
-    }
-    function fDesk(x,y,w,h){
-        var hor=w>=h,o=['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(w)+'" height="'+R(h)+'" rx="3" fill="#e8e2d4" stroke="#8a7a63" stroke-width="1.4"/>'];
-        if(hor){
-            o.push('<rect x="'+R(x+w*0.36)+'" y="'+R(y+3)+'" width="'+R(w*0.28)+'" height="4" fill="#20242a"/>');
-            o=o.concat(fChair(x+w/2,y+h+7,'s'));
-        } else {
-            o.push('<rect x="'+R(x+3)+'" y="'+R(y+h*0.32)+'" width="4" height="'+R(h*0.3)+'" fill="#20242a"/>');
-            o=o.concat(fChair(x+w+7,y+h/2,'e'));
-        }
-        return o;
-    }
-    function fLtable(x,y,w,h){
-        var o=fDesk(x,y,w,h);
-        o.push('<rect x="'+R(x)+'" y="'+R(y+h*0.4)+'" width="'+R(w*0.3)+'" height="'+R(h*0.6)+'" rx="3" fill="#e8e2d4" stroke="#8a7a63" stroke-width="1.4"/>');
-        return o;
-    }
-    function fCabinet(x,y,w,h){
-        var o=['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(w)+'" height="'+R(h)+'" rx="3" fill="#f0f2f6" stroke="#7c8794" stroke-width="1.3"/>'];
-        if(w>=70){
-            var xm=x+w/2;
-            o.push('<line x1="'+R(xm)+'" y1="'+R(y+5)+'" x2="'+R(xm)+'" y2="'+R(y+h-5)+'" stroke="#aab3be" stroke-width="1"/>');
-            o.push('<rect x="'+R(xm-w*0.22)+'" y="'+R(y+h/2-5)+'" width="10" height="12" rx="2" fill="#cdd3dc" stroke="#97a1ad" stroke-width="0.8"/>');
-            o.push('<rect x="'+R(xm+w*0.22-10)+'" y="'+R(y+h/2-5)+'" width="10" height="12" rx="2" fill="#cdd3dc" stroke="#97a1ad" stroke-width="0.8"/>');
-        } else {
-            o.push('<rect x="'+R(x+w/2-5)+'" y="'+R(y+h/2-7)+'" width="10" height="14" rx="2" fill="#cdd3dc" stroke="#97a1ad" stroke-width="0.8"/>');
-        }
-        return o;
-    }
-    function fKitchen(x,y,w,h,upper){
-        var step=64,o=['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(w)+'" height="'+R(h)+'" rx="2" fill="#f3ead8" stroke="#8a7a63" stroke-width="1.4"'+(upper?' stroke-dasharray="5 4"':'')+'/>',
-            '<rect x="'+R(x+3)+'" y="'+R(y+3)+'" width="'+R(w-6)+'" height="'+R(h-6)+'" rx="2" fill="none" stroke="#e0d3b8" stroke-width="0.8"'+(upper?' stroke-dasharray="3 3"':'')+'/>'];
-        var horiz=w>=h;
-        if(horiz){
-            for(var px=x+step;px<x+w-12;px+=step){
-                o.push('<line x1="'+R(px)+'" y1="'+R(y+6)+'" x2="'+R(px)+'" y2="'+R(y+h-6)+'" stroke="'+(upper?'#d8c9a8':'#cfc0a4')+'" stroke-width="0.9"'+(upper?' stroke-dasharray="3 3"':'')+'/>');
-                o.push('<rect x="'+R(px-5)+'" y="'+R(y+h-16)+'" width="10" height="10" rx="2" fill="#e0d3b8" stroke="#b3a186" stroke-width="0.8"/>');
-            }
-        } else {
-            for(var py=y+step;py<y+h-12;py+=step){
-                o.push('<line x1="'+R(x+6)+'" y1="'+R(py)+'" x2="'+R(x+w-6)+'" y2="'+R(py)+'" stroke="'+(upper?'#d8c9a8':'#cfc0a4')+'" stroke-width="0.9"'+(upper?' stroke-dasharray="3 3"':'')+'/>');
-                o.push('<rect x="'+R(x+w-16)+'" y="'+R(py-5)+'" width="10" height="10" rx="2" fill="#e0d3b8" stroke="#b3a186" stroke-width="0.8"/>');
-            }
-        }
-        return o;
-    }
-    function fKitchenU(x,y,w,h){return fKitchen(x,y,w,h,true)}
-    function fFridge(x,y,w,h){
-        var o=['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(w)+'" height="'+R(h)+'" rx="2" fill="#eef1f5" stroke="#6e7a87" stroke-width="1.4"/>',
-            '<rect x="'+R(x+w*0.3)+'" y="'+R(y+h*0.05)+'" width="'+R(w*0.4)+'" height="4" rx="1" fill="#c3ccd6"/>',
-            '<rect x="'+R(x)+'" y="'+R(y+h-5)+'" width="'+R(w)+'" height="5" fill="#dfe3ea"/>'];
-        if(w>h*0.62){
-            var xm=x+w/2;
-            o.push('<line x1="'+R(xm)+'" y1="'+R(y+8)+'" x2="'+R(xm)+'" y2="'+R(y+h-5)+'" stroke="#b9c1cd" stroke-width="1"/>');
-            o.push('<rect x="'+R(xm-w*0.2)+'" y="'+R(y+6)+'" width="8" height="10" rx="2" fill="#cdd3dc" stroke="#97a1ad" stroke-width="0.8"/>');
-        }
-        return o;
-    }
-    function fNight(x,y,w,h){
-        var o=fCabinet(x,y,w,h);
-        o.push('<line x1="'+R(x+5)+'" y1="'+R(y+h*0.5)+'" x2="'+R(x+w-5)+'" y2="'+R(y+h*0.5)+'" stroke="#b9c1cd" stroke-width="1"/>');
-        return o;
-    }
-    function fDresser(x,y,w,h){
-        var o=fCabinet(x,y,w,h);
-        for(var i=1;i<=3;i++)o.push('<line x1="'+R(x+5)+'" y1="'+R(y+h*i/4)+'" x2="'+R(x+w-5)+'" y2="'+R(y+h*i/4)+'" stroke="#b9c1cd" stroke-width="1"/>');
-        return o;
-    }
-    function fRack(x,y,w,h){
-        var o=['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(w)+'" height="'+R(h)+'" rx="2" fill="#f6f7fa" stroke="#7c8794" stroke-width="1.3"/>'];
-        for(var i=1;i<4;i++)o.push('<line x1="'+R(x+w*i/4)+'" y1="'+R(y+3)+'" x2="'+R(x+w*i/4)+'" y2="'+R(y+h-3)+'" stroke="#c2cad6" stroke-width="0.9"/>');
-        for(var j=1;j<3;j++)o.push('<line x1="'+R(x+3)+'" y1="'+R(y+h*j/3)+'" x2="'+R(x+w-3)+'" y2="'+R(y+h*j/3)+'" stroke="#c2cad6" stroke-width="0.9"/>');
-        return o;
-    }
-    function fShelf(x,y,w,h){
-        var o=['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(w)+'" height="'+R(h)+'" rx="2" fill="#f0f2f6" stroke="#7c8794" stroke-width="1.2"/>',
-            '<line x1="'+R(x+3)+'" y1="'+R(y+h/2)+'" x2="'+R(x+w-3)+'" y2="'+R(y+h/2)+'" stroke="#b9c1cd" stroke-width="1"/>'];
-        return o;
-    }
-    function fPuff(x,y,w,h){
-        var r=Math.min(w,h)*0.16;
-        return ['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(w)+'" height="'+R(h)+'" rx="'+R(Math.min(w,h)*0.3)+'" fill="#f2eee4" stroke="#6e7a87" stroke-width="1.3"/>',
-            '<rect x="'+R(x+w*0.18)+'" y="'+R(y+h*0.18)+'" width="'+R(w*0.64)+'" height="'+R(h*0.64)+'" rx="'+R(r)+'" fill="none" stroke="#b9bfc6" stroke-width="1"/>'];
-    }
-    function fWallbar(x,y,w,h){
-        var o=['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(w)+'" height="'+R(h)+'" rx="3" fill="#f1f3f7" stroke="#6e7a87" stroke-width="1.4"/>',
-            '<rect x="'+R(x+3)+'" y="'+R(y+3)+'" width="'+R(w-6)+'" height="5" fill="#b9c1cd"/>'];
-        for(var i=0;i<6;i++)o.push('<line x1="'+R(x+w*0.14+i*w*0.14)+'" y1="'+R(y+8)+'" x2="'+R(x+w*0.14+i*w*0.14)+'" y2="'+R(y+h-8)+'" stroke="#aab3be" stroke-width="1.4"/>');
-        return o;
-    }
-    function fMat(x,y,w,h){
-        return ['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(w)+'" height="'+R(h)+'" rx="'+(h*0.3)+'" fill="#f6f0e3" fill-opacity=".5" stroke="none"/>',
-            '<rect x="'+R(x+2)+'" y="'+R(y+2)+'" width="'+R(w-4)+'" height="'+R(h-4)+'" rx="'+(h*0.28)+'" fill="none" stroke="#b8a67f" stroke-width="1" stroke-dasharray="4 3"/>'];
-    }
-    function fBath(x,y,w,h){
-        var r=Math.min(w,h)*0.18;
-        return ['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(w)+'" height="'+R(h)+'" rx="'+R(r)+'" fill="#e6ecf3" stroke="#6e7a87" stroke-width="1.6"/>',
-            '<rect x="'+R(x+4)+'" y="'+R(y+4)+'" width="'+R(w-8)+'" height="'+R(h-8)+'" rx="'+R(r-3)+'" fill="#cfe0f2" stroke="#9fb8d0" stroke-width="1"/>',
-            '<circle cx="'+R(x+w/2)+'" cy="'+R(y+h*0.55)+'" r="4" fill="#fff" stroke="#6e7a87" stroke-width="1"/>',
-            '<circle cx="'+R(x+w/2)+'" cy="'+R(y+9)+'" r="5" fill="#fff" stroke="#6e7a87" stroke-width="1.1"/>'];
-    }
-    function fShower(x,y,w,h){
-        return ['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(w)+'" height="'+R(h)+'" rx="4" fill="#f2f5f9" stroke="#6e7a87" stroke-width="1.4"/>',
-            '<path d="M'+R(x+5)+' '+R(y+h-5)+' L'+R(x+w-5)+' '+R(y+5)+'" stroke="#9fb0c2" stroke-width="1" stroke-dasharray="4 3"/>',
-            '<path d="M'+R(x+5)+' '+R(y+5)+' L'+R(x+w-5)+' '+R(y+h-5)+'" stroke="#9fb0c2" stroke-width="1" stroke-dasharray="4 3"/>',
-            '<circle cx="'+R(x+w*0.2)+'" cy="'+R(y+h*0.18)+'" r="5.5" fill="#fff" stroke="#6e7a87" stroke-width="1.2"/>'];
-    }
-    function fBasin(x,y,w,h){
-        return ['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(w)+'" height="'+R(h)+'" rx="2" fill="#eef1f6" stroke="#7c8794" stroke-width="1.3"/>',
-            '<ellipse cx="'+R(x+w/2)+'" cy="'+R(y+h/2)+'" rx="'+R(Math.min(w,h)*0.3)+'" ry="'+R(Math.min(w,h)*0.24)+'" fill="#c9d3df" stroke="#8ca0b4" stroke-width="1"/>',
-            '<circle cx="'+R(x+w/2)+'" cy="'+R(y+h*0.18)+'" r="3.5" fill="#fff" stroke="#6e7a87" stroke-width="1"/>'];
-    }
-    function fVanity(x,y,w,h){
-        var o=fBasin(x,y,w,h);
-        o.push('<rect x="'+R(x+4)+'" y="'+R(y+1)+'" width="'+R(w-8)+'" height="5" fill="#cfe0f2" stroke="#8ca0b4" stroke-width="0.9"/>');
-        return o;
-    }
-    function fWash(x,y,w,h){
-        var r=Math.min(w,h)*0.26;
-        return ['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(w)+'" height="'+R(h)+'" rx="2" fill="#f0f2f6" stroke="#7c8794" stroke-width="1.3"/>',
-            '<circle cx="'+R(x+w/2)+'" cy="'+R(y+h/2)+'" r="'+R(r)+'" fill="#dce3ec" stroke="#6e7a87" stroke-width="1.2"/>',
-            '<circle cx="'+R(x+w/2)+'" cy="'+R(y+h/2)+'" r="'+R(r-3)+'" fill="#fff" fill-opacity=".6" stroke="#b9c1cd" stroke-width="0.8"/>',
-            '<rect x="'+R(x+w-14)+'" y="'+R(y+4)+'" width="10" height="8" fill="#ccd4de"/>'];
-    }
-    function fMirror(x,y,w,h){
-        return ['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(w)+'" height="'+R(h)+'" rx="2" fill="#d9e2ee" stroke="#7c8794" stroke-width="1.3"/>',
-            '<rect x="'+R(x+2)+'" y="'+R(y+2)+'" width="'+R(w-4)+'" height="'+R(h-4)+'" rx="1.5" fill="#eef5fc" stroke="#b9c1cd" stroke-width="0.8"/>'];
-    }
-    function fShoe(x,y,w,h){
-        var o=fCabinet(x,y,w,h);
-        for(var i=1;i<=2;i++)o.push('<line x1="'+R(x+5)+'" y1="'+R(y+h*i/3)+'" x2="'+R(x+w-5)+'" y2="'+R(y+h*i/3)+'" stroke="#b9c1cd" stroke-width="1.1"/>');
-        return o;
-    }
-    function fTv(x,y,w,h){
-        var hor=w>=h,o=['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(w)+'" height="'+R(h)+'" rx="2" fill="#e9edf2" stroke="#7c8794" stroke-width="1.3"/>'];
-        if(hor)o.push('<rect x="'+R(x+w*0.1)+'" y="'+R(y+2)+'" width="'+R(w*0.8)+'" height="6" fill="#20242a"/>');
-        else o.push('<rect x="'+R(x+2)+'" y="'+R(y+h*0.1)+'" width="6" height="'+R(h*0.8)+'" fill="#20242a"/>');
-        return o;
-    }
-    function fFire(x,y,w,h){
-        var o=['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(w)+'" height="'+R(h)+'" rx="2" fill="#efe5d9" stroke="#8a7a63" stroke-width="1.4"/>',
-            '<line x1="'+R(x-3)+'" y1="'+R(y)+'" x2="'+R(x+w+3)+'" y2="'+R(y)+'" stroke="#8a7a63" stroke-width="2.4"/>',
-            '<rect x="'+R(x+w*0.18)+'" y="'+R(y+h*0.3)+'" width="'+R(w*0.64)+'" height="'+R(h*0.62)+'" rx="3" fill="#4a3130" stroke="#36211f" stroke-width="1"/>',
-            '<path d="M'+R(x+w*0.5)+' '+R(y+h*0.45)+' l-6 10 h12z" fill="#d98a2b"/>'];
-        return o;
-    }
-    function fIsland(x,y,w,h){
-        var o=['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(w)+'" height="'+R(h)+'" rx="4" fill="#efe6d4" stroke="#8a7a63" stroke-width="1.4"/>'];
-        o=o.concat(fChair(x+w*0.25,y+h+7,'s'));
-        o=o.concat(fChair(x+w*0.75,y+h+7,'s'));
-        return o;
-    }
-    function fSink(x,y,w,h){
-        return ['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(w)+'" height="'+R(h)+'" rx="2" fill="#e6ecf3" stroke="#7c8794" stroke-width="1.3"/>',
-            '<line x1="'+R(x)+'" y1="'+R(y)+'" x2="'+R(x+w)+'" y2="'+R(y)+'" stroke="#b9c1cd" stroke-width="1.6"/>',
-            '<rect x="'+R(x+w*0.14)+'" y="'+R(y+h*0.28)+'" width="'+R(w*0.72)+'" height="'+R(h*0.5)+'" rx="'+R(h*0.22)+'" fill="#cfd8e2" stroke="#8ca0b4" stroke-width="1"/>',
-            '<circle cx="'+R(x+w/2)+'" cy="'+R(y+h*0.53)+'" r="4.5" fill="#fff" stroke="#5f6a76" stroke-width="1"/>',
-            '<circle cx="'+R(x+w*0.18)+'" cy="'+R(y+h*0.14)+'" r="3.5" fill="#fff" stroke="#6e7a87" stroke-width="1"/>'];
-    }
-    function fStove(x,y,w,h){
-        var o=['<rect x="'+R(x)+'" y="'+R(y)+'" width="'+R(w)+'" height="'+R(h)+'" rx="2" fill="#eef1f5" stroke="#7c8794" stroke-width="1.3"/>',
-            '<line x1="'+R(x+w*0.06)+'" y1="'+R(y+h*0.55)+'" x2="'+R(x+w*0.94)+'" y2="'+R(y+h*0.55)+'" stroke="#b9c1cd" stroke-width="1"/>'];
-        var cx=x+w/2,cy=y+h*0.28,r=Math.min(w,h)*0.1;
-        o.push('<circle cx="'+R(cx-w*0.2)+'" cy="'+R(cy)+'" r="'+R(r)+'" fill="#fff" stroke="#6e7a87" stroke-width="1.2"/>');
-        o.push('<circle cx="'+R(cx+w*0.2)+'" cy="'+R(cy)+'" r="'+R(r)+'" fill="#fff" stroke="#6e7a87" stroke-width="1.2"/>');
-        o.push('<circle cx="'+R(cx-w*0.2)+'" cy="'+R(cy)+'" r="'+R(r*0.4)+'" fill="#c3ccd6"/>');
-        o.push('<circle cx="'+R(cx+w*0.2)+'" cy="'+R(cy)+'" r="'+R(r*0.4)+'" fill="#c3ccd6"/>');
-        return o;
-    }
-    var KIND_DRAW={
-        sofa:fSofa,armchair:fArm,bed:fBed,bunk:fBunk,dining:fDining,table:fDesk,
-        ltable:fLtable,coffee:fCoffee,cabinet:fCabinet,kitchen:fKitchen,kitchenU:fKitchenU,
-        fridge:fFridge,night:fNight,dresser:fDresser,rack:fRack,puff:fPuff,shelf:fShelf,
-        wallbar:fWallbar,mat:fMat,bathtub:fBath,washbasin:fBasin,washing:fWash,
-        shower:fShower,vanity:fVanity,mirror:fMirror,shoe:fShoe,tv:fTv,fireplace:fFire,
-        island:fIsland
-    };
-
-    // ---- авторасстановка точечных вдоль стен, без заезда на мебель
-    function perimPoint(L,d,t){
-        var left=d,top=d,right=L.w-d,bottom=L.h-d;
-        var widths=Math.max(0,right-left),heights=Math.max(0,bottom-top);
-        var perim=widths*2+heights*2,p=((t%perim)+perim)%perim;
-        if(p<=widths)return [left+p,top];
-        p-=widths;
-        if(p<=heights)return [right,top+p];
-        p-=heights;
-        if(p<=widths)return [right-p,bottom];
-        p-=widths;
-        return [left,bottom-p];
-    }
-    function inFur(fur,x,y,pad){
-        for(var i=0;i<fur.length;i++){
-            var f=fur[i];
-            if(x>=f[0]-pad&&x<=f[0]+f[2]+pad&&y>=f[1]-pad&&y<=f[1]+f[3]+pad)return true;
-        }
-        return false;
-    }
-    function spotPlace(L,fur,n,rk){
-        if(n<=0)return [];
-        var work=[];
-        if(rk==='kitchen'){
-            for(var i=0;i<fur.length;i++){
-                if(isKitchenCounter(fur[i][4]))work=work.concat(lanePts(fur[i],0.85));
-            }
-        }
-        var workN=work.length?Math.min(work.length,n):0;
-        if(rk==='kitchen'&&work.length&&n>1)workN=Math.min(work.length,Math.max(1,Math.round(n*0.7)));
-        if(workN>n)workN=n;
-        var perim=perimPts(L,fur,n-workN);
-        return work.slice(0,workN).concat(perim);
-    }
-    function isKitchenCounter(lb){
-        return lb==='Гарнитур'||lb==='Гарнитур (верх)'||lb==='Верхние шкафы'||lb==='Остров';
-    }
-    function lanePts(f,spacing){
-        var x=f[0],y=f[1],w=f[2],h=f[3],pts=[],len,n,i;
-        if(w>=h){
-            var ly=y+h*0.8,len=Math.max(0,w-0.9);
-            n=Math.max(1,Math.ceil(len/spacing));
-            for(i=0;i<n;i++)pts.push([x+0.45+(len>0&&n>1?len*i/(n-1):0),ly]);
-        } else {
-            var lx=x+w*0.8,len=Math.max(0,h-0.9);
-            n=Math.max(1,Math.ceil(len/spacing));
-            for(i=0;i<n;i++)pts.push([lx,y+0.45+(len>0&&n>1?len*i/(n-1):0)]);
-        }
-        return pts;
-    }
-    function perimPts(L,fur,n){
-        var d=0.75,pad=0.4,fs=0.06;
-        var steps=Math.ceil(Math.max(360,2*((L.w-2*d)+(L.h-2*d))/fs)),free=[];
-        for(var i=0;i<steps;i++){
-            var p=perimPoint(L,d,i/steps*(2*((L.w-2*d)+(L.h-2*d))));
-            if(!inFur(fur,p[0],p[1],pad))free.push(p);
-        }
-        if(!free.length)return [];
-        var pts=[],den=Math.max(1,n-1);
-        for(var k=0;k<n;k++){
-            var idx=Math.min(free.length-1,Math.round(k*(free.length-1)/den));
-            pts.push([free[idx][0],free[idx][1]]);
-        }
-        return pts;
-    }
-
-    function schemeSVG(L,v,withSpots,withCh,withBra,rk,spotCount){
-        var S=120,left=56,top=58,rp=46,bp=44;
-        var W=Math.round(L.w*S+left+rp),H=Math.round(L.h*S+top+bp);
-        var uid='p'+(++schemeSeq);
-        var spc=spotCount>0?Math.min(30,Math.round(spotCount)):7;
-        var pts=withSpots?spotPlace(L,v.fur,spc,rk):[];
-        var o=['<svg class="plan" viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="'+v.name+'">'];
-        var X=function(m){return left+m*S};
-        var Y=function(m){return top+m*S};
-        o.push('<defs><pattern id="'+uid+'" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M0 0h30v30H0z" fill="none" stroke="rgba(28,43,58,0.06)" stroke-width="0.6"/></pattern></defs>');
-        o.push('<rect x="'+left+'" y="'+top+'" width="'+(L.w*S)+'" height="'+(L.h*S)+'" fill="#fafbfc" stroke="#1c2b3a" stroke-width="2.5"/>');
-        o.push('<rect x="'+left+'" y="'+top+'" width="'+(L.w*S)+'" height="'+(L.h*S)+'" fill="url(#'+uid+')"/>');
-        var wx=left+Math.round(S*0.4),ww=Math.round(S*1.2);
-        o.push('<rect x="'+wx+'" y="'+(top-9)+'" width="'+ww+'" height="9" fill="#cfe0f2" stroke="#1c2b3a" stroke-width="1.4"/>');
-        var dx=left+L.w*S,dy=top+L.h*S*0.22,dw=Math.min(70,L.h*S*0.3);
-        o.push('<path d="M'+dx+' '+dy+' Q '+(dx-dw*0.55)+' '+(dy+dw*0.85)+' '+(dx-dw)+' '+(dy+dw)+'" fill="none" stroke="#aeb6bf" stroke-width="1.2" stroke-dasharray="4 3"/>');
-        v.fur.forEach(function(f){
-            var qx=X(f[0]),qy=Y(f[1]),qw=Math.round(f[2]*S),qh=Math.round(f[3]*S);
-            var k=furKind(rk,f[4]);
-            var g=KIND_DRAW[k]?KIND_DRAW[k](qx,qy,qw,qh):null;
-            if(g){o=o.concat(g)}
-            else{o.push('<rect x="'+qx+'" y="'+qy+'" width="'+qw+'" height="'+qh+'" rx="3" fill="#eceef0" stroke="#9aa4af" stroke-width="1.3"/>')}
-        });
-        (v.mrks||[]).forEach(function(m){
-            if(m[2]==='Мойка'){o=o.concat(fSink(X(m[0]),Y(m[1]),Math.round(S*0.55),Math.round(S*0.4)))}
-            else if(m[2]==='Плита'){o=o.concat(fStove(X(m[0]),Y(m[1]),Math.round(S*0.55),Math.round(S*0.4)))}
-        });
-        if(withSpots&&pts.length){
-            pts.forEach(function(sp){
-                var sx=X(sp[0]),sy=Y(sp[1]);
-                o.push('<circle cx="'+sx+'" cy="'+sy+'" r="8" fill="'+tspColor(state.spotTemp)+'" stroke="#1c2b3a" stroke-width="1.5"/>');
-                o.push('<text x="'+sx+'" y="'+sy+'" text-anchor="middle" dominant-baseline="middle" font-size="11" font-weight="700" fill="#fff">С</text>');
-            });
-            var s0=pts[0];
-            var dL=s0[0],dT=s0[1],dR=L.w-s0[0],dB=L.h-s0[1];
-            var walls=[{d:dL,y1:Y(s0[1]),x0:left,x1:X(s0[0])},{d:dR,y1:Y(s0[1]),x0:left+L.w*S,x1:X(s0[0])},{d:dT,x1:X(s0[0]),y0:top,y1:Y(s0[1])},{d:dB,x1:X(s0[0]),y0:top+L.h*S,y1:Y(s0[1])}];
-            walls[0].y0=Y(s0[1]);walls[1].y0=Y(s0[1]);walls[2].x0=X(s0[0]);walls[3].x0=X(s0[0]);
-            walls.sort(function(a,b){return a.d-b.d});
-            var dm=walls[0];
-            if(dm.d>0.1){
-                o.push('<line x1="'+dm.x0+'" y1="'+dm.y0+'" x2="'+dm.x1+'" y2="'+dm.y1+'" stroke="#2fa84f" stroke-width="1.3" stroke-dasharray="4 3"/>');
-                var pmx=(dm.x0+dm.x1)/2,pmy=Math.max(14,(dm.y0+dm.y1)/2-5);
-                o.push('<text x="'+pmx+'" y="'+pmy+'" text-anchor="middle" font-size="10" font-weight="700" fill="#2fa84f">'+dm.d.toFixed(1).replace('.',',')+' м от стены</text>');
-            }
-        }
-        if(withCh&&v.ch){
-            var cx=X(v.ch[0]),cy=Y(v.ch[1]);
-            o.push('<circle cx="'+cx+'" cy="'+cy+'" r="9.5" fill="'+tspColor(state.chTemp)+'" stroke="#1c2b3a" stroke-width="1.6"/>');
-            o.push('<text x="'+cx+'" y="'+cy+'" text-anchor="middle" dominant-baseline="middle" font-size="11.5" font-weight="700" fill="#fff">Л</text>');
-        }
-        if(withBra){
-            (v.sc||[]).forEach(function(b){
-                var bx,by;
-                if(b.s==='left'){bx=left;by=Y(b.t)}
-                else if(b.s==='right'){bx=left+L.w*S;by=Y(b.t)}
-                else if(b.s==='top'){bx=X(b.t);by=top}
-                else {bx=X(b.t);by=top+L.h*S}
-                o.push('<circle cx="'+bx+'" cy="'+by+'" r="8" fill="#fff" stroke="'+tspColor(state.braTemp)+'" stroke-width="2.2"/>');
-                o.push('<text x="'+bx+'" y="'+by+'" text-anchor="middle" dominant-baseline="middle" font-size="11" font-weight="700" fill="#1c2b3a">Б</text>');
-            });
-        }
-        o.push('<line x1="'+left+'" y1="'+(top-20)+'" x2="'+(left+L.w*S)+'" y2="'+(top-20)+'" stroke="#7f8b96" stroke-width="1"/>');
-        o.push('<text x="'+(left+L.w*S/2)+'" y="'+(top-28)+'" text-anchor="middle" font-size="10.5" fill="#7f8b96">'+L.w.toFixed(1).replace('.',',')+' м</text>');
-        o.push('<line x1="'+(left-18)+'" y1="'+top+'" x2="'+(left-18)+'" y2="'+(top+L.h*S)+'" stroke="#7f8b96" stroke-width="1"/>');
-        o.push('<text transform="rotate(-90 '+(left-24)+' '+(top+L.h*S/2)+')" x="'+(left-24)+'" y="'+(top+L.h*S/2)+'" text-anchor="middle" font-size="10.5" fill="#7f8b96">'+L.h.toFixed(1).replace('.',',')+' м</text>');
-        o.push('</svg>');
-        return o.join('');
-    }
-
-    function renderSchemes(){
+// ================ рекомендуемое количество светильников ================
+    var BRAS_REC={living:2,bedroom:2,kitchen:2,office:1,bath:1,hall:1,kids:2};
+    function renderRecs(){
         var room=readRoom();
-        var L=LAYOUTS[room.key];
-        var grid=$('scheme-grid');
-        if(!grid)return;
-        var sl=state.scenario==='only-ch'?'только люстра':state.scenario==='only-spots'?'только точечные':'люстра + точечные';
-        var sub=$('scheme-sub');
-        if(sub)sub.innerHTML='4 популярные планировки для комнаты «<b>'+L.label.toLowerCase()+'</b>». Точки света расставлены с учётом мебели и отступов от стен (0,6–1,0 м). Ваш сценарий: <b>'+sl+'</b>.';
-        var withSpots=state.scenario!=='only-ch';
-        var withCh=state.scenario!=='only-spots';
-        var withBra=!!state.braOn;
-        var cnt=schemeSpots>=0?schemeSpots:autoSpotCount;
-        cnt=Math.max(0,Math.min(30,cnt));
-        if(schemeSpots<0&&$('scheme-spots'))$('scheme-spots').value=cnt;
-        grid.innerHTML=L.v.map(function(v,i){
-            var note=[];
-            if(withSpots&&cnt>0)note.push('точечные: '+cnt+' шт. '+(room.key==='kitchen'?'у стен и над рабочей зоной':'вдоль стен'));
-            if(withCh&&v.ch)note.push('люстра по центру');
-            if(withBra&&v.sc)note.push('бра: '+v.sc.length+' шт.');
-            return '<div class="scheme-card">'
-                +'<div class="scheme-head"><h4>'+(i+1)+'. '+v.name+'</h4>'+(i===0?'<span class="scheme-badge">Популярная</span>':'')+'</div>'
-                +'<div class="scheme-desc">'+v.desc+'</div>'
-                +schemeSVG(L,v,withSpots,withCh,withBra,room.key,cnt)
-                +'<div class="scheme-note">'+note.join(' · ')+'</div>'
+        var area=parseFloat($('area').value)||10;
+        var flux=Math.round(room.data.lux*area*K);
+        var spots=Math.ceil(flux/(7*SPOT_EFF.led));
+        var recessed=Math.ceil(flux/(7*SPOT_EFF.led*0.85));
+        var lamp=Math.ceil(flux/(7*SPOT_EFF.lamp));
+        var chW=Math.ceil(flux/CH_EFF);
+        var bras=BRAS_REC[room.key]||0;
+        var rows=[
+            {t:'Точечные светильники LED',c:spots,d:'Обычные накладные/врезные ~7 Вт. Расставьте равномерно по потолку, отступ от стен 0,6–1,0 м, не над шкафами.',best:true},
+            {t:'Точечные углублённые',c:recessed,d:'Рецессионные с антибликовым фильтром. Их нужно больше: фильтр теряет ~15% света.'},
+            {t:'Точечные с лампой',c:lamp,d:'Со съёмными лампами (GU10, R5) ~7 Вт. Светоотдача ламп ниже — добавляем запас.'},
+            {t:'Трековые светильники',c:spots,d:'Поворотные споты LED на шине — направляйте на стол, фартук, картины. Считаются как точечные.'},
+            {t:'Люстра или подвесной',c:1,d:'Общий свет по центру, LED ≈ '+chW+' Вт. Если нормы не хватает — дополните точечными или бра.'},
+            {t:'Бра',c:bras,d:'Зональный свет у кровати, дивана, зеркала или рабочего стола.'}
+        ].filter(function(r){return r.c>0});
+        var sub=$('rec-sub');
+        if(sub)sub.innerHTML='Для комнаты «<b>'+room.data.label.toLowerCase()+'</b>» '+area+' м² нужно примерно столько светильников, чтобы набрать <b>'+room.data.lux+' лк</b>:';
+        var list=$('rec-list');
+        if(!list)return;
+        list.innerHTML=rows.map(function(r){
+            return '<div class="rec-row'+(r.best?' rec-best':'')+'">'
+                +'<div class="rec-count">'+r.c+' шт</div>'
+                +'<div class="rec-meta"><b>'+r.t+'</b><span>'+r.d+'</span></div>'
+                +(r.best?'<span class="rec-badge">Лучший выбор</span>':'')
                 +'</div>';
         }).join('');
     }
-
     window.sendMail=function(ev){
         var email=$('mail-to').value;
         if(!email)return false;
