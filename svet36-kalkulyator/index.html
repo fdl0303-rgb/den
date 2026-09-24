@@ -3,22 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>РљР°Р»СЊРєСѓР»СЏС‚РѕСЂ РѕСЃРІРµС‰РµРЅРёСЏ вЂ” РЎРІРµС‚ 36, Р’РѕСЂРѕРЅРµР¶</title>
-<meta name="description" content="РљР°Р»СЊРєСѓР»СЏС‚РѕСЂ РѕСЃРІРµС‰РµРЅРёСЏ РґР»СЏ РІР°С€РµР№ РєРѕРјРЅР°С‚С‹: РїРѕРґР±РѕСЂ Р»СЋСЃС‚СЂС‹, С‚РѕС‡РµС‡РЅС‹С… СЃРІРµС‚РёР»СЊРЅРёРєРѕРІ Рё Р±СЂР°. Р Р°СЃС‡С‘С‚ РѕСЃРІРµС‰С‘РЅРЅРѕСЃС‚Рё РїРѕ РЎРќРёРџ, РіРѕРґРѕРІРѕР№ СЃС‚РѕРёРјРѕСЃС‚Рё СЌР»РµРєС‚СЂРѕСЌРЅРµСЂРіРёРё Рё СЌРєРѕРЅРѕРјРёРё LED.">
+<title>Калькулятор освещения — Свет 36, Воронеж</title>
+<meta name="description" content="Калькулятор освещения для вашей комнаты: подбор люстры, точечных светильников и бра. Расчёт освещённости по СНиП, годовой стоимости электроэнергии и экономии LED.">
 <link rel="icon" href="https://svet-36.ru/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="https://svet-36.ru/netcat_template/template/svet_36/fonts/VisbyCF/stylesheet.css" media="all">
 <link rel="stylesheet" href="https://svet-36.ru/netcat_template/template/svet_36/css/fontello.css" media="all">
 <style>
 :root{
-    --brand:#ffdd2d;         /* С„РёСЂРјРµРЅРЅС‹Р№ Р¶С‘Р»С‚С‹Р№ svet-36 */
-    --brand-alt:#fff200;     /* Р¶С‘Р»С‚С‹Р№ С„РѕСЂРј */
-    --red:#cf4239;           /* С„РёСЂРјРµРЅРЅС‹Р№ РєСЂР°СЃРЅС‹Р№ СЃСЃС‹Р»РѕРє/СЃРєРёРґРѕРє */
-    --gray:#f0f0f0;          /* С„СѓС‚РµСЂ / Р·Р°Р»РёРІРєРё */
+    --brand:#ffdd2d;         /* фирменный жёлтый svet-36 */
+    --brand-alt:#fff200;     /* жёлтый форм */
+    --red:#cf4239;           /* фирменный красный ссылок/скидок */
+    --gray:#f0f0f0;          /* футер / заливки */
     --gray-2:#f4f2ee;
-    --line:#ccc;             /* Р±РѕСЂРґСЋСЂ С„СѓС‚РµСЂР° */
+    --line:#ccc;             /* бордюр футера */
     --txt:rgba(0,0,0,.8);
     --muted:#6c757d;
-    --blueprint:#0e1216;     /* С„РѕРЅ С‡РµСЂС‚РµР¶Р° */
+    --blueprint:#0e1216;     /* фон чертежа */
     --blueprint-line:#9db2c8;
 }
 *{box-sizing:border-box}
@@ -30,7 +30,7 @@ img,svg{max-width:100%}
 .container,.container-lg,.container-xl{width:100%;max-width:1250px;margin:0 auto;padding:0 15px}
 .row{display:flex;flex-wrap:wrap;gap:0}
 
-/* ================= HEADER (РєР°Рє РЅР° svet-36.ru) ================= */
+/* ================= HEADER (как на svet-36.ru) ================= */
 .top-meta{background:#fff;border-bottom:1px solid #eee}
 .top-nav{display:flex;justify-content:flex-end;gap:22px;padding:8px 0;font-size:13px}
 .top-nav a{color:#999}
@@ -76,13 +76,13 @@ img,svg{max-width:100%}
 .btn-ghost:hover{border-color:var(--brand);color:var(--brand)}
 .hero-note{font-size:12.5px;color:#8fa2b5;margin-top:16px;max-width:420px;line-height:1.5}
 
-/* РЎС…РµРјР°-С‡РµСЂС‚С‘Р¶ */
+/* Схема-чертёж */
 .sheet{background:#0c1014;border:1px solid #25303c;box-shadow:0 30px 60px rgba(0,0,0,.5);position:relative}
 .sheet svg{display:block;width:100%;height:auto}
 .beam{animation:pulse 3.2s ease-in-out infinite;transform-origin:405px 305px}
 @keyframes pulse{0%,100%{opacity:.28}50%{opacity:.75}}
 
-/* ================= РљРђР›Р¬РљРЈР›РЇРўРћР  ================= */
+/* ================= КАЛЬКУЛЯТОР ================= */
 .calc-sec{padding:44px 0 10px}
 .sec-head{text-align:center;margin-bottom:6px}
 .sec-head .kicker{color:var(--red);font-weight:700;letter-spacing:2px;text-transform:uppercase;font-size:12px}
@@ -96,7 +96,7 @@ img,svg{max-width:100%}
 .card .sub{color:var(--muted);font-size:13.5px;margin:0 0 16px}
 .card-grid{display:grid;gap:16px}
 
-/* РєРѕРјРЅР°С‚С‹ */
+/* комнаты */
 .rooms{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
 .room-inp{position:absolute;opacity:0;pointer-events:none}
 .room-lbl{display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;background:var(--gray);border:2px solid transparent;border-radius:5px;padding:14px 8px;cursor:pointer;transition:.15s;font-weight:600;font-size:14px;line-height:1.25}
@@ -105,7 +105,7 @@ img,svg{max-width:100%}
 .iconroom{width:34px;height:34px;border-radius:3px;background:#fff;border:1px solid #e2e2e2;display:flex;align-items:center;justify-content:center}
 .iconroom svg{width:22px;height:22px;stroke:#555;fill:none;stroke-width:1.6}
 
-/* СЃР»Р°Р№РґРµСЂС‹ */
+/* слайдеры */
 .sli-row{margin-bottom:18px}
 .sli-row:last-child{margin-bottom:0}
 .sli-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-weight:600;font-size:14px}
@@ -116,7 +116,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
 input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--brand);border:3px solid #fff;box-shadow:0 1px 5px rgba(0,0,0,.25);cursor:pointer}
 .range-nums{display:flex;justify-content:space-between;font-size:11px;color:var(--muted)}
 
-/* СЃРµРіРјРµРЅС‚С‹-РїРµСЂРµРєР»СЋС‡Р°С‚РµР»Рё */
+/* сегменты-переключатели */
 .seg{display:flex;border-radius:3px;overflow:hidden;border:1px solid #e0e0e0;background:var(--gray)}
 .seg input{position:absolute;opacity:0;pointer-events:none}
 .seg label{flex:1;text-align:center;padding:11px 8px;cursor:pointer;font-weight:600;font-size:13.5px;color:#555;transition:.15s;border-right:1px solid #e0e0e0}
@@ -125,7 +125,7 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
 .hint-temp{margin-top:10px;font-size:13px;color:var(--muted)}
 .hint-temp b{color:var(--red)}
 
-/* СЃС‚РµРїРїРµСЂ РєРѕР»РёС‡РµСЃС‚РІР° */
+/* степпер количества */
 .stepper{display:inline-flex;align-items:center;gap:0;border:1px solid #e0e0e0;border-radius:3px;overflow:hidden}
 .stepper button{width:38px;height:38px;border:0;background:var(--gray);font-size:20px;cursor:pointer;font-weight:700;color:var(--txt)}
 .stepper button:hover{background:var(--brand)}
@@ -133,7 +133,7 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
 .rec-count{margin-left:12px;font-size:13px;color:var(--muted)}
 .rec-count b{color:var(--red)}
 
-/* РїРµСЂРµРєР»СЋС‡Р°С‚РµР»СЊ РІРєР»СЋС‡РµРЅРёСЏ Р±СЂР° */
+/* переключатель включения бра */
 .toggle{display:inline-flex;align-items:center;gap:10px;cursor:pointer;font-weight:600;font-size:15px;user-select:none}
 .toggle .track{width:46px;height:24px;border-radius:20px;background:#ccc;position:relative;transition:.2s}
 .toggle .track:after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.3)}
@@ -141,7 +141,7 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
 .toggle input:checked + .track{background:var(--brand)}
 .toggle input:checked + .track:after{left:25px}
 
-/* Р РµР·СѓР»СЊС‚Р°С‚С‹ */
+/* Результаты */
 .results{display:none}
 .results.on{display:block}
 .res-strip{background:var(--brand);color:#000;border-radius:5px;padding:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:16px}
@@ -173,7 +173,7 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
 .sw.s5000{background:#dcebff;color:#123a66}
 .sw.on{border-color:#000;box-shadow:0 0 0 2px var(--brand)}
 
-/* РґРµР№СЃС‚РІРёСЏ */
+/* действия */
 .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px}
 .mini-form{display:flex;gap:10px;flex-wrap:wrap}
 .mini-form input{flex:1;min-width:220px;border:1px solid #ccc;border-radius:3px;height:44px;padding:0 14px;font:14px 'Visby CF',Arial,sans-serif}
@@ -182,7 +182,7 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
 .btn-ghost2{background:var(--gray);color:var(--txt);border:1px solid #ccc;border-radius:3px;padding:12px 20px;font:700 15px 'Visby CF',Arial,sans-serif;cursor:pointer;transition:.2s}
 .btn-ghost2:hover{background:var(--brand);color:#000}
 
-/* РЅРѕСЂРјС‹ */
+/* нормы */
 table.norm{width:100%;border-collapse:collapse;margin-top:8px}
 .norm th,.norm td{border:1px solid #e4e4e4;padding:10px 12px;text-align:left;font-size:14px}
 .norm th{background:var(--gray);font-size:13px}
@@ -192,7 +192,7 @@ table.norm{width:100%;border-collapse:collapse;margin-top:8px}
 .foot-strip b{font-size:18px}
 .foot-strip .btn-yel{background:#000;color:var(--brand)}
 
-/* ================= FOOTER (С‚РѕС‡РЅРѕ РєР°Рє РЅР° svet-36.ru) ================= */
+/* ================= FOOTER (точно как на svet-36.ru) ================= */
 footer{background:var(--gray);padding:10px 0;border-top:1px solid var(--line)}
 footer .row{display:grid;grid-template-columns:1.1fr .9fr 1.5fr 1fr;gap:24px;padding:0;margin:0}
 .footer-logo{padding-top:20px}
@@ -208,7 +208,7 @@ footer .contacts > *{padding:10px 0;font-size:16px}
 footer .contacts span{color:var(--muted)}
 .copyright{text-align:center;padding:12px 0 6px;font-size:12.5px;color:#888}
 
-/* ================= Р°РґР°РїС‚РёРІ ================= */
+/* ================= адаптив ================= */
 @media(max-width:1024px){
     .hero-inner{grid-template-columns:1fr}
     .foot-strip{flex-direction:column}
@@ -231,50 +231,50 @@ footer .contacts span{color:var(--muted)}
 </head>
 <body>
 
-<!-- ======= РЁРђРџРљРђ (РєР°Рє РЅР° svet-36.ru) ======= -->
+<!-- ======= ШАПКА (как на svet-36.ru) ======= -->
 <header>
     <div class="top-meta">
         <div class="container-lg">
             <nav class="top-nav">
-                <a href="https://svet-36.ru/o-kompanii">Рћ РЅР°СЃ</a>
-                <a href="https://svet-36.ru/dostavka-i-oplata">Р”РѕСЃС‚Р°РІРєР° Рё РѕРїР»Р°С‚Р°</a>
-                <a href="https://svet-36.ru/sotrudnichestvo">РЎРѕС‚СЂСѓРґРЅРёС‡РµСЃС‚РІРѕ</a>
-                <a href="https://svet-36.ru/kontakty">РљРѕРЅС‚Р°РєС‚РЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ</a>
+                <a href="https://svet-36.ru/o-kompanii">О нас</a>
+                <a href="https://svet-36.ru/dostavka-i-oplata">Доставка и оплата</a>
+                <a href="https://svet-36.ru/sotrudnichestvo">Сотрудничество</a>
+                <a href="https://svet-36.ru/kontakty">Контактная информация</a>
             </nav>
         </div>
     </div>
     <div class="container-lg">
         <div class="head-main">
-            <a href="https://svet-36.ru/" aria-label="РЎРІРµС‚ 36">
+            <a href="https://svet-36.ru/" aria-label="Свет 36">
                 <svg class="logo" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="740" height="215" viewBox="0 0 740 215">
-						  <image id="_Path_Compound_Path_Compound_Path_Compound_Path_Compound_Path_Compound_Path_Compound_Path_" data-name="&lt;Path&gt;В +В &lt;Compound Path&gt;В +В &lt;Compound Path&gt;В +В &lt;Compound Path&gt;В +В &lt;Compound Path&gt;В +В &lt;Compound Path&gt;В +В &lt;Compound Path&gt;" x="13" y="1" width="716" height="207" xlink:href="data:img/png;base64,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"/>
+						  <image id="_Path_Compound_Path_Compound_Path_Compound_Path_Compound_Path_Compound_Path_Compound_Path_" data-name="&lt;Path&gt; + &lt;Compound Path&gt; + &lt;Compound Path&gt; + &lt;Compound Path&gt; + &lt;Compound Path&gt; + &lt;Compound Path&gt; + &lt;Compound Path&gt;" x="13" y="1" width="716" height="207" xlink:href="data:img/png;base64,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"/>
 						</svg>
             </a>
             <div class="head-search">
                 <form class="search-box" action="https://svet-36.ru/search/" method="GET">
-                    <input type="text" name="search_query" placeholder="РќР°Р№С‚Рё СЃСЂРµРґРё 90 000 С‚РѕРІР°СЂРѕРІ..." aria-label="РџРѕРёСЃРє">
-                    <button class="search-btn" type="submit" aria-label="РќР°Р№С‚Рё"></button>
+                    <input type="text" name="search_query" placeholder="Найти среди 90 000 товаров..." aria-label="Поиск">
+                    <button class="search-btn" type="submit" aria-label="Найти"></button>
                 </form>
             </div>
             <div class="head-right">
                 <div class="phone-col">
                     <a rel="nofollow" class="phone" href="tel:89202258222">8 920 22-58-222</a>
-                    <a href="#" class="cb">Р’Р°Рј РїРµСЂРµР·РІРѕРЅРёС‚СЊ?</a>
+                    <a href="#" class="cb">Вам перезвонить?</a>
                 </div>
                 <div class="addr-col">
-                    <b>Р’РѕСЂРѕРЅРµР¶, Р”РѕРЅР±Р°СЃСЃРєР°СЏ 16Р·</b>
-                    <div>РџРЅ-РџС‚: 10:00вЂ“19:00 В· РЎР±-Р’СЃ: 10вЂ“16</div>
+                    <b>Воронеж, Донбасская 16з</b>
+                    <div>Пн-Пт: 10:00–19:00 · Сб-Вс: 10–16</div>
                 </div>
                 <div class="head-icons">
-                    <a class="hico" href="#" aria-label="РЎСЂР°РІРЅРµРЅРёРµ">
+                    <a class="hico" href="#" aria-label="Сравнение">
                         <svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>
                         <span class="badge">0</span>
                     </a>
-                    <a class="hico" href="https://svet-36.ru/favorite" aria-label="РР·Р±СЂР°РЅРЅРѕРµ">
+                    <a class="hico" href="https://svet-36.ru/favorite" aria-label="Избранное">
                         <svg viewBox="0 0 24 24"><path d="M20.8 8.6c0 6-8.8 11-8.8 11s-8.8-5-8.8-11a4.8 4.8 0 0 1 8.8-2.6 4.8 4.8 0 0 1 8.8 2.6z"/></svg>
                         <span class="badge">0</span>
                     </a>
-                    <a class="hico" href="https://svet-36.ru/cart/" aria-label="РљРѕСЂР·РёРЅР°">
+                    <a class="hico" href="https://svet-36.ru/cart/" aria-label="Корзина">
                         <svg viewBox="0 0 24 24"><path d="M6 7h12l-1.2 11H7.2L6 7zM9 7a3 3 0 0 1 6 0"/></svg>
                         <span class="badge">0</span>
                     </a>
@@ -285,43 +285,43 @@ footer .contacts span{color:var(--muted)}
     <div class="menu-wrap">
         <div class="container-xl">
             <nav class="menu-main">
-                <a href="https://svet-36.ru/catalog/lyustry/">Р›СЋСЃС‚СЂС‹</a>
-                <a href="https://svet-36.ru/catalog/svetilniki/">РЎРІРµС‚РёР»СЊРЅРёРєРё</a>
-                <a href="https://svet-36.ru/catalog/nastennie/">РќР°СЃС‚РµРЅРЅС‹Рµ</a>
-                <a href="https://svet-36.ru/catalog/trekovye/">РўСЂРµРєРѕРІС‹Рµ</a>
-                <a href="https://svet-36.ru/catalog/ulichnye/">РЈР»РёС‡РЅС‹Рµ</a>
-                <a href="https://svet-36.ru/catalog/spoty/">РЎРїРѕС‚С‹</a>
-                <a href="https://svet-36.ru/catalog/nastolnye/">РќР°СЃС‚РѕР»СЊРЅС‹Рµ</a>
-                <a href="https://svet-36.ru/catalog/torshery/">РўРѕСЂС€РµСЂС‹</a>
-                <a href="https://svet-36.ru/catalog/ofisnye/">РћС„РёСЃРЅС‹Рµ</a>
-                <a href="https://svet-36.ru/catalog/lampochki/">Р›Р°РјРїРѕС‡РєРё</a>
-                <a href="https://svet-36.ru/catalog/elektrotovary/">Р­Р»РµРєС‚СЂРѕС‚РѕРІР°СЂС‹</a>
+                <a href="https://svet-36.ru/catalog/lyustry/">Люстры</a>
+                <a href="https://svet-36.ru/catalog/svetilniki/">Светильники</a>
+                <a href="https://svet-36.ru/catalog/nastennie/">Настенные</a>
+                <a href="https://svet-36.ru/catalog/trekovye/">Трековые</a>
+                <a href="https://svet-36.ru/catalog/ulichnye/">Уличные</a>
+                <a href="https://svet-36.ru/catalog/spoty/">Споты</a>
+                <a href="https://svet-36.ru/catalog/nastolnye/">Настольные</a>
+                <a href="https://svet-36.ru/catalog/torshery/">Торшеры</a>
+                <a href="https://svet-36.ru/catalog/ofisnye/">Офисные</a>
+                <a href="https://svet-36.ru/catalog/lampochki/">Лампочки</a>
+                <a href="https://svet-36.ru/catalog/elektrotovary/">Электротовары</a>
             </nav>
         </div>
     </div>
     <div class="container-lg breadcrumbs">
-        <a href="https://svet-36.ru/">Р“Р»Р°РІРЅР°СЏ</a> В» <span>РљР°Р»СЊРєСѓР»СЏС‚РѕСЂ РѕСЃРІРµС‰РµРЅРёСЏ</span>
+        <a href="https://svet-36.ru/">Главная</a> » <span>Калькулятор освещения</span>
     </div>
 </header>
 
-<!-- ======= РџР Р•Р—Р•РќРўРђР¦РРЇ: СЃС…РµРјР°-С‡РµСЂС‚С‘Р¶ ======= -->
+<!-- ======= ПРЕЗЕНТАЦИЯ: схема-чертёж ======= -->
 <section class="hero hero-grid">
     <div class="container-xl hero-inner">
         <div>
             <div class="hero-tags">
-                <span class="tag">РЎРќРёРџ 23-05-95</span>
-                <span class="tag">Р›СЋРјРµРЅС‹ В· Р›СЋРєСЃ В· Р’Р°С‚С‚С‹</span>
-                <span class="tag">РЎРІРµС‚ РІ С‡РµСЂС‚РµР¶Р°С…</span>
+                <span class="tag">СНиП 23-05-95</span>
+                <span class="tag">Люмены · Люкс · Ватты</span>
+                <span class="tag">Свет в чертежах</span>
             </div>
-            <h1>РљР°Р»СЊРєСѓР»СЏС‚РѕСЂ<br>РѕСЃРІРµС‰РµРЅРёСЏ <span class="y">РЎРІРµС‚&nbsp;36</span></h1>
-            <p class="lead">РЎРѕР±РµСЂРёС‚Рµ СЃРІРµС‚ РІР°С€РµР№ РєРѕРјРЅР°С‚С‹ <b>Р·Р° 2 РјРёРЅСѓС‚С‹</b>: Р»СЋСЃС‚СЂР°, С‚РѕС‡РµС‡РЅС‹Рµ СЃРІРµС‚РёР»СЊРЅРёРєРё Рё Р±СЂР° вЂ” РїРѕ РЅР°СЃС‚РѕСЏС‰РёРј РЅРѕСЂРјР°Рј РѕСЃРІРµС‰С‘РЅРЅРѕСЃС‚Рё. РљР°Р»СЊРєСѓР»СЏС‚РѕСЂ РЅР°СЂРёСЃСѓРµС‚ <b>СЃС…РµРјСѓ-С‡РµСЂС‚С‘Р¶</b>, РїРѕСЃС‡РёС‚Р°РµС‚ РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРІРµС‚РёР»СЊРЅРёРєРѕРІ, РјРѕС‰РЅРѕСЃС‚СЊ, <b>РіРѕРґРѕРІСѓСЋ СЃС‚РѕРёРјРѕСЃС‚СЊ</b> СЌР»РµРєС‚СЂРёС‡РµСЃС‚РІР° Рё СЌРєРѕРЅРѕРјРёСЋ LED.</p>
+            <h1>Калькулятор<br>освещения <span class="y">Свет&nbsp;36</span></h1>
+            <p class="lead">Соберите свет вашей комнаты <b>за 2 минуты</b>: люстра, точечные светильники и бра — по настоящим нормам освещённости. Калькулятор нарисует <b>схему-чертёж</b>, посчитает количество светильников, мощность, <b>годовую стоимость</b> электричества и экономию LED.</p>
             <div class="hero-cta">
-                <a href="#calc" class="btn-yel">Р Р°СЃСЃС‡РёС‚Р°С‚СЊ СЃРІРµС‚</a>
-                <a href="#norm" class="btn-ghost">РќРѕСЂРјС‹ РѕСЃРІРµС‰С‘РЅРЅРѕСЃС‚Рё</a>
+                <a href="#calc" class="btn-yel">Рассчитать свет</a>
+                <a href="#norm" class="btn-ghost">Нормы освещённости</a>
             </div>
-            <p class="hero-note">Р Р°СЃС‡С‘С‚ РЅРѕСЃРёС‚ СЂРµРєРѕРјРµРЅРґР°С‚РµР»СЊРЅС‹Р№ С…Р°СЂР°РєС‚РµСЂ Рё РѕСЃРЅРѕРІР°РЅ РЅР° РЎРџ&nbsp;52.13330, С‚СЂРµР±РѕРІР°РЅРёСЏС… Рє Р¶РёР»С‹Рј РїРѕРјРµС‰РµРЅРёСЏРј Рё РєРѕРјС„РѕСЂС‚РЅРѕРјСѓ РѕСЃРІРµС‰РµРЅРёСЋ.</p>
+            <p class="hero-note">Расчёт носит рекомендательный характер и основан на СП&nbsp;52.13330, требованиях к жилым помещениям и комфортному освещению.</p>
         </div>
-        <div class="sheet" aria-label="РЎС…РµРјР° РѕСЃРІРµС‰РµРЅРёСЏ РєРѕРјРЅР°С‚С‹, С‡РµСЂС‚С‘Р¶">
+        <div class="sheet" aria-label="Схема освещения комнаты, чертёж">
             <svg viewBox="0 0 920 620" xmlns="http://www.w3.org/2000/svg" role="img">
                 <defs>
                     <pattern id="grd" width="22" height="22" patternUnits="userSpaceOnUse">
@@ -330,30 +330,30 @@ footer .contacts span{color:var(--muted)}
                 </defs>
                 <rect width="920" height="620" fill="#0c1014"/>
                 <rect width="920" height="620" fill="url(#grd)"/>
-                <!-- СЂР°РјРєР° Р»РёСЃС‚Р° (С€С‚Р°РјРї) -->
+                <!-- рамка листа (штамп) -->
                 <rect x="14" y="14" width="892" height="592" fill="none" stroke="#9db2c8" stroke-opacity=".55" stroke-width="1.2"/>
                 <rect x="19" y="19" width="882" height="582" fill="none" stroke="#9db2c8" stroke-opacity=".22"/>
 
-                <!-- РџР›РђРќ РљРћРњРќРђРўР« -->
+                <!-- ПЛАН КОМНАТЫ -->
                 <g stroke="#cbd8e5" stroke-width="2.2" fill="none">
                     <rect x="90" y="130" width="520" height="350"/>
                 </g>
                 <g stroke="#cbd8e5" stroke-width="3.5" fill="none">
                     <rect x="86" y="126" width="528" height="358"/>
                 </g>
-                <!-- РѕРєРЅРѕ -->
+                <!-- окно -->
                 <g stroke="#9db2c8" stroke-width="5">
                     <path d="M200 126 V130M316 126 V130"/>
                     <path d="M160 130v-14M356 130v-14"/>
                 </g>
                 <line x1="160" y1="116" x2="356" y2="116" stroke="#9db2c8" stroke-width="1.4" stroke-dasharray="4 4"/>
-                <text x="258" y="105" fill="#9db2c8" font-size="13" text-anchor="middle">РћРљРќРћ</text>
-                <!-- РґРІРµСЂСЊ -->
+                <text x="258" y="105" fill="#9db2c8" font-size="13" text-anchor="middle">ОКНО</text>
+                <!-- дверь -->
                 <path d="M614 330 H614 M614 336 H614" stroke="#cbd8e5" stroke-width="4"/>
                 <path d="M614 336 A52 52 0 0 1 566 392" stroke="#9db2c8" stroke-width="1.6" stroke-dasharray="6 5"/>
                 <line x1="614" y1="336" x2="566" y2="392" stroke="#9db2c8" stroke-width="1.2"/>
-                <text x="640" y="392" fill="#9db2c8" font-size="13">Р”Р’Р•Р Р¬</text>
-                <!-- СЂР°Р·РјРµСЂС‹ -->
+                <text x="640" y="392" fill="#9db2c8" font-size="13">ДВЕРЬ</text>
+                <!-- размеры -->
                 <path d="M86 500 V508M614 500 V508" stroke="#9db2c8" stroke-width="1.4"/>
                 <path d="M86 508 H614" stroke="#9db2c8" stroke-width="1.2"/>
                 <path d="M86 508 l-5 6 M86 508 l5 6" stroke="#9db2c8" stroke-width="1.2"/>
@@ -365,7 +365,7 @@ footer .contacts span{color:var(--muted)}
                 <path d="M72 484 l-6 -5M72 484 l6 -5" stroke="#9db2c8" stroke-width="1.2"/>
                 <text x="58" y="308" fill="#9db2c8" font-size="15" text-anchor="middle" transform="rotate(-90 58 308)">3600</text>
 
-                <!-- Р›Р®РЎРўР Рђ Р›1 -->
+                <!-- ЛЮСТРА Л1 -->
                 <g class="beam">
                     <path d="M405 305 m0 -52 a52 52 0 0 1 52 52" fill="none" stroke="#ffdd2d" stroke-width="1.6" stroke-dasharray="5 6"/>
                     <path d="M405 305 m0 52 a52 52 0 0 1 -52 -52" fill="none" stroke="#ffdd2d" stroke-width="1.6" stroke-dasharray="5 6"/>
@@ -383,10 +383,10 @@ footer .contacts span{color:var(--muted)}
                     <circle cx="413" cy="313" r="3.4" fill="#ffdd2d" stroke="none"/>
                 </g>
                 <path d="M438 280 L486 258" stroke="#9db2c8" stroke-width="1.1" stroke-dasharray="3 3"/>
-                <text x="488" y="254" fill="#ffdd2d" font-size="14" font-weight="700">Р›1</text>
-                <text x="508" y="254" fill="#9db2c8" font-size="13">Р›СЋСЃС‚СЂР°</text>
+                <text x="488" y="254" fill="#ffdd2d" font-size="14" font-weight="700">Л1</text>
+                <text x="508" y="254" fill="#9db2c8" font-size="13">Люстра</text>
 
-                <!-- РўРћР§Р•Р§РќР«Р• РЎ1..РЎ4 -->
+                <!-- ТОЧЕЧНЫЕ С1..С4 -->
                 <circle cx="405" cy="305" r="150" fill="none" stroke="#9db2c8" stroke-width="1.1" stroke-dasharray="2 6" opacity=".6"/>
                 <g fill="none" stroke="#ffdd2d" stroke-width="2.2">
                     <g><circle cx="215" cy="205" r="10"/><path d="M215 198V212M208 205H222"/></g>
@@ -397,10 +397,10 @@ footer .contacts span{color:var(--muted)}
                     <g><circle cx="405" cy="430" r="10"/><path d="M405 423V437M398 430H412"/></g>
                 </g>
                 <path d="M222 205 L292 205" stroke="#9db2c8" stroke-width="1.1" stroke-dasharray="3 3"/>
-                <text x="293" y="202" fill="#ffdd2d" font-size="14" font-weight="700">РЎ1вЂ“РЎ6</text>
-                <text x="338" y="202" fill="#9db2c8" font-size="13">РўРѕС‡РµС‡РЅС‹Рµ</text>
+                <text x="293" y="202" fill="#ffdd2d" font-size="14" font-weight="700">С1–С6</text>
+                <text x="338" y="202" fill="#9db2c8" font-size="13">Точечные</text>
 
-                <!-- Р‘Р Рђ Р‘1 -->
+                <!-- БРА Б1 -->
                 <g stroke="#ffdd2d" fill="none" stroke-width="2">
                     <rect x="86" y="252" width="14" height="22"/>
                     <path d="M100 263 L112 263" stroke-width="3"/>
@@ -410,349 +410,349 @@ footer .contacts span{color:var(--muted)}
                     <circle cx="117" cy="363" r="5" fill="#ffdd2d" stroke="none"/>
                 </g>
                 <path d="M108 263 L160 252" stroke="#9db2c8" stroke-width="1.1" stroke-dasharray="3 3"/>
-                <text x="162" y="249" fill="#ffdd2d" font-size="14" font-weight="700">Р‘1вЂ“Р‘2</text>
-                <text x="198" y="249" fill="#9db2c8" font-size="13">Р‘СЂР°</text>
+                <text x="162" y="249" fill="#ffdd2d" font-size="14" font-weight="700">Б1–Б2</text>
+                <text x="198" y="249" fill="#9db2c8" font-size="13">Бра</text>
 
-                <!-- С€С‚Р°РјРї -->
+                <!-- штамп -->
                 <g>
                     <rect x="700" y="490" width="180" height="92" fill="#0c1014" stroke="#9db2c8" stroke-width="1.4"/>
                     <line x1="700" y1="520" x2="880" y2="520" stroke="#9db2c8" stroke-opacity=".5"/>
                     <line x1="700" y1="556" x2="880" y2="556" stroke="#9db2c8" stroke-opacity=".5"/>
                     <line x1="786" y1="490" x2="786" y2="582" stroke="#9db2c8" stroke-opacity=".5"/>
-                    <text x="710" y="513" fill="#ffdd2d" font-size="13" font-weight="700">РЎР’Р•Рў-36 В· РЎС…РµРјР° РѕСЃРІРµС‰РµРЅРёСЏ</text>
-                    <text x="710" y="546" fill="#cbd8e5" font-size="12.5">РџРѕРјРµС‰РµРЅРёРµ: РіРѕСЃС‚РёРЅР°СЏ (РїСЂРёРјРµСЂ)</text>
-                    <text x="710" y="575" fill="#9db2c8" font-size="12">Рњ 1:50 В· Р›РёСЃС‚ 1/1</text>
-                    <text x="795" y="575" fill="#9db2c8" font-size="12">РљР°Р»СЊРєСѓР»СЏС‚РѕСЂ СЃРІРµС‚Р°</text>
+                    <text x="710" y="513" fill="#ffdd2d" font-size="13" font-weight="700">СВЕТ-36 · Схема освещения</text>
+                    <text x="710" y="546" fill="#cbd8e5" font-size="12.5">Помещение: гостиная (пример)</text>
+                    <text x="710" y="575" fill="#9db2c8" font-size="12">М 1:50 · Лист 1/1</text>
+                    <text x="795" y="575" fill="#9db2c8" font-size="12">Калькулятор света</text>
                 </g>
-                <text x="30" y="586" fill="#8fa2b5" font-size="12">Р›1 вЂ” Р»СЋСЃС‚СЂР° В· РЎ1вЂ“РЎ6 вЂ” С‚РѕС‡РµС‡РЅС‹Рµ СЃРІРµС‚РёР»СЊРЅРёРєРё  В· Р‘1вЂ“Р‘2 вЂ” РЅР°СЃС‚РµРЅРЅС‹Рµ Р±СЂР°</text>
+                <text x="30" y="586" fill="#8fa2b5" font-size="12">Л1 — люстра · С1–С6 — точечные светильники  · Б1–Б2 — настенные бра</text>
                 <circle cx="24" cy="596" r="2" fill="#8fa2b5"/>
             </svg>
         </div>
     </div>
 </section>
 
-<!-- ======= РљРђР›Р¬РљРЈР›РЇРўРћР  ======= -->
+<!-- ======= КАЛЬКУЛЯТОР ======= -->
 <section class="calc-sec" id="calc">
     <div class="container-lg">
         <div class="sec-head">
-            <div class="kicker">РџСЂРѕРµРєС‚РёСЂСѓРµРј СЃРІРµС‚</div>
-            <h2>Р Р°СЃСЃС‡РёС‚Р°Р№С‚Рµ РѕСЃРІРµС‰РµРЅРёРµ РІР°С€РµР№ РєРѕРјРЅР°С‚С‹</h2>
-            <p>Р’С‹Р±РµСЂРёС‚Рµ РїРѕРјРµС‰РµРЅРёРµ, СЃС†РµРЅР°СЂРёР№ РѕСЃРІРµС‰РµРЅРёСЏ Рё С‚РёРїС‹ СЃРІРµС‚РёР»СЊРЅРёРєРѕРІ вЂ” РєР°Р»СЊРєСѓР»СЏС‚РѕСЂ РїРѕРєР°Р¶РµС‚ РіРѕС‚РѕРІСѓСЋ РєРѕРјРїР»РµРєС‚Р°С†РёСЋ СЃ РєРѕР»РёС‡РµСЃС‚РІРѕРј, РјРѕС‰РЅРѕСЃС‚СЊСЋ Рё СЃС‚РѕРёРјРѕСЃС‚СЊСЋ.</p>
+            <div class="kicker">Проектируем свет</div>
+            <h2>Рассчитайте освещение вашей комнаты</h2>
+            <p>Выберите помещение, сценарий освещения и типы светильников — калькулятор покажет готовую комплектацию с количеством, мощностью и стоимостью.</p>
         </div>
         <div class="steps">
-            <span class="step">1 В· <b>РџРѕРјРµС‰РµРЅРёРµ</b></span>
-            <span class="step">2 В· <b>РЎС†РµРЅР°СЂРёР№</b></span>
-            <span class="step">3 В· <b>РЎРІРµС‚РёР»СЊРЅРёРєРё</b></span>
-            <span class="step">4 В· <b>Р РµР·СѓР»СЊС‚Р°С‚</b></span>
+            <span class="step">1 · <b>Помещение</b></span>
+            <span class="step">2 · <b>Сценарий</b></span>
+            <span class="step">3 · <b>Светильники</b></span>
+            <span class="step">4 · <b>Результат</b></span>
         </div>
 
-        <!-- РЁРђР“ 1: РџРћРњР•Р©Р•РќРР• -->
+        <!-- ШАГ 1: ПОМЕЩЕНИЕ -->
         <div class="card">
-            <h3>1. РџРѕРјРµС‰РµРЅРёРµ Рё РїР»РѕС‰Р°РґСЊ</h3>
-            <p class="sub">РџРѕРґСЃРєР°Р¶РµС‚ РЅСѓР¶РЅСѓСЋ РЅРѕСЂРјР°С‚РёРІРЅСѓСЋ РѕСЃРІРµС‰С‘РЅРЅРѕСЃС‚СЊ Рё СЂРµРєРѕРјРµРЅРґСѓРµРјСѓСЋ С†РІРµС‚РѕРІСѓСЋ С‚РµРјРїРµСЂР°С‚СѓСЂСѓ.</p>
+            <h3>1. Помещение и площадь</h3>
+            <p class="sub">Подскажет нужную нормативную освещённость и рекомендуемую цветовую температуру.</p>
             <div class="rooms" id="rooms">
                 <input class="room-inp" type="radio" name="room" id="r-living" value="living" checked>
-                <label class="room-lbl" for="r-living"><span class="iconroom"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7M5 10v10h14V10M9 20v-6h6v6"/></svg></span>Р“РѕСЃС‚РёРЅР°СЏ<small>150 Р»Рє</small></label>
+                <label class="room-lbl" for="r-living"><span class="iconroom"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7M5 10v10h14V10M9 20v-6h6v6"/></svg></span>Гостиная<small>150 лк</small></label>
                 <input class="room-inp" type="radio" name="room" id="r-bedroom" value="bedroom">
-                <label class="room-lbl" for="r-bedroom"><span class="iconroom"><svg viewBox="0 0 24 24"><path d="M3 18v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6M3 18h18M3 18v3M21 18v3M6 10V8a3 3 0 0 1 3-3h6a3 3 0 0 1 3 3v2"/></svg></span>РЎРїР°Р»СЊРЅСЏ<small>150 Р»Рє</small></label>
+                <label class="room-lbl" for="r-bedroom"><span class="iconroom"><svg viewBox="0 0 24 24"><path d="M3 18v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6M3 18h18M3 18v3M21 18v3M6 10V8a3 3 0 0 1 3-3h6a3 3 0 0 1 3 3v2"/></svg></span>Спальня<small>150 лк</small></label>
                 <input class="room-inp" type="radio" name="room" id="r-kids" value="kids">
-                <label class="room-lbl" for="r-kids"><span class="iconroom"><svg viewBox="0 0 24 24"><circle cx="8" cy="9" r="2"/><circle cx="16" cy="11" r="3"/><path d="M3 21c0-3 2.4-5 5-5s5 2 5 5M13.5 21c.3-2.5 2-4 4.5-4 2 0 3 1.5 3 4"/></svg></span>Р”РµС‚СЃРєР°СЏ<small>200 Р»Рє</small></label>
+                <label class="room-lbl" for="r-kids"><span class="iconroom"><svg viewBox="0 0 24 24"><circle cx="8" cy="9" r="2"/><circle cx="16" cy="11" r="3"/><path d="M3 21c0-3 2.4-5 5-5s5 2 5 5M13.5 21c.3-2.5 2-4 4.5-4 2 0 3 1.5 3 4"/></svg></span>Детская<small>200 лк</small></label>
                 <input class="room-inp" type="radio" name="room" id="r-kitchen" value="kitchen">
-                <label class="room-lbl" for="r-kitchen"><span class="iconroom"><svg viewBox="0 0 24 24"><path d="M5 3v8M19 3v18M5 11c0 4 3 4 3 8M8 19h3M8 11h6M14 3v5a2 2 0 0 0 4 0V3"/></svg></span>РљСѓС…РЅСЏ<small>200 Р»Рє</small></label>
+                <label class="room-lbl" for="r-kitchen"><span class="iconroom"><svg viewBox="0 0 24 24"><path d="M5 3v8M19 3v18M5 11c0 4 3 4 3 8M8 19h3M8 11h6M14 3v5a2 2 0 0 0 4 0V3"/></svg></span>Кухня<small>200 лк</small></label>
                 <input class="room-inp" type="radio" name="room" id="r-bath" value="bath">
-                <label class="room-lbl" for="r-bath"><span class="iconroom"><svg viewBox="0 0 24 24"><path d="M3 12h18M5 12v5a4 4 0 0 0 8 0v-5M5 8a3 3 0 0 1 6 0v4M9 8h12"/></svg></span>Р’Р°РЅРЅР°СЏ<small>100 Р»Рє</small></label>
+                <label class="room-lbl" for="r-bath"><span class="iconroom"><svg viewBox="0 0 24 24"><path d="M3 12h18M5 12v5a4 4 0 0 0 8 0v-5M5 8a3 3 0 0 1 6 0v4M9 8h12"/></svg></span>Ванная<small>100 лк</small></label>
                 <input class="room-inp" type="radio" name="room" id="r-hall" value="hall">
-                <label class="room-lbl" for="r-hall"><span class="iconroom"><svg viewBox="0 0 24 24"><path d="M4 21V4h10a3 3 0 0 1 0 6H4M9 11v7"/></svg></span>РџСЂРёС…РѕР¶Р°СЏ<small>100 Р»Рє</small></label>
+                <label class="room-lbl" for="r-hall"><span class="iconroom"><svg viewBox="0 0 24 24"><path d="M4 21V4h10a3 3 0 0 1 0 6H4M9 11v7"/></svg></span>Прихожая<small>100 лк</small></label>
                 <input class="room-inp" type="radio" name="room" id="r-office" value="office">
-                <label class="room-lbl" for="r-office"><span class="iconroom"><svg viewBox="0 0 24 24"><path d="M4 20V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12M4 20h16M8 6V4a2 2 0 0 1 4 0M12 6V4a2 2 0 0 1 4 0"/></svg></span>РљР°Р±РёРЅРµС‚<small>300 Р»Рє</small></label>
+                <label class="room-lbl" for="r-office"><span class="iconroom"><svg viewBox="0 0 24 24"><path d="M4 20V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12M4 20h16M8 6V4a2 2 0 0 1 4 0M12 6V4a2 2 0 0 1 4 0"/></svg></span>Кабинет<small>300 лк</small></label>
             </div>
             <div class="sli-row" style="margin-top:18px">
-                <div class="sli-head"><span>РџР»РѕС‰Р°РґСЊ РїРѕРјРµС‰РµРЅРёСЏ, РјВІ</span><span class="sli-val" id="area-val">18 РјВІ</span></div>
+                <div class="sli-head"><span>Площадь помещения, м²</span><span class="sli-val" id="area-val">18 м²</span></div>
                 <input type="range" id="area" min="4" max="60" value="18" step="1">
                 <div class="range-nums"><span>4</span><span>60</span></div>
             </div>
-            <div class="hint-temp" id="temp-hint">Р РµРєРѕРјРµРЅРґСѓРµРјР°СЏ С‚РµРјРїРµСЂР°С‚СѓСЂР° РґР»СЏ РіРѕСЃС‚РёРЅРѕР№: <b>РЅРµР№С‚СЂР°Р»СЊРЅС‹Р№ 4000&nbsp;K</b> вЂ” СѓСЋС‚РЅРѕ Рё СЃРѕРІСЂРµРјРµРЅРЅРѕ.</div>
+            <div class="hint-temp" id="temp-hint">Рекомендуемая температура для гостиной: <b>нейтральный 4000&nbsp;K</b> — уютно и современно.</div>
         </div>
 
-        <!-- РЁРђР“ 2: РЎР¦Р•РќРђР РР™ -->
+        <!-- ШАГ 2: СЦЕНАРИЙ -->
         <div class="card">
-            <h3>2. РЎС†РµРЅР°СЂРёР№ РѕСЃРІРµС‰РµРЅРёСЏ</h3>
-            <p class="sub">Р’С‹Р±РµСЂРёС‚Рµ РѕСЃРЅРѕРІСѓ: С‚РѕР»СЊРєРѕ Р»СЋСЃС‚СЂР°, С‚РѕР»СЊРєРѕ С‚РѕС‡РµС‡РЅС‹Рµ РёР»Рё РєР»Р°СЃСЃРёС‡РµСЃРєР°СЏ СЃРІСЏР·РєР° В«Р»СЋСЃС‚СЂР° + С‚РѕС‡РµС‡РЅС‹РµВ».</p>
+            <h3>2. Сценарий освещения</h3>
+            <p class="sub">Выберите основу: только люстра, только точечные или классическая связка «люстра + точечные».</p>
             <div class="seg" id="seg-scenario">
                 <input type="radio" name="scenario" id="sc-only-ch" value="only-ch">
-                <label for="sc-only-ch">РўРѕР»СЊРєРѕ Р»СЋСЃС‚СЂР°</label>
+                <label for="sc-only-ch">Только люстра</label>
                 <input type="radio" name="scenario" id="sc-spots" value="only-spots">
-                <label for="sc-spots">РўРѕР»СЊРєРѕ С‚РѕС‡РµС‡РЅС‹Рµ</label>
+                <label for="sc-spots">Только точечные</label>
                 <input type="radio" name="scenario" id="sc-both" value="both" checked>
-                <label for="sc-both">Р›СЋСЃС‚СЂР° + С‚РѕС‡РµС‡РЅС‹Рµ</label>
+                <label for="sc-both">Люстра + точечные</label>
             </div>
         </div>
 
-        <!-- РЁРђР“ 3Рђ: РўРћР§Р•Р§РќР«Р• -->
+        <!-- ШАГ 3А: ТОЧЕЧНЫЕ -->
         <div class="card" id="spot-card">
-            <h3>3. РўРѕС‡РµС‡РЅС‹Рµ СЃРІРµС‚РёР»СЊРЅРёРєРё</h3>
-            <p class="sub">Р’СЃС‚СЂРµРЅРЅС‹Рµ СЃРІРµС‚РёР»СЊРЅРёРєРё РґР»СЏ РѕСЃРЅРѕРІРЅРѕРіРѕ РёР»Рё Р°РєС†РµРЅС‚РЅРѕРіРѕ СЃРІРµС‚Р°. РЈРіР»СѓР±Р»С‘РЅРЅС‹Рµ СЃ С„РёР»СЊС‚СЂРѕРј РґР°СЋС‚ РјСЏРіРєРёР№ СЃРІРµС‚ Р±РµР· Р±Р»РёРєРѕРІ.</p>
+            <h3>3. Точечные светильники</h3>
+            <p class="sub">Встренные светильники для основного или акцентного света. Углублённые с фильтром дают мягкий свет без бликов.</p>
             <div class="card-grid">
                 <div>
-                    <div class="sli-head"><span>РўРёРї СЃРІРµС‚РёР»СЊРЅРёРєР°</span></div>
+                    <div class="sli-head"><span>Тип светильника</span></div>
                     <div class="seg">
                         <input type="radio" name="spottype" id="st-led" value="led" checked>
-                        <label for="st-led">LED-РјРѕРґСѓР»СЊ (Р±РµР· Р»Р°РјРїС‹)</label>
+                        <label for="st-led">LED-модуль (без лампы)</label>
                         <input type="radio" name="spottype" id="st-lamp" value="lamp">
-                        <label for="st-lamp">РЎ Р·Р°РјРµРЅСЏРµРјРѕР№ Р»Р°РјРїРѕР№</label>
+                        <label for="st-lamp">С заменяемой лампой</label>
                     </div>
                 </div>
                 <div>
-                    <div class="sli-head"><span>РЈСЃС‚Р°РЅРѕРІРєР°</span></div>
+                    <div class="sli-head"><span>Установка</span></div>
                     <div class="seg">
                         <input type="radio" name="spotfit" id="sf-flat" value="flat" checked>
-                        <label for="sf-flat">РћР±С‹С‡РЅС‹Рµ</label>
+                        <label for="sf-flat">Обычные</label>
                         <input type="radio" name="spotfit" id="sf-filter" value="filter">
-                        <label for="sf-filter">РЈРіР»СѓР±Р»С‘РЅРЅС‹Рµ СЃ С„РёР»СЊС‚СЂРѕРј СЃРІРµС‚Р° (Р°РЅС‚РёР±Р»РёРє)</label>
+                        <label for="sf-filter">Углублённые с фильтром света (антиблик)</label>
                     </div>
                 </div>
                 <div class="sli-row" style="margin:0">
-                    <div class="sli-head"><span>РњРѕС‰РЅРѕСЃС‚СЊ РѕРґРЅРѕРіРѕ СЃРІРµС‚РёР»СЊРЅРёРєР°, Р’С‚</span><span class="sli-val" id="spotW-val">7 Р’С‚</span></div>
+                    <div class="sli-head"><span>Мощность одного светильника, Вт</span><span class="sli-val" id="spotW-val">7 Вт</span></div>
                     <input type="range" id="spotW" min="3" max="15" value="7" step="1">
                     <div class="range-nums"><span id="spotW-min">3</span><span id="spotW-max">15</span></div>
                 </div>
                 <div>
-                    <div class="sli-head"><span>Р¦РІРµС‚РѕРІР°СЏ С‚РµРјРїРµСЂР°С‚СѓСЂР° С‚РѕС‡РµС‡РЅС‹С…</span></div>
+                    <div class="sli-head"><span>Цветовая температура точечных</span></div>
                     <div class="temp-row">
-                        <span class="sw s2700 on" data-t="2700" data-g="spot">РўС‘РїР»С‹Р№ В· 2700&nbsp;K</span>
-                        <span class="sw s4000" data-t="4000" data-g="spot">РќРµР№С‚СЂР°Р»СЊРЅС‹Р№ В· 4000&nbsp;K</span>
-                        <span class="sw s5000" data-t="5000" data-g="spot">РҐРѕР»РѕРґРЅС‹Р№ В· 5000&nbsp;K</span>
+                        <span class="sw s2700 on" data-t="2700" data-g="spot">Тёплый · 2700&nbsp;K</span>
+                        <span class="sw s4000" data-t="4000" data-g="spot">Нейтральный · 4000&nbsp;K</span>
+                        <span class="sw s5000" data-t="5000" data-g="spot">Холодный · 5000&nbsp;K</span>
                     </div>
                     <input type="hidden" id="spotTemp" value="2700">
                 </div>
             </div>
         </div>
 
-        <!-- РЁРђР“ 3Р‘: Р›Р®РЎРўР Рђ -->
+        <!-- ШАГ 3Б: ЛЮСТРА -->
         <div class="card" id="ch-card">
-            <h3>4. Р›СЋСЃС‚СЂР°</h3>
-            <p class="sub">Р¦РµРЅС‚СЂР°Р»СЊРЅС‹Р№ СЃРІРµС‚РёР»СЊРЅРёРє РґР»СЏ СЂР°РІРЅРѕРјРµСЂРЅРѕРіРѕ С„РѕРЅРѕРІРѕРіРѕ СЃРІРµС‚Р° РїРѕ РІСЃРµР№ РєРѕРјРЅР°С‚Рµ.</p>
+            <h3>4. Люстра</h3>
+            <p class="sub">Центральный светильник для равномерного фонового света по всей комнате.</p>
             <div class="card-grid">
                 <div class="sli-row" style="margin:0">
-                    <div class="sli-head"><span>РљРѕР»РёС‡РµСЃС‚РІРѕ СЂРѕР¶РєРѕРІ (РїР»Р°С„РѕРЅРѕРІ)</span><span class="sli-val" id="arms-val">5 С€С‚</span></div>
+                    <div class="sli-head"><span>Количество рожков (плафонов)</span><span class="sli-val" id="arms-val">5 шт</span></div>
                     <input type="range" id="arms" min="1" max="12" value="5" step="1">
                     <div class="range-nums"><span>1</span><span>12</span></div>
                 </div>
                 <div class="sli-row" style="margin:0">
-                    <div class="sli-head"><span>РњРѕС‰РЅРѕСЃС‚СЊ Р»Р°РјРїС‹ РІ СЂРѕР¶РєРµ, Р’С‚</span><span class="sli-val" id="lampW-val">8 Р’С‚</span></div>
+                    <div class="sli-head"><span>Мощность лампы в рожке, Вт</span><span class="sli-val" id="lampW-val">8 Вт</span></div>
                     <input type="range" id="lampW" min="3" max="40" value="8" step="1">
                     <div class="range-nums"><span>3</span><span>40</span></div>
                 </div>
                 <div>
-                    <div class="sli-head"><span>Р¦РІРµС‚РѕРІР°СЏ С‚РµРјРїРµСЂР°С‚СѓСЂР° Р»СЋСЃС‚СЂС‹</span></div>
+                    <div class="sli-head"><span>Цветовая температура люстры</span></div>
                     <div class="temp-row">
-                        <span class="sw s2700 on" data-t="2700" data-g="ch">РўС‘РїР»С‹Р№ В· 2700&nbsp;K</span>
-                        <span class="sw s4000" data-t="4000" data-g="ch">РќРµР№С‚СЂР°Р»СЊРЅС‹Р№ В· 4000&nbsp;K</span>
-                        <span class="sw s5000" data-t="5000" data-g="ch">РҐРѕР»РѕРґРЅС‹Р№ В· 5000&nbsp;K</span>
+                        <span class="sw s2700 on" data-t="2700" data-g="ch">Тёплый · 2700&nbsp;K</span>
+                        <span class="sw s4000" data-t="4000" data-g="ch">Нейтральный · 4000&nbsp;K</span>
+                        <span class="sw s5000" data-t="5000" data-g="ch">Холодный · 5000&nbsp;K</span>
                     </div>
                     <input type="hidden" id="chTemp" value="2700">
                 </div>
             </div>
         </div>
 
-        <!-- РЁРђР“ 4: Р‘Р Рђ -->
+        <!-- ШАГ 4: БРА -->
         <div class="card">
-            <h3>5. РќР°СЃС‚РµРЅРЅС‹Рµ Р±СЂР°</h3>
-            <p class="sub">Р›РѕРєР°Р»СЊРЅС‹Р№ СЃРІРµС‚: РґР»СЏ С‡С‚РµРЅРёСЏ, РЅР°Рґ РґРёРІР°РЅРѕРј, РёР·РіРѕР»РѕРІСЊРµРј РєСЂРѕРІР°С‚Рё РёР»Рё РґР»СЏ РґРµРєРѕСЂР°С‚РёРІРЅРѕР№ РїРѕРґСЃРІРµС‚РєРё.</p>
+            <h3>5. Настенные бра</h3>
+            <p class="sub">Локальный свет: для чтения, над диваном, изголовьем кровати или для декоративной подсветки.</p>
             <div class="toggle" style="margin-bottom:16px">
                 <label>
                     <input type="checkbox" id="braOn">
                     <span class="track"></span>
                 </label>
-                <span>Р”РѕР±Р°РІРёС‚СЊ РЅР°СЃС‚РµРЅРЅС‹Рµ Р±СЂР° РІ СЂР°СЃС‡С‘С‚</span>
+                <span>Добавить настенные бра в расчёт</span>
             </div>
             <div class="card-grid" id="bra-block" style="display:none">
                 <div>
-                    <div class="sli-head"><span>Р’РёРґ Р±СЂР°</span></div>
+                    <div class="sli-head"><span>Вид бра</span></div>
                     <div class="seg">
                         <input type="radio" name="bratype" id="bt-reading" value="reading" checked>
-                        <label for="bt-reading">Р”Р»СЏ С‡С‚РµРЅРёСЏ</label>
+                        <label for="bt-reading">Для чтения</label>
                         <input type="radio" name="bratype" id="bt-decor" value="decor">
-                        <label for="bt-decor">Р”РµРєРѕСЂР°С‚РёРІРЅС‹Рµ</label>
+                        <label for="bt-decor">Декоративные</label>
                         <input type="radio" name="bratype" id="bt-classic" value="classic">
-                        <label for="bt-classic">РљР»Р°СЃСЃРёС‡РµСЃРєРёРµ / РЅР°РїСЂР°РІР»РµРЅРЅС‹Рµ</label>
+                        <label for="bt-classic">Классические / направленные</label>
                     </div>
                 </div>
                 <div class="sli-row" style="margin:0">
-                    <div class="sli-head"><span>РљРѕР»РёС‡РµСЃС‚РІРѕ Р±СЂР°</span><span class="sli-val" id="braCnt-val">2 С€С‚</span></div>
+                    <div class="sli-head"><span>Количество бра</span><span class="sli-val" id="braCnt-val">2 шт</span></div>
                     <input type="range" id="braCnt" min="1" max="8" value="2" step="1">
                     <div class="range-nums"><span>1</span><span>8</span></div>
                 </div>
                 <div class="sli-row" style="margin:0">
-                    <div class="sli-head"><span>РњРѕС‰РЅРѕСЃС‚СЊ РѕРґРЅРѕРіРѕ Р±СЂР°, Р’С‚</span><span class="sli-val" id="braW-val">7 Р’С‚</span></div>
+                    <div class="sli-head"><span>Мощность одного бра, Вт</span><span class="sli-val" id="braW-val">7 Вт</span></div>
                     <input type="range" id="braW" min="3" max="40" value="7" step="1">
                     <div class="range-nums"><span>3</span><span>40</span></div>
                 </div>
                 <div>
-                    <div class="sli-head"><span>Р¦РІРµС‚РѕРІР°СЏ С‚РµРјРїРµСЂР°С‚СѓСЂР° Р±СЂР°</span></div>
+                    <div class="sli-head"><span>Цветовая температура бра</span></div>
                     <div class="temp-row">
-                        <span class="sw s2700 on" data-t="2700" data-g="bra">РўС‘РїР»С‹Р№ В· 2700&nbsp;K</span>
-                        <span class="sw s4000" data-t="4000" data-g="bra">РќРµР№С‚СЂР°Р»СЊРЅС‹Р№ В· 4000&nbsp;K</span>
-                        <span class="sw s5000" data-t="5000" data-g="bra">РҐРѕР»РѕРґРЅС‹Р№ В· 5000&nbsp;K</span>
+                        <span class="sw s2700 on" data-t="2700" data-g="bra">Тёплый · 2700&nbsp;K</span>
+                        <span class="sw s4000" data-t="4000" data-g="bra">Нейтральный · 4000&nbsp;K</span>
+                        <span class="sw s5000" data-t="5000" data-g="bra">Холодный · 5000&nbsp;K</span>
                     </div>
                     <input type="hidden" id="braTemp" value="2700">
                 </div>
             </div>
         </div>
 
-        <!-- Р Р•Р—РЈР›Р¬РўРђРўР« -->
+        <!-- РЕЗУЛЬТАТЫ -->
         <div id="result-wrap" class="results">
             <div class="res-strip">
-                <div class="rbig"><div class="n" id="res-flux">0 Р»Рј</div><div class="l">С‚СЂРµР±СѓРµРјС‹Р№ СЃРІРµС‚РѕРІРѕР№ РїРѕС‚РѕРє</div></div>
-                <div class="rbig"><div class="n" id="res-power">0 Р’С‚</div><div class="l">СЃСѓРјРјР°СЂРЅР°СЏ РјРѕС‰РЅРѕСЃС‚СЊ</div></div>
-                <div class="rbig"><div class="n money" id="res-year">0 в‚Ѕ</div><div class="l">СЃС‚РѕРёРјРѕСЃС‚СЊ СЌ/СЌ РІ РіРѕРґ</div></div>
-                <div class="rbig"><div class="n money" id="res-save">0 в‚Ѕ</div><div class="l">СЌРєРѕРЅРѕРјРёСЏ LED vs РЅР°РєР°Р»РёРІР°РЅРёСЏ РІ РіРѕРґ</div></div>
+                <div class="rbig"><div class="n" id="res-flux">0 лм</div><div class="l">требуемый световой поток</div></div>
+                <div class="rbig"><div class="n" id="res-power">0 Вт</div><div class="l">суммарная мощность</div></div>
+                <div class="rbig"><div class="n money" id="res-year">0 ₽</div><div class="l">стоимость э/э в год</div></div>
+                <div class="rbig"><div class="n money" id="res-save">0 ₽</div><div class="l">экономия LED vs накаливания в год</div></div>
             </div>
 
             <div class="res-grid">
                 <div class="r-card" id="r-card-spots">
-                    <h4><span class="dot"></span>РўРѕС‡РµС‡РЅС‹Рµ СЃРІРµС‚РёР»СЊРЅРёРєРё</h4>
-                    <div class="rc-item"><span class="k">Р РµРєРѕРјРµРЅРґСѓРµРјРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ</span><span class="v" id="rc-spots-count">вЂ”</span></div>
-                    <div class="rc-item"><span class="k">РњРѕС‰РЅРѕСЃС‚СЊ РѕРґРЅРѕРіРѕ</span><span class="v" id="rc-spots-w">вЂ”</span></div>
-                    <div class="rc-item"><span class="k">РЎРІРµС‚РѕРІРѕР№ РїРѕС‚РѕРє РіСЂСѓРїРїС‹</span><span class="v" id="rc-spots-flux">вЂ”</span></div>
-                    <div class="rc-item"><span class="k">Р¦РІРµС‚РѕРІР°СЏ С‚РµРјРїРµСЂР°С‚СѓСЂР°</span><span class="v" id="rc-spots-temp">вЂ”</span></div>
-                    <div class="rc-item"><span class="k">РўРёРї / СѓСЃС‚Р°РЅРѕРІРєР°</span><span class="v" id="rc-spots-type">вЂ”</span></div>
+                    <h4><span class="dot"></span>Точечные светильники</h4>
+                    <div class="rc-item"><span class="k">Рекомендуемое количество</span><span class="v" id="rc-spots-count">—</span></div>
+                    <div class="rc-item"><span class="k">Мощность одного</span><span class="v" id="rc-spots-w">—</span></div>
+                    <div class="rc-item"><span class="k">Световой поток группы</span><span class="v" id="rc-spots-flux">—</span></div>
+                    <div class="rc-item"><span class="k">Цветовая температура</span><span class="v" id="rc-spots-temp">—</span></div>
+                    <div class="rc-item"><span class="k">Тип / установка</span><span class="v" id="rc-spots-type">—</span></div>
                 </div>
                 <div class="r-card" id="r-card-ch">
-                    <h4><span class="dot"></span>Р›СЋСЃС‚СЂР°</h4>
-                    <div class="rc-item"><span class="k">Р РѕР¶РєРѕРІ Г— РјРѕС‰РЅРѕСЃС‚СЊ Р»Р°РјРїС‹</span><span class="v" id="rc-ch-arms">вЂ”</span></div>
-                    <div class="rc-item"><span class="k">Р РµРєРѕРјРµРЅРґСѓРµРјР°СЏ РјРѕС‰РЅРѕСЃС‚СЊ Р»СЋСЃС‚СЂС‹</span><span class="v" id="rc-ch-rec">вЂ”</span></div>
-                    <div class="rc-item"><span class="k">РЎРІРµС‚РѕРІРѕР№ РїРѕС‚РѕРє Р»СЋСЃС‚СЂС‹</span><span class="v" id="rc-ch-flux">вЂ”</span></div>
-                    <div class="rc-item"><span class="k">Р¦РІРµС‚РѕРІР°СЏ С‚РµРјРїРµСЂР°С‚СѓСЂР°</span><span class="v" id="rc-ch-temp">вЂ”</span></div>
+                    <h4><span class="dot"></span>Люстра</h4>
+                    <div class="rc-item"><span class="k">Рожков × мощность лампы</span><span class="v" id="rc-ch-arms">—</span></div>
+                    <div class="rc-item"><span class="k">Рекомендуемая мощность люстры</span><span class="v" id="rc-ch-rec">—</span></div>
+                    <div class="rc-item"><span class="k">Световой поток люстры</span><span class="v" id="rc-ch-flux">—</span></div>
+                    <div class="rc-item"><span class="k">Цветовая температура</span><span class="v" id="rc-ch-temp">—</span></div>
                 </div>
                 <div class="r-card" id="r-card-bra">
-                    <h4><span class="dot"></span>РќР°СЃС‚РµРЅРЅС‹Рµ Р±СЂР°</h4>
-                    <div class="rc-item"><span class="k">РљРѕР»РёС‡РµСЃС‚РІРѕ</span><span class="v" id="rc-bra-count">вЂ”</span></div>
-                    <div class="rc-item"><span class="k">Р’РёРґ</span><span class="v" id="rc-bra-type">вЂ”</span></div>
-                    <div class="rc-item"><span class="k">РЎРІРµС‚РѕРІРѕР№ РїРѕС‚РѕРє РіСЂСѓРїРїС‹</span><span class="v" id="rc-bra-flux">вЂ”</span></div>
-                    <div class="rc-item"><span class="k">Р¦РІРµС‚РѕРІР°СЏ С‚РµРјРїРµСЂР°С‚СѓСЂР°</span><span class="v" id="rc-bra-temp">вЂ”</span></div>
+                    <h4><span class="dot"></span>Настенные бра</h4>
+                    <div class="rc-item"><span class="k">Количество</span><span class="v" id="rc-bra-count">—</span></div>
+                    <div class="rc-item"><span class="k">Вид</span><span class="v" id="rc-bra-type">—</span></div>
+                    <div class="rc-item"><span class="k">Световой поток группы</span><span class="v" id="rc-bra-flux">—</span></div>
+                    <div class="rc-item"><span class="k">Цветовая температура</span><span class="v" id="rc-bra-temp">—</span></div>
                 </div>
                 <div class="r-card">
-                    <h4><span class="dot"></span>Р­Р»РµРєС‚СЂРѕСЌРЅРµСЂРіРёСЏ</h4>
-                    <div class="rc-item"><span class="k">РџРѕС‚СЂРµР±Р»РµРЅРёРµ РІСЃРµР№ СЃС…РµРјС‹</span><span class="v" id="rc-kwh">вЂ”</span></div>
-                    <div class="rc-item"><span class="k">Р­РєРІРёРІР°Р»РµРЅС‚ Р»Р°РјРї РЅР°РєР°Р»РёРІР°РЅРёСЏ</span><span class="v" id="rc-inc">вЂ”</span></div>
+                    <h4><span class="dot"></span>Электроэнергия</h4>
+                    <div class="rc-item"><span class="k">Потребление всей схемы</span><span class="v" id="rc-kwh">—</span></div>
+                    <div class="rc-item"><span class="k">Эквивалент ламп накаливания</span><span class="v" id="rc-inc">—</span></div>
                     <div class="rc-item" style="display:block">
                         <div class="sli-row" style="margin:0">
-                            <div class="sli-head"><span>Р§Р°СЃРѕРІ СЂР°Р±РѕС‚С‹ РІ РґРµРЅСЊ</span><span class="sli-val" id="hours-val">3 С‡</span></div>
+                            <div class="sli-head"><span>Часов работы в день</span><span class="sli-val" id="hours-val">3 ч</span></div>
                             <input type="range" id="hours" min="1" max="10" value="3" step="1">
                         </div>
                         <div class="sli-row" style="margin:0">
-                            <div class="sli-head"><span>РўР°СЂРёС„, в‚Ѕ/РєР’С‚В·С‡</span><span class="sli-val" id="tariff-val">5,43 в‚Ѕ</span></div>
+                            <div class="sli-head"><span>Тариф, ₽/кВт·ч</span><span class="sli-val" id="tariff-val">5,43 ₽</span></div>
                             <input type="range" id="tariff" min="1" max="10" value="5.43" step="0.01">
                         </div>
                     </div>
-                    <div class="save-box" id="save-box">Р’Р°С€ СЃРІРµС‚РѕРґРёРѕРґРЅС‹Р№ СЃРІРµС‚ РїРѕС‚СЂРµР±Р»СЏРµС‚ РІ СЂР°Р·С‹ РјРµРЅСЊС€Рµ вЂ” <b>СЌРєРѕРЅРѕРјРёСЏ РґРѕ <span id="save-money">0</span> в‚Ѕ</b> Рё <b><span id="save-kwh">0</span> РєР’С‚В·С‡</b> РІ РіРѕРґ РїРѕ СЃСЂР°РІРЅРµРЅРёСЋ СЃ Р»Р°РјРїР°РјРё РЅР°РєР°Р»РёРІР°РЅРёСЏ.</div>
+                    <div class="save-box" id="save-box">Ваш светодиодный свет потребляет в разы меньше — <b>экономия до <span id="save-money">0</span> ₽</b> и <b><span id="save-kwh">0</span> кВт·ч</b> в год по сравнению с лампами накаливания.</div>
                 </div>
             </div>
 
             <div class="coverage">
-                <div class="cov-label"><span>РџРѕРєСЂС‹С‚РёРµ РїРѕС‚СЂРµР±РЅРѕСЃС‚Рё РєРѕРјРЅР°С‚С‹ РІ СЃРІРµС‚Рµ</span><span id="cov-pct">100 %</span></div>
+                <div class="cov-label"><span>Покрытие потребности комнаты в свете</span><span id="cov-pct">100 %</span></div>
                 <div class="cov-bar"><i id="cov-fill" style="width:100%"></i></div>
-                <div class="warn" id="cov-warn">РќРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ СЃРІРµС‚Р°: РґРѕР±Р°РІСЊС‚Рµ СЃРІРµС‚РёР»СЊРЅРёРєРѕРІ РёР»Рё СѓРІРµР»РёС‡СЊС‚Рµ РјРѕС‰РЅРѕСЃС‚СЊ, С‡С‚РѕР±С‹ РєРѕРјС„РѕСЂС‚РЅРѕ РѕСЃРІРµС‚РёС‚СЊ РєРѕРјРЅР°С‚Сѓ.</div>
+                <div class="warn" id="cov-warn">Недостаточно света: добавьте светильников или увеличьте мощность, чтобы комфортно осветить комнату.</div>
             </div>
 
             <div class="actions">
                 <form class="mini-form" id="mail-form" onsubmit="return sendMail(event)">
-                    <input type="email" id="mail-to" placeholder="Р’Р°С€ e-mail РґР»СЏ РѕС‚РїСЂР°РІРєРё СЂР°СЃС‡С‘С‚Р°" required>
-                    <button type="submit" class="btn-red">РћС‚РїСЂР°РІРёС‚СЊ СЂР°СЃС‡С‘С‚ РЅР° e-mail</button>
+                    <input type="email" id="mail-to" placeholder="Ваш e-mail для отправки расчёта" required>
+                    <button type="submit" class="btn-red">Отправить расчёт на e-mail</button>
                 </form>
-                <button class="btn-ghost2" id="copy-btn">РЎРєРѕРїРёСЂРѕРІР°С‚СЊ СЂР°СЃС‡С‘С‚</button>
+                <button class="btn-ghost2" id="copy-btn">Скопировать расчёт</button>
             </div>
-            <div style="font-size:12.5px;color:#888;margin-top:8px">Р Р°СЃС‡С‘С‚ РѕС‚РїСЂР°РІР»СЏРµС‚СЃСЏ С‡РµСЂРµР· РІР°С€Сѓ РїРѕС‡С‚РѕРІСѓСЋ РїСЂРѕРіСЂР°РјРјСѓ. РњРѕР¶РЅРѕ С‚Р°РєР¶Рµ СЃРєР°С‡Р°С‚СЊ СЂРµР·СѓР»СЊС‚Р°С‚С‹ РѕРґРЅРёРј РєР»РёРєРѕРј РІ РїРѕР»Рµ В«РЎРєРѕРїРёСЂРѕРІР°С‚СЊВ».</div>
+            <div style="font-size:12.5px;color:#888;margin-top:8px">Расчёт отправляется через вашу почтовую программу. Можно также скачать результаты одним кликом в поле «Скопировать».</div>
         </div>
 
-        <!-- РќРћР РњР« -->
+        <!-- НОРМЫ -->
         <div class="card" id="norm">
-            <h3>РќРѕСЂРјР°С‚РёРІС‹ РѕСЃРІРµС‰С‘РЅРЅРѕСЃС‚Рё Р¶РёР»С‹С… РїРѕРјРµС‰РµРЅРёР№</h3>
-            <p class="sub">РџРѕ РЎРџ 52.13330.2016 (РЎРќРёРџ 23-05-95) Рё СЂРµРєРѕРјРµРЅРґР°С†РёСЏРј РґР»СЏ РєРѕРјС„РѕСЂС‚РЅРѕРіРѕ СЃРІРµС‚Р°. Р Р°Р±РѕС‡Р°СЏ СЃС‚СЂРѕРєР° вЂ” РІР°С€Р° РІС‹Р±СЂР°РЅРЅР°СЏ РєРѕРјРЅР°С‚Р°.</p>
+            <h3>Нормативы освещённости жилых помещений</h3>
+            <p class="sub">По СП 52.13330.2016 (СНиП 23-05-95) и рекомендациям для комфортного света. Рабочая строка — ваша выбранная комната.</p>
             <table class="norm">
-                <thead><tr><th>РџРѕРјРµС‰РµРЅРёРµ</th><th>РћСЃРІРµС‰С‘РЅРЅРѕСЃС‚СЊ, Р»Рє</th><th>Р РµРєРѕРјРµРЅРґСѓРµРјР°СЏ С‚РµРјРїРµСЂР°С‚СѓСЂР°</th></tr></thead>
+                <thead><tr><th>Помещение</th><th>Освещённость, лк</th><th>Рекомендуемая температура</th></tr></thead>
                 <tbody>
-                    <tr data-room="living"><td>Р“РѕСЃС‚РёРЅР°СЏ</td><td>150</td><td>РќРµР№С‚СЂР°Р»СЊРЅС‹Р№ В· 4000 K</td></tr>
-                    <tr data-room="bedroom"><td>РЎРїР°Р»СЊРЅСЏ</td><td>150</td><td>РўС‘РїР»С‹Р№ В· 2700 K</td></tr>
-                    <tr data-room="kids"><td>Р”РµС‚СЃРєР°СЏ</td><td>200</td><td>РќРµР№С‚СЂР°Р»СЊРЅС‹Р№ В· 4000 K</td></tr>
-                    <tr data-room="kitchen"><td>РљСѓС…РЅСЏ (СЂР°Р±РѕС‡Р°СЏ Р·РѕРЅР° вЂ” 300)</td><td>200</td><td>РќРµР№С‚СЂР°Р»СЊРЅС‹Р№ В· 4000 K</td></tr>
-                    <tr data-room="bath"><td>Р’Р°РЅРЅР°СЏ</td><td>100</td><td>РќРµР№С‚СЂР°Р»СЊРЅС‹Р№ В· 4000 K</td></tr>
-                    <tr data-room="hall"><td>РџСЂРёС…РѕР¶Р°СЏ, РєРѕСЂРёРґРѕСЂ</td><td>100</td><td>РўС‘РїР»С‹Р№ В· 2700 K</td></tr>
-                    <tr data-room="office"><td>РљР°Р±РёРЅРµС‚</td><td>300</td><td>РќРµР№С‚СЂР°Р»СЊРЅС‹Р№ В· 4000 K</td></tr>
+                    <tr data-room="living"><td>Гостиная</td><td>150</td><td>Нейтральный · 4000 K</td></tr>
+                    <tr data-room="bedroom"><td>Спальня</td><td>150</td><td>Тёплый · 2700 K</td></tr>
+                    <tr data-room="kids"><td>Детская</td><td>200</td><td>Нейтральный · 4000 K</td></tr>
+                    <tr data-room="kitchen"><td>Кухня (рабочая зона — 300)</td><td>200</td><td>Нейтральный · 4000 K</td></tr>
+                    <tr data-room="bath"><td>Ванная</td><td>100</td><td>Нейтральный · 4000 K</td></tr>
+                    <tr data-room="hall"><td>Прихожая, коридор</td><td>100</td><td>Тёплый · 2700 K</td></tr>
+                    <tr data-room="office"><td>Кабинет</td><td>300</td><td>Нейтральный · 4000 K</td></tr>
                 </tbody>
             </table>
         </div>
 
         <div class="foot-strip">
-            <div><b>РќРµ СѓРІРµСЂРµРЅС‹ РІ РєРѕРјРїР»РµРєС‚Р°С†РёРё?</b><br>РџРѕРјРѕР¶РµРј РїРѕРґРѕР±СЂР°С‚СЊ СЃРІРµС‚ РїРѕРґ РІР°С€ РёРЅС‚РµСЂСЊРµСЂ Р±РµСЃРїР»Р°С‚РЅРѕ.</div>
+            <div><b>Не уверены в комплектации?</b><br>Поможем подобрать свет под ваш интерьер бесплатно.</div>
             <a class="btn-yel" href="tel:89202258222">8 920 22-58-222</a>
         </div>
     </div>
 </section>
 
-<!-- ======= Р¤РЈРўР•Р  (С‚РѕС‡РЅРѕ РєР°Рє РЅР° svet-36.ru) ======= -->
+<!-- ======= ФУТЕР (точно как на svet-36.ru) ======= -->
 <footer>
     <div class="container-xl">
         <div class="row">
             <div class="footer-logo">
                 <a href="https://svet-36.ru/">
                     <svg class="logo" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="740" height="215" viewBox="0 0 740 215">
-						  <image id="_Path_Compound_Path_Compound_Path_Compound_Path_Compound_Path_Compound_Path_Compound_Path_" data-name="&lt;Path&gt;В +В &lt;Compound Path&gt;В +В &lt;Compound Path&gt;В +В &lt;Compound Path&gt;В +В &lt;Compound Path&gt;В +В &lt;Compound Path&gt;В +В &lt;Compound Path&gt;" x="13" y="1" width="716" height="207" xlink:href="data:img/png;base64,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"/>
+						  <image id="_Path_Compound_Path_Compound_Path_Compound_Path_Compound_Path_Compound_Path_Compound_Path_" data-name="&lt;Path&gt; + &lt;Compound Path&gt; + &lt;Compound Path&gt; + &lt;Compound Path&gt; + &lt;Compound Path&gt; + &lt;Compound Path&gt; + &lt;Compound Path&gt;" x="13" y="1" width="716" height="207" xlink:href="data:img/png;base64,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"/>
 						</svg>
                 </a>
             </div>
             <div class="contacts">
-                <div class="phone"><span>РўРµР»РµС„РѕРЅ:</span> 8 920 22-58-222</div>
+                <div class="phone"><span>Телефон:</span> 8 920 22-58-222</div>
                 <div class="email"><span>E-mail:</span> svet36-online@yandex.ru</div>
-                <div class="address">Р’РѕСЂРѕРЅРµР¶, Р”РѕРЅР±Р°СЃСЃРєР°СЏ 16Р·</div>
+                <div class="address">Воронеж, Донбасская 16з</div>
             </div>
             <div>
-                <p class="footer-menu-title">РљР°С‚Р°Р»РѕРі</p>
+                <p class="footer-menu-title">Каталог</p>
                 <ul class="footer-menu footer-cat">
-                    <li class="footer-menu-item"><a href="https://svet-36.ru/catalog/lyustry/">Р›СЋСЃС‚СЂС‹</a></li>
-                    <li class="footer-menu-item"><a href="https://svet-36.ru/catalog/svetilniki/">РЎРІРµС‚РёР»СЊРЅРёРєРё</a></li>
-                    <li class="footer-menu-item"><a href="https://svet-36.ru/catalog/nastennie/">РќР°СЃС‚РµРЅРЅС‹Рµ</a></li>
-                    <li class="footer-menu-item"><a href="https://svet-36.ru/catalog/trekovye/">РўСЂРµРєРѕРІС‹Рµ</a></li>
-                    <li class="footer-menu-item"><a href="https://svet-36.ru/catalog/ulichnye/">РЈР»РёС‡РЅС‹Рµ</a></li>
-                    <li class="footer-menu-item"><a href="https://svet-36.ru/catalog/spoty/">РЎРїРѕС‚С‹</a></li>
-                    <li class="footer-menu-item"><a href="https://svet-36.ru/catalog/nastolnye/">РќР°СЃС‚РѕР»СЊРЅС‹Рµ</a></li>
-                    <li class="footer-menu-item"><a href="https://svet-36.ru/catalog/torshery/">РўРѕСЂС€РµСЂС‹</a></li>
-                    <li class="footer-menu-item"><a href="https://svet-36.ru/catalog/ofisnye/">РћС„РёСЃРЅС‹Рµ</a></li>
-                    <li class="footer-menu-item"><a href="https://svet-36.ru/catalog/Svetodiodnaya-lenta/">РЎРІРµС‚РѕРґРёРѕРґРЅР°СЏ Р»РµРЅС‚Р°</a></li>
-                    <li class="footer-menu-item"><a href="https://svet-36.ru/catalog/lampochki/">Р›Р°РјРїРѕС‡РєРё</a></li>
-                    <li class="footer-menu-item"><a href="https://svet-36.ru/catalog/elektrotovary/">Р­Р»РµРєС‚СЂРѕС‚РѕРІР°СЂС‹</a></li>
+                    <li class="footer-menu-item"><a href="https://svet-36.ru/catalog/lyustry/">Люстры</a></li>
+                    <li class="footer-menu-item"><a href="https://svet-36.ru/catalog/svetilniki/">Светильники</a></li>
+                    <li class="footer-menu-item"><a href="https://svet-36.ru/catalog/nastennie/">Настенные</a></li>
+                    <li class="footer-menu-item"><a href="https://svet-36.ru/catalog/trekovye/">Трековые</a></li>
+                    <li class="footer-menu-item"><a href="https://svet-36.ru/catalog/ulichnye/">Уличные</a></li>
+                    <li class="footer-menu-item"><a href="https://svet-36.ru/catalog/spoty/">Споты</a></li>
+                    <li class="footer-menu-item"><a href="https://svet-36.ru/catalog/nastolnye/">Настольные</a></li>
+                    <li class="footer-menu-item"><a href="https://svet-36.ru/catalog/torshery/">Торшеры</a></li>
+                    <li class="footer-menu-item"><a href="https://svet-36.ru/catalog/ofisnye/">Офисные</a></li>
+                    <li class="footer-menu-item"><a href="https://svet-36.ru/catalog/Svetodiodnaya-lenta/">Светодиодная лента</a></li>
+                    <li class="footer-menu-item"><a href="https://svet-36.ru/catalog/lampochki/">Лампочки</a></li>
+                    <li class="footer-menu-item"><a href="https://svet-36.ru/catalog/elektrotovary/">Электротовары</a></li>
                 </ul>
             </div>
             <div>
-                <p class="footer-menu-title">РљРѕРјРїР°РЅРёСЏ</p>
+                <p class="footer-menu-title">Компания</p>
                 <ul class="footer-menu">
-                    <li class="footer-menu-item"><a href="https://svet-36.ru/o-kompanii">Рћ РЅР°СЃ</a></li>
-                    <li class="footer-menu-item"><a href="https://svet-36.ru/dostavka-i-oplata">Р”РѕСЃС‚Р°РІРєР° Рё РѕРїР»Р°С‚Р°</a></li>
-                    <li class="footer-menu-item"><a href="https://svet-36.ru/sotrudnichestvo">РЎРѕС‚СЂСѓРґРЅРёС‡РµСЃС‚РІРѕ</a></li>
-                    <li class="footer-menu-item"><a href="https://svet-36.ru/kontakty">РљРѕРЅС‚Р°РєС‚РЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ</a></li>
+                    <li class="footer-menu-item"><a href="https://svet-36.ru/o-kompanii">О нас</a></li>
+                    <li class="footer-menu-item"><a href="https://svet-36.ru/dostavka-i-oplata">Доставка и оплата</a></li>
+                    <li class="footer-menu-item"><a href="https://svet-36.ru/sotrudnichestvo">Сотрудничество</a></li>
+                    <li class="footer-menu-item"><a href="https://svet-36.ru/kontakty">Контактная информация</a></li>
                 </ul>
             </div>
         </div>
     </div>
-    <div class="copyright">В© РЎРІРµС‚ 36 вЂ” РёРЅС‚РµСЂРЅРµС‚-РјР°РіР°Р·РёРЅ РѕСЃРІРµС‰РµРЅРёСЏ, Р’РѕСЂРѕРЅРµР¶. РљР°Р»СЊРєСѓР»СЏС‚РѕСЂ РѕСЃРІРµС‰РµРЅРёСЏ.</div>
+    <div class="copyright">© Свет 36 — интернет-магазин освещения, Воронеж. Калькулятор освещения.</div>
 </footer>
 
 <script>
 (function(){
     "use strict";
     var ROOMS = {
-        living:{lux:150,temp:4000,label:'Р“РѕСЃС‚РёРЅР°СЏ'},
-        bedroom:{lux:150,temp:2700,label:'РЎРїР°Р»СЊРЅСЏ'},
-        kids:{lux:200,temp:4000,label:'Р”РµС‚СЃРєР°СЏ'},
-        kitchen:{lux:200,temp:4000,label:'РљСѓС…РЅСЏ'},
-        bath:{lux:100,temp:4000,label:'Р’Р°РЅРЅР°СЏ'},
-        hall:{lux:100,temp:2700,label:'РџСЂРёС…РѕР¶Р°СЏ'},
-        office:{lux:300,temp:4000,label:'РљР°Р±РёРЅРµС‚'}
+        living:{lux:150,temp:4000,label:'Гостиная'},
+        bedroom:{lux:150,temp:2700,label:'Спальня'},
+        kids:{lux:200,temp:4000,label:'Детская'},
+        kitchen:{lux:200,temp:4000,label:'Кухня'},
+        bath:{lux:100,temp:4000,label:'Ванная'},
+        hall:{lux:100,temp:2700,label:'Прихожая'},
+        office:{lux:300,temp:4000,label:'Кабинет'}
     };
-    var K=1.25; // РєРѕСЌС„С„РёС†РёРµРЅС‚ Р·Р°РїР°СЃР°
+    var K=1.25; // коэффициент запаса
     var TEMPL={
-        2700:'РўС‘РїР»С‹Р№ 2700 K',4000:'РќРµР№С‚СЂР°Р»СЊРЅС‹Р№ 4000 K',5000:'РҐРѕР»РѕРґРЅС‹Р№ 5000 K'
+        2700:'Тёплый 2700 K',4000:'Нейтральный 4000 K',5000:'Холодный 5000 K'
     };
     var SPOT_EFF={led:90,lamp:80};
     var CH_EFF=75, BRA_EFF={reading:70,decor:60,classic:70};
@@ -764,10 +764,10 @@ footer .contacts span{color:var(--muted)}
 
     var state={scenario:'both',spotType:'led',spotFit:'flat',spotTemp:2700,chTemp:2700,braTemp:2700,braOn:false};
 
-    // ---- UI С…РµР»РїРµСЂС‹
+    // ---- UI хелперы
     function show(id,on){$(id).style.display=on?'':'none'}
 
-    // СЃРѕР±СЃС‚РІРµРЅРЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ С‚РѕС‡РµС‡РЅС‹С… (0 = Р°РІС‚Рѕ)
+    // собственное количество точечных (0 = авто)
     var manualSpots=0;
 
     function readRoom(){
@@ -775,26 +775,26 @@ footer .contacts span{color:var(--muted)}
         return {key:r,data:ROOMS[r]};
     }
 
-    // ---- РџРµСЂРµСЃС‡С‘С‚
+    // ---- Пересчёт
     function recalc(){
         var room=readRoom();
         var area=parseFloat($('area').value)||10;
         var fluxReq=Math.round(room.data.lux*area*K);
 
-        // РѕР±РЅРѕРІРёС‚СЊ РЅРѕСЂРјСѓ-С‚Р°Р±Р»РёС†Сѓ
+        // обновить норму-таблицу
         document.querySelectorAll('.norm tbody tr').forEach(function(tr){
             tr.classList.toggle('active', tr.getAttribute('data-room')===room.key);
         });
-        // РїРѕРґСЃРєР°Р·РєР° С‚РµРјРїРµСЂР°С‚СѓСЂС‹
-        $('temp-hint').innerHTML='Р РµРєРѕРјРµРЅРґСѓРµРјР°СЏ С‚РµРјРїРµСЂР°С‚СѓСЂР° РґР»СЏ <b>'+room.data.label.toLowerCase()+'</b>: <b>'+(room.data.temp===2700?'С‚С‘РїР»С‹Р№ 2700 K':'РЅРµР№С‚СЂР°Р»СЊРЅС‹Р№ 4000 K')+'</b>.';
+        // подсказка температуры
+        $('temp-hint').innerHTML='Рекомендуемая температура для <b>'+room.data.label.toLowerCase()+'</b>: <b>'+(room.data.temp===2700?'тёплый 2700 K':'нейтральный 4000 K')+'</b>.';
 
-        // РґРѕР»Рё СЃС†РµРЅР°СЂРёСЏ
+        // доли сценария
         var shareSp,shareCh;
         if(state.scenario==='only-spots'){shareSp=1;shareCh=0}
         else if(state.scenario==='only-ch'){shareSp=0;shareCh=1}
         else {shareSp=0.55;shareCh=0.45}
 
-        // С‚РѕС‡РµС‡РЅС‹Рµ
+        // точечные
         var sW=parseFloat($('spotW').value)||7;
         var spotEff=SPOT_EFF[state.spotType]*(state.spotFit==='filter'?0.85:1);
         var sLum=sW*spotEff;
@@ -802,14 +802,14 @@ footer .contacts span{color:var(--muted)}
         if(manualSpots>0){spotRec=manualSpots}
         var spotFlux=spotRec*sLum;
 
-        // Р»СЋСЃС‚СЂР°
+        // люстра
         var arms=parseInt($('arms').value,10)||5;
         var chW=parseFloat($('lampW').value)||8;
         var chPower=arms*chW;
         var chLum=chPower*CH_EFF;
         var chRecW=Math.round(fluxReq*shareCh/CH_EFF);
 
-        // Р±СЂР°
+        // бра
         var braOn=state.braOn;
         var braCount=braOn?(parseInt($('braCnt').value,10)||2):0;
         var braW=braOn?(parseFloat($('braW').value)||7):0;
@@ -819,55 +819,55 @@ footer .contacts span{color:var(--muted)}
         var totalW=spotRec*sW+chPower+braW*braCount;
         var coverage=fluxReq>0?Math.min(100,Math.round(totalFlux/fluxReq*100)):0;
 
-        // РЎС‚РѕРёРјРѕСЃС‚СЊ
+        // Стоимость
         var hours=parseFloat($('hours').value)||3;
         var tariff=parseFloat($('tariff').value)||5.43;
         var kwhYear=totalW/1000*hours*365;
         var costYear=kwhYear*tariff;
-        // РЅР°РєР°Р»РёРІР°РЅРёРµ
-        var incW=totalFlux>0?Math.round(totalFlux/12):0; // ~12 Р»Рј/Р’С‚ Сѓ РЅР°РєР°Р»РёРІР°РЅРёСЏ
+        // накаливание
+        var incW=totalFlux>0?Math.round(totalFlux/12):0; // ~12 лм/Вт у накаливания
         var incKwh=(incW-totalW)/1000*hours*365;
         var incSave=Math.max(0,incKwh*tariff);
 
-        // ---- СЂРµРЅРґРµСЂ
+        // ---- рендер
         show('result-wrap',true);
-        // СЃС†РµРЅР°СЂРёР№
+        // сценарий
         show('spot-card', state.scenario!=='only-ch');
         show('ch-card', state.scenario!=='only-spots');
         if(state.braOn) show('bra-block',true);
 
-        $('res-flux').textContent=NUM(fluxReq)+' Р»Рј';
-        $('res-power').textContent=NUM(totalW)+' Р’С‚';
-        $('res-year').textContent=NUM(costYear)+' в‚Ѕ';
-        $('res-save').textContent=NUM(incSave)+' в‚Ѕ';
+        $('res-flux').textContent=NUM(fluxReq)+' лм';
+        $('res-power').textContent=NUM(totalW)+' Вт';
+        $('res-year').textContent=NUM(costYear)+' ₽';
+        $('res-save').textContent=NUM(incSave)+' ₽';
 
-        // РєР°СЂС‚РѕС‡РєРё
+        // карточки
         var hasSpots=state.scenario!=='only-ch' && spotRec>0;
         show('r-card-spots',hasSpots);
         if(hasSpots){
-            $('rc-spots-count').textContent=spotRec+' С€С‚';
-            $('rc-spots-w').textContent=sW+' Р’С‚';
-            $('rc-spots-flux').textContent=NUM(spotFlux)+' Р»Рј';
+            $('rc-spots-count').textContent=spotRec+' шт';
+            $('rc-spots-w').textContent=sW+' Вт';
+            $('rc-spots-flux').textContent=NUM(spotFlux)+' лм';
             $('rc-spots-temp').textContent=TEMPL[state.spotTemp];
-            $('rc-spots-type').textContent=(state.spotType==='led'?'LED-РјРѕРґСѓР»СЊ':'РЎ Р»Р°РјРїРѕР№')+' В· '+(state.spotFit==='filter'?'СѓРіР»СѓР±Р». СЃ С„РёР»СЊС‚СЂРѕРј':'РѕР±С‹С‡РЅС‹Рµ');
+            $('rc-spots-type').textContent=(state.spotType==='led'?'LED-модуль':'С лампой')+' · '+(state.spotFit==='filter'?'углубл. с фильтром':'обычные');
             if(state.spotType==='led'){ $('spotW').max=15;$('spotW-min').textContent='3';$('spotW-max').textContent='15'; }
             else { $('spotW').max=25;$('spotW-min').textContent='5';$('spotW-max').textContent='25'; }
         }
         var hasCh=state.scenario!=='only-spots' && chPower>0;
         show('r-card-ch',hasCh);
         if(hasCh){
-            $('rc-ch-arms').textContent=arms+' Г— '+chW+' Р’С‚ = '+chPower+' Р’С‚';
-            $('rc-ch-rec').textContent='в‰€ '+chRecW+' Р’С‚';
-            $('rc-ch-flux').textContent=NUM(chLum)+' Р»Рј';
+            $('rc-ch-arms').textContent=arms+' × '+chW+' Вт = '+chPower+' Вт';
+            $('rc-ch-rec').textContent='≈ '+chRecW+' Вт';
+            $('rc-ch-flux').textContent=NUM(chLum)+' лм';
             $('rc-ch-temp').textContent=TEMPL[state.chTemp];
         }
         var hasBra=braOn&&braCount>0;
         show('r-card-bra',hasBra);
         if(hasBra){
             var bt=document.querySelector('input[name=bratype]:checked').value;
-            $('rc-bra-count').textContent=braCount+' С€С‚';
-            $('rc-bra-type').textContent=(bt==='reading'?'Р”Р»СЏ С‡С‚РµРЅРёСЏ':bt==='decor'?'Р”РµРєРѕСЂР°С‚РёРІРЅС‹Рµ':'РљР»Р°СЃСЃРёС‡РµСЃРєРёРµ / РЅР°РїСЂР°РІР»РµРЅРЅС‹Рµ');
-            $('rc-bra-flux').textContent=NUM(braLum)+' Р»Рј';
+            $('rc-bra-count').textContent=braCount+' шт';
+            $('rc-bra-type').textContent=(bt==='reading'?'Для чтения':bt==='decor'?'Декоративные':'Классические / направленные');
+            $('rc-bra-flux').textContent=NUM(braLum)+' лм';
             $('rc-bra-temp').textContent=TEMPL[state.braTemp];
         }
 
@@ -875,13 +875,13 @@ footer .contacts span{color:var(--muted)}
         $('cov-fill').style.width=coverage+'%';
         $('cov-warn').classList.toggle('on',coverage<100);
 
-        $('rc-kwh').textContent=NUM(kwhYear)+' РєР’С‚В·С‡/РіРѕРґ';
-        $('rc-inc').textContent='в‰€ '+NUM(incW)+' Р’С‚';
+        $('rc-kwh').textContent=NUM(kwhYear)+' кВт·ч/год';
+        $('rc-inc').textContent='≈ '+NUM(incW)+' Вт';
         $('save-money').textContent=NUM(incSave);
         $('save-kwh').textContent=NUM(Math.max(0,incKwh));
     }
 
-    // ---- СЃРѕР±С‹С‚РёСЏ
+    // ---- события
     function bindRadios(name,fn){
         document.querySelectorAll('input[name='+name+']').forEach(function(el){
             el.addEventListener('change',function(){
@@ -897,7 +897,7 @@ footer .contacts span{color:var(--muted)}
         var s=$('spotW');
         s.min=min;s.max=max;s.value=def;
         $('spotW-min').textContent=min;$('spotW-max').textContent=max;
-        $('spotW-val').textContent=def+' Р’С‚';
+        $('spotW-val').textContent=def+' Вт';
     });
     bindRadios('spotfit',function(v){state.spotFit=v;manualSpots=0});
     bindRadios('bratype',function(){});
@@ -905,14 +905,14 @@ footer .contacts span{color:var(--muted)}
     ['area','spotW','arms','lampW','braCnt','braW','hours','tariff'].forEach(function(id){
         $(id).addEventListener('input',function(){
             var v=parseFloat(this.value);
-            if(id==='area')$('area-val').textContent=v+' РјВІ';
-            else if(id==='spotW'){$('spotW-val').textContent=v+' Р’С‚';manualSpots=0}
-            else if(id==='arms'){$('arms-val').textContent=v+' С€С‚'}
-            else if(id==='lampW'){$('lampW-val').textContent=v+' Р’С‚'}
-            else if(id==='braCnt'){$('braCnt-val').textContent=v+' С€С‚'}
-            else if(id==='braW'){$('braW-val').textContent=v+' Р’С‚'}
-            else if(id==='hours'){$('hours-val').textContent=v+' С‡'}
-            else if(id==='tariff'){$('tariff-val').textContent=fnum(v)+' в‚Ѕ'}
+            if(id==='area')$('area-val').textContent=v+' м²';
+            else if(id==='spotW'){$('spotW-val').textContent=v+' Вт';manualSpots=0}
+            else if(id==='arms'){$('arms-val').textContent=v+' шт'}
+            else if(id==='lampW'){$('lampW-val').textContent=v+' Вт'}
+            else if(id==='braCnt'){$('braCnt-val').textContent=v+' шт'}
+            else if(id==='braW'){$('braW-val').textContent=v+' Вт'}
+            else if(id==='hours'){$('hours-val').textContent=v+' ч'}
+            else if(id==='tariff'){$('tariff-val').textContent=fnum(v)+' ₽'}
             recalc();
         });
         $(id).addEventListener('change',function(){});
@@ -925,7 +925,7 @@ footer .contacts span{color:var(--muted)}
         recalc();
     });
 
-    // С†РІРµС‚РѕРІР°СЏ С‚РµРјРїРµСЂР°С‚СѓСЂР° (СЃРµРіРјРµРЅС‚С‹)
+    // цветовая температура (сегменты)
     document.querySelectorAll('.sw').forEach(function(sw){
         sw.addEventListener('click',function(){
             var g=this.getAttribute('data-g'),t=parseInt(this.getAttribute('data-t'),10);
@@ -938,46 +938,46 @@ footer .contacts span{color:var(--muted)}
         });
     });
 
-    // РєРѕРїРёСЂРѕРІР°С‚СЊ / РѕС‚РїСЂР°РІРёС‚СЊ
+    // копировать / отправить
     $('copy-btn').addEventListener('click',function(){
         var txt=summaryText();
         var ta=document.createElement('textarea');
         ta.value=txt;document.body.appendChild(ta);ta.select();
         try{document.execCommand('copy')}catch(e){}
         document.body.removeChild(ta);
-        this.textContent='РЎРєРѕРїРёСЂРѕРІР°РЅРѕ вњ“';
+        this.textContent='Скопировано ✓';
         var self=this;
-        setTimeout(function(){self.textContent='РЎРєРѕРїРёСЂРѕРІР°С‚СЊ СЂР°СЃС‡С‘С‚'},1800);
+        setTimeout(function(){self.textContent='Скопировать расчёт'},1800);
     });
 
     function summaryText(){
         var room=readRoom();
         var lines=[];
-        lines.push('Р Р°СЃС‡С‘С‚ РѕСЃРІРµС‰РµРЅРёСЏ вЂ” РЎРІРµС‚ 36');
+        lines.push('Расчёт освещения — Свет 36');
         lines.push('====================');
-        lines.push('РџРѕРјРµС‰РµРЅРёРµ: '+room.data.label+(', РїР»РѕС‰Р°РґСЊ '+$('area').value+' РјВІ'));
-        lines.push('РќРѕСЂРјР° РѕСЃРІРµС‰С‘РЅРЅРѕСЃС‚Рё: '+room.data.lux+' Р»Рє');
+        lines.push('Помещение: '+room.data.label+(', площадь '+$('area').value+' м²'));
+        lines.push('Норма освещённости: '+room.data.lux+' лк');
         lines.push('');
-        lines.push('вЂў РўРѕС‡РµС‡РЅС‹Рµ: '+$('rc-spots-count').textContent+', '+$('rc-spots-w').textContent+', '+$('rc-spots-temp').textContent);
-        lines.push('вЂў Р›СЋСЃС‚СЂР°: '+$('rc-ch-arms').textContent+', '+$('rc-ch-temp').textContent);
-        if(state.braOn)lines.push('вЂў Р‘СЂР°: '+$('rc-bra-count').textContent+', '+$('rc-bra-type').textContent+', '+$('rc-bra-temp').textContent);
+        lines.push('• Точечные: '+$('rc-spots-count').textContent+', '+$('rc-spots-w').textContent+', '+$('rc-spots-temp').textContent);
+        lines.push('• Люстра: '+$('rc-ch-arms').textContent+', '+$('rc-ch-temp').textContent);
+        if(state.braOn)lines.push('• Бра: '+$('rc-bra-count').textContent+', '+$('rc-bra-type').textContent+', '+$('rc-bra-temp').textContent);
         lines.push('');
-        lines.push('РўСЂРµР±СѓРµРјС‹Р№ СЃРІРµС‚РѕРІРѕР№ РїРѕС‚РѕРє: '+$('res-flux').textContent);
-        lines.push('РЎСѓРјРјР°СЂРЅР°СЏ РјРѕС‰РЅРѕСЃС‚СЊ: '+$('res-power').textContent);
-        lines.push('РџРѕРєСЂС‹С‚РёРµ: '+$('cov-pct').textContent);
+        lines.push('Требуемый световой поток: '+$('res-flux').textContent);
+        lines.push('Суммарная мощность: '+$('res-power').textContent);
+        lines.push('Покрытие: '+$('cov-pct').textContent);
         lines.push('');
-        lines.push('РЎС‚РѕРёРјРѕСЃС‚СЊ СЌ/СЌ РІ РіРѕРґ: '+$('res-year').textContent);
-        lines.push('Р­РєРѕРЅРѕРјРёСЏ LED vs РЅР°РєР°Р»РёРІР°РЅРёСЏ: '+$('res-save').textContent+'/РіРѕРґ');
+        lines.push('Стоимость э/э в год: '+$('res-year').textContent);
+        lines.push('Экономия LED vs накаливания: '+$('res-save').textContent+'/год');
         lines.push('');
-        lines.push('РњР°РіР°Р·РёРЅ РЎРІРµС‚ 36, Р’РѕСЂРѕРЅРµР¶, Р”РѕРЅР±Р°СЃСЃРєР°СЏ 16Р·');
-        lines.push('РўРµР».: 8 920 22-58-222 В· svet-36.ru');
+        lines.push('Магазин Свет 36, Воронеж, Донбасская 16з');
+        lines.push('Тел.: 8 920 22-58-222 · svet-36.ru');
         return lines.join('\n');
     }
 
     window.sendMail=function(ev){
         var email=$('mail-to').value;
         if(!email)return false;
-        var subj=encodeURIComponent('Р Р°СЃС‡С‘С‚ РѕСЃРІРµС‰РµРЅРёСЏ вЂ” РЎРІРµС‚ 36');
+        var subj=encodeURIComponent('Расчёт освещения — Свет 36');
         var body=encodeURIComponent(summaryText());
         window.location.href='mailto:'+email+'?subject='+subj+'&body='+body;
         return false;
